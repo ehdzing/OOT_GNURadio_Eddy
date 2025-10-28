@@ -16,6 +16,7 @@
 #include "howto/flex_fir_ff.h"
 #include "howto/flex_fir_cc.h"
 #include "howto/flex_fir_cf.h"
+#include "howto/downsample_cc.h"
 %}
 
 
@@ -38,3 +39,5 @@ GR_SWIG_BLOCK_MAGIC2(howto, flex_fir_cc);
 %include "howto/flex_fir_cf.h"
 GR_SWIG_BLOCK_MAGIC2(howto, flex_fir_cf);
 
+%include "howto/downsample_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, downsample_cc);

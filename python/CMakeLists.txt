@@ -49,3 +49,4 @@ GR_ADD_TEST(qa_iq_mag_cf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_iq_
 GR_ADD_TEST(qa_iq_select_cf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_iq_select_cf.py)
 GR_ADD_TEST(qa_flex_fir ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_flex_fir.py)
 
+GR_ADD_TEST(qa_downsample_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_downsample_cc.py)

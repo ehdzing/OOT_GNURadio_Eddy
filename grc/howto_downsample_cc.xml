@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<block>
+  <name>downsample_cc</name>
+  <key>howto_downsample_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.downsample_cc(${decim})</make>
+
+  <param>
+    <name>Decimation</name>
+    <key>decim</key>
+    <value>4</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </source>
+</block>
+
