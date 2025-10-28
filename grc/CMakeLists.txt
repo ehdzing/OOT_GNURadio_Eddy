@@ -20,5 +20,9 @@
 install(FILES
     howto_square_ff.xml
     howto_gain_ff.xml
-    howto_moving_avg_ff.xml DESTINATION share/gnuradio/grc/blocks
+    howto_moving_avg_ff.xml 
+    howto_moving_avg_history_ff.xml
+    howto_iq_mag_cf.xml
+    howto_iq_select_cf.xml
+    DESTINATION share/gnuradio/grc/blocks
 )

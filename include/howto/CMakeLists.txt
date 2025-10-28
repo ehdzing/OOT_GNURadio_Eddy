@@ -24,5 +24,9 @@ install(FILES
     api.h
     square_ff.h
     gain_ff.h
-    moving_avg_ff.h DESTINATION include/howto
+    moving_avg_ff.h
+    moving_avg_history_ff.h
+    iq_mag_cf.h
+    iq_select_cf.h    
+    DESTINATION include/howto
 )
