@@ -1,0 +1,294 @@
+# Guía resumida de comandos Git (explicación práctica)
+
+sudo nano ~/.bashrc
+--pegar:
+parse_git_branch() {
+  git branch 2>/dev/null | sed -n '/\* /s///p'
+}
+
+
+export PS1="\u@\h:\w (\$(parse_git_branch))\$ "
+
+# Imprime "true" si estás dentro de un repo
+git rev-parse --is-inside-work-tree
+
+
+
+## 1. Inicialización y configuración
+- **git init** → Crea un nuevo repositorio Git en la carpeta actual (solo la primera vez).
+- **git config --global user.name "TuNombre"** → Define tu nombre en los commits.
+- **git config --global user.email "tuemail@dominio.com"** → Define tu correo (para identificarte en los commits).
+	#si quieres solo en el repo actual:
+		git config user.name  "Tu Nombre"
+		git config user.email "tu@email"
+
+## 2. Control de versiones local
+- **git status** → Muestra qué archivos han cambiado, están sin seguimiento o listos para commit.
+- **git add .** → Agrega todos los cambios nuevos o modificados al “área de preparación” (stage).
+- **git add archivo.cpp** → Agrega un archivo específico.
+- **git commit -m "mensaje"** → Guarda los cambios agregados en el historial local del repositorio.
+
+## 3. Manejo de ramas
+- **git branch  → Muestra las ramas locales.
+- **git branch -r → Muestra las ramas remotas.
+- **git branch -a → Muestra todas las rama, locales y remotas.
+
+- **git branch -M main** → Renombra la rama actual a “main” (rama principal estándar).
+- **git checkout -b nueva_rama** → Crea y cambia a una nueva rama.
+
+## 4. Conexión con un repositorio remoto
+- **git remote add origin <URL>** → Enlaza tu repositorio local con uno remoto (por ejemplo GitHub).
+- **git remote -v** → Muestra las URLs del remoto actual.
+- **git push -u origin main** → Sube tu rama principal al remoto por primera vez.
+- **git push** → Sube los commits nuevos al remoto.
+- **git pull** → Descarga y actualiza tu copia local con los cambios del remoto.
+- **git clone <URL>** → Descarga (clona) un repositorio remoto completo a tu máquina local.
+
+## 5. Limpieza y correcciones
+- **git log** → Muestra el historial de commits.
+- **git diff** → Muestra las diferencias entre el código actual y el último commit.
+- **git reset --hard HEAD** → Revierte todos los cambios no confirmados.Borra todo lo no commit del working y del staging.Te deja exactamente como el último commit. Sí, es “peligroso” porque te llevas por delante cambios sin commitear.
+- **git rm archivo** → Elimina un archivo y lo marca para borrar en el próximo commit.
+- **git reset → quita solo del staging, conserva working
+
+
+## 6. Archivo .gitignore
+Lista de patrones que Git debe ignorar (archivos temporales, binarios, etc.). Sirve para decirle a Git “no me rastrees estos archivos”:
+ -Binarios: *.o, *.so, *.exe
+ -Cachés: __pycache__/, .pyc, .pytest_cache/
+ -Builds: build/, dist/, *.egg-info
+ -Archivos locales de IDE: .vscode/, .idea/
+
+Datos temporales y credenciales: *.log, .env
+Ejemplo:
+```
+build/
+*.o
+*.so
+*.pyc
+__pycache__/
+```
+
+---
+
+## 7.Borrar todo rastro de Git en la carpeta actual
+	# 0) Verifica que estás en la carpeta correcta (porque esto no tiene botón de deshacer)
+	pwd
+	ls -a
+
+	# 1) Comprueba si hay repo
+	git rev-parse --is-inside-work-tree 2>/dev/null && echo "Repo aquí" || echo "Aquí no hay repo"
+
+	# 2) Si hay submódulos, límpialos primero (si no tienes, no pasa nada)
+	git submodule deinit -f .
+	git rm -f $(git submodule status | awk '{print $2}') 2>/dev/null || true
+	rm -f .gitmodules
+
+	# 3) El hachazo: elimina el directorio de metadatos de Git
+	rm -rf .git
+
+	# 4) Opcional: quita archivos de configuración de Git en el árbol de trabajo
+	rm -f .gitignore .gitattributes
+
+	# 5) Sanity check
+	ls -a | grep -E '^\.git($|ignore$|attributes$)' || echo "Git purgado en esta carpeta"
+
+#CREAR REPOSITORIO DESDE CERO
+# 0) Entra a la carpeta de tu proyecto
+cd /ruta/a/tu/proyecto
+
+# 1) (Solo la primera vez) Inicializa Git en esta carpeta
+git init
+
+# 2) (Solo si nunca configuraste Git en esta máquina)
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu_correo@loquesea.com"
+
+# 3) Crea un .gitignore básico para no subir basura compilada
+cat > .gitignore << 'EOF'
+build/
+*.o
+*.so
+*.a
+*.pyc
+__pycache__/
+*.swp
+*.swo
+*.log
+*.cache
+# GNU Radio (3.7.x)
+*.pyo
+*.pyc
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+_install/
+EOF
+
+# 4) Añade TODO al staging y haz el primer commit
+git add .
+git commit -m "Versión inicial del módulo OOT"
+
+# 5) Asegura que tu rama se llame 'main'
+git branch -M main
+
+# 6) Conecta el remoto de GitHub (el tuyo)
+git remote add origin https://github.com/ehdzing/Modulos_OOT_GNURadio_Eddy
+
+# 7) Sube tu rama principal a GitHub por primera vez
+git push -u origin main
+
+# 8) Si te dice que origin ya existe (porque lo intentaste antes y quedó mal configurado), corrígelo así y vuelve a empujar:
+git remote set-url origin https://github.com/ehdzing/ModulosOOTGNU.git
+git push -u origin main
+
+1. Ciclo de trabajo a partir de ahora
+Cada vez que hagas cambios:
+git status                 # mira qué cambió
+git add .                  # añade los cambios
+git commit -m "Tu mensaje" # guarda un punto en la historia local
+git push                   # sube a GitHub
+
+
+2. **En otra máquina (por ejemplo, casa o trabajo):**
+   ```bash
+   git clone https://github.com/ehdzing/Modulos_OOT_GNURadio_Eddy
+   git fetch --all
+   git switch --track origin/nombre_de_la_rama →  poruqe por defecto clone solo trae la rama principal pero no las otras ramas, ya luego es solo hacer pull y si actualiza todo
+
+   cd repositorio
+   mkdir build && cd build
+   cmake ..
+   make -j$(nproc)
+   sudo make install
+   sudo ldconfig
+   ```
+
+3. **Para mantener sincronizados los cambios:**
+   - En la máquina donde editas:
+     ```bash
+     git add .
+     git commit -m "Cambio o mejora"
+     git push
+     ```
+   - En la otra máquina para traer los cambios:
+     ```bash
+     git pull
+     ```
+
+4. **TRABAJO CON RAMAS
+- **git checkout main  →  Entras (o vuelves) a la rama principal.
+- **git pull → baja los últimos cambios del repositorio remoto (por si trabajas con GitHub o GitLab
+- **git checkout -b experimento_fft → crea la rama experimento_fft y te cambia automáticamente a ella
+
+- ** git add .**git commit -m "Implementado filtro FFT con ventana Hamming" → Editas, compilas, pruebas... y cuando quieras guardar el progreso. Cada commit guarda un punto estable dentro de esa rama.
+
+- **git merge experimento_fft → Esto trae los commits de tu rama experimento_fft a main. Para eso debes asegurarte de que estas parado sobre la rama principal (main). Si todo va bien, Git te dirá algo tipo: Fast-forward
+
+- **git branch -d experimento_fft → Borrar la rama que ya usaste (opcional) una vez fusionada y comprobado que todo funciona
+- **git branch -D experimento_fft → Si aún no la fusionaste y quieres borrarla igual (por ejemplo, fue un desastre)
+- **git push origin --delete experimento_fft →(Opcional) Borrar la rama también en el repositorio remoto; Elimina la rama 'experimento_fft' del servidor remoto
+
+- **git push origin main → Si quieres actualizar el remoto (GitHub, GitLab, etc.). Puede ser la rama main u otra cualquiera
+- **git push -u origin AXX → Siendo AXX una nueva rama, la anade en el remoto al mismo commit
+
+NOTA: Cada comando push, pull, trabajan sobre la rama en la que estas, si estas en la principal, se suben y se descargan los cambios de esa rama main, si estas en otro rama se hace sobre esa otra rama. Si en una rama en la que estas trabajando, la modificacion que se esta haciendo ya quedo ok, tienes que fiusionarla al main y despues actualizas main en el remoto (push). Luego tienes la opcion de borrar esa rama en tu directorio local y en el servidor, en los dos  ala vez o solo en uno de ellos, o no borrarlos en niguno y dejarla ahi
+
+
+5.) Si quieres sobreescribir un commit sin crear uno nuevo, simepre tienes que hacer primero:
+- **gi add .  → y luego:
+- **git commit --amend --no-edit → le dice a Git: “reemplaza el último commit por uno nuevo que incluya también esto (fue lo que modificastes en la rama)”. --no-edit mantiene el mismo mensaje del commit anterior
+- **git commit --amend -m "Actualizo documentación interna" → aqui hace lo mismo pero modifica el mensaje del commit en este caso a "Actualizo documentación interna". Si solo se quiere modificar el emnsaje del commit, pero no hacer ningun cambio, entonces al git add . no es necesario, pues si no hay ningun cambio este comando no hace nada. 
+
+Y LUEGO DE CUALQUIERA DE ESTOS CAMBIOS, LOS ACTUALIZAS EN EL SERVIDOR CON: 
+- **git push --force-with-lease origin main.
+Esto fuerza a cambiar porque lo que ocurre es tenias en el GitHUb A,B,C y tu acabas de hacer digamos A,B,C′, cuando vas a actualizar en GItHUb si pones implemente -**git push origin main, da error, porque ve quee stas sobreescribiendo y no te deja con el comado anteriro fuerza a sobreescribir.
+
+gi add .
+git commit --amend --no-edit
+git push --force-with-lease origin main
+
+6.) OTROS CASOS:
+Tienes A,B,C,D en GitHub, y tu en tu local estas desactualizado y tienes A,B,C′, C′es la ultima version que trabajastes y quieres subirla. Ahi cuando intentas hacer commit nuevo, o sea, -**git push origin main, da error porque entiende que no estas actualizado. Ahi lo que puedes hacer es, -**git fetch origin, -**git rebase origin/main, -**git push origin main. LO que hace GIT es que pone tu cambio encima de lo ultimo (D), y en el remoto quedaria A,B,C,D,C′.
+
+Si lo que quieres qes que en el remoto quede A,B,C′,D, o sea reemplazar C por C′, entonces colocas:
+
+# 1) Trae la punta remota y crea una rama de trabajo desde origin/main
+- **git fetch origin 
+- **git checkout -b rewrite origin/main 
+
+# 2) Rebase interactivo desde B para "editar" C
+- **git rebase -i <hash_de_B> → en el editor: cambia "pick" de C a "edit", deja D en "pick"; guarda
+
+# 3) Sustituye C por C′ (usa el contenido del commit C′ que ya tienes)
+- **git checkout <hash_de_C′> -- .   # trae el contenido de C′ al árbol de trabajo
+- **git commit --amend --no-edit         # convierte C en C′
+- **git rebase --continue                # aplica D encima de tu C′
+
+
+##################OBTENER hash_de_B y hash_de_C′###################
+
+- **git log --oneline →  Eso devuelve el hash de cada commit local, sea A,B y C′ y daria algo como abc123f
+- **git log --oneline origin/main →  Eso devuelve el hash de cada commit en el remoto.
+- **git log --oneline --decorate -n 1 →  Muéstra el commit actual y qué ramas (locales o remotas) están en ese punto. Ej: 959f2ed (HEAD -> gain_ff_block_OOT_HOWTO, origin/main, main) OOT GNURadio V1. Ahi da el hash, y las ramas locales (main y gain_ff_block_OOT_HOWTO) y remotas (origin/main) que estan en ese commit
+- **git show-ref --heads → Te da todas las ramas locales y a que commit apunta cada una.
+- **git show-ref → Te da todas las ramas, locales y remotas, y a que commit apunta cada una.
+- **git log --oneline --decorate --graph --all → Pinta un mini árbol ASCII con todas las ramas, sus commits y cómo se cruzan. Aqui,a  diferencia de, **git show-ref, te muestra la historia del repositorio, es decir, los commits ordenados y cómo las ramas se ramifican o confluyen
+
+#####################Manejo de ramas###########################
+- **git branch  → Muestra las ramas locales.
+- **git branch -r → Muestra las ramas remotas.
+- **git branch -a → Muestra todas las rama, locales y remotas.
+
+- **git branch -M main** → Renombra la rama actual a “main” (rama principal estándar).
+- **git checkout -b nueva_rama** → Crea y cambia a una nueva rama.
+
+
+#################################################################
+
+# 4) Reescribe main remoto con el resultado A–B–C′–D
+-**git push --force-with-lease origin rewrite:main
+LISTO, ARRIBA QUEDA A, B, C′, D
+
+# Taggear “versiones” para no perder hitos
+git tag -a v1 B -m "Versión 1"
+	Sirve para marcar una versión exacta en la historia.
+	v1 es el nombre de la etiqueta (tag).
+	B es el hash o nombre del commit que estás marcando.
+	-m es el mensaje descriptivo (“Versión 1”).
+git push origin v1
+	subes esa etiqueta al remoto para que quede guardada también allí.	
+
+Congela un punto importante del proyecto (por ejemplo, una versión estable, un release, o algo que sabes que funciona).
+
+Si más adelante el código sigue cambiando, puedes volver fácilmente a esa versión con:
+
+# Volver a un commit viejo en una rama nueva
+git checkout -b hotfix-v1 B
+Es una forma de decir “aquí estaba la versión buena antes de que alguien metiera mano”.
+
+##########################################################################
+Cuando haces commit amend en el remoto, y desde otro local vas a hacer git pull da error, porque el local ve A y el remoto tiene A′, entonces si quieres reescibir el local  aque quede como el remoto haces
+git fetch --all
+git reset --hard origin/gain_ff_block_OOT_HOWTO
+# listo, quedaste igual al remoto
+
+git add .
+git commit --amend --no-edit
+git push --force-with-lease origin main
+##########################################################################
+
+# Cómo funciona Git internamente
+
+- **Repositorio local:** carpeta `.git` (oculta) dentro del proyecto. Aquí se guardan commits, ramas, historial y metadatos.
+- **Área de staging:** zona temporal donde se guardan los cambios listos para confirmar (`git add`).
+- **Repositorio remoto:** copia en GitHub o similar. Aquí subes (`push`) y descargas (`pull`) cambios.
+- **Flujo típico:**
+  1. Editas archivos.
+  2. `git add` → prepara cambios.
+  3. `git commit` → guarda un punto en el tiempo.
+  4. `git push` → sube tus commits al servidor.
+  5. En otra máquina: `git pull` → descarga los commits nuevos.
+
+Así puedes trabajar desde cualquier lugar manteniendo sincronizado el mismo código, con historial completo y sin perder nada.

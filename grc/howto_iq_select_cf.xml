@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<block>
+  <name>IQ Select (cf)</name>
+  <key>howto_iq_select_cf</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.iq_select_cf(${scale}, ${mode})</make>
+
+  <callback>set_scale(${scale})</callback>
+  <callback>set_mode(${mode})</callback>
+
+  <!-- Scale -->
+  <param>
+    <name>Scale</name>
+    <key>scale</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <!-- Mode (enum via <option> entries) -->
+  <param>
+    <name>Mode</name>
+    <key>mode</key>
+    <value>0</value>
+    <type>int</type>
+
+    <option>
+      <name>Mag</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>Mag2</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>Phase</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>Real</name>
+      <key>3</key>
+    </option>
+    <option>
+      <name>Imag</name>
+      <key>4</key>
+    </option>
+    <option>
+      <name>AbsPhase</name>
+      <key>5</key>
+    </option>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <doc>
+    Procesa I/Q complejo a float según modo:
+    0: |x|, 1: |x|^2, 2: arg(x), 3: Re{x}, 4: Im{x}, 5: |arg(x)|.
+    Ajustes en runtime: scale y mode. Sync 1:1, sin history.
+  </doc>
+</block>
+

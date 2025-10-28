@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<block>
+  <name>Moving Average (float)</name>
+  <key>howto_moving_avg_ff</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.moving_avg_ff(${length}, ${scale})</make>
+
+  <callback>set_length(${length})</callback>
+  <callback>set_scale(${scale})</callback>
+
+  <!-- Parámetros (valor antes que tipo, como manda el DTD) -->
+  <param>
+    <name>Length</name>
+    <key>length</key>
+    <value>4</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Scale</name>
+    <key>scale</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <doc>
+    Simple moving average (sync_block). First N-1 outputs are 0.0 while the window fills.
+    N and scale are adjustable at runtime via set_length() and set_scale().
+  </doc>
+</block>
+

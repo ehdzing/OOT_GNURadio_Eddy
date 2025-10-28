@@ -1,0 +1,34 @@
+<block>
+<name>Moving Average (history)</name>
+<key>howto_moving_avg_history_ff</key>
+<category>[HOWTO]</category>
+<import>import howto</import>
+<make>howto.moving_avg_history_ff(${length}, ${scale})</make>
+<callback>set_length(${length})</callback>
+<callback>set_scale(${scale})</callback>
+<!--  Parámetros (valor antes que tipo, como manda el DTD)  -->
+<param>
+<name>Length</name>
+<key>length</key>
+<value>4</value>
+<type>int</type>
+</param>
+<param>
+<name>Scale</name>
+<key>scale</key>
+<value>1.0</value>
+<type>float</type>
+</param>
+<sink>
+<name>in</name>
+<type>float</type>
+</sink>
+<source>
+<name>out</name>
+<type>float</type>
+</source>
+<doc>
+Simple moving average (sync_block) using set_history(N) to align a sliding window without initial ramp. N and scale are adjustable at runtime via set_length() and set_scale(). Thread-safe parameter snapshots (via mutex) are taken at the start of work(); parameters do not change mid-work.
+<!--  parámetros protegidos por mutex  -->
+</doc>
+</block>

@@ -1,0 +1,35 @@
+<block>
+  <name>Gain ff</name>
+  <key>howto_gain_ff</key>
+  <category>[HOWTO]</category>
+
+  <!-- imports: puedes dejar "import howto", o ser explícito -->
+  <import>from howto import howto_swig as howto</import>
+
+  <!-- make SIEMPRE antes de callback y params -->
+  <make>howto.gain_ff($gain)</make>
+
+  <!-- callback(s) VAN antes de los params -->
+  <callback>set_gain(${gain})</callback>
+
+  <!-- ahora sí, los parámetros -->
+  <param>
+    <name>Gain</name>
+    <key>gain</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <!-- puertos -->
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <doc>Multiplica la entrada por la ganancia. Con callback set_gain(g) para reconfigurar en tiempo de ejecución.</doc>
+</block>
+

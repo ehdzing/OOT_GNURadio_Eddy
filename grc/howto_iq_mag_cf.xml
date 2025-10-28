@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<block>
+  <name>IQ to Magnitude (cf)</name>
+  <key>howto_iq_mag_cf</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+  <make>howto.iq_mag_cf(${scale})</make>
+
+  <callback>set_scale(${scale})</callback>
+
+  <param>
+    <name>Scale</name>
+    <key>scale</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <doc><![CDATA[
+Converts complex I/Q input to magnitude (float):
+  y[i] = scale * sqrt(re^2 + im^2)
+Sync 1:1, no history. Runtime scale supported.
+  ]]></doc>
+</block>
+

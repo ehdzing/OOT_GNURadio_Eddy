@@ -1,0 +1,85 @@
+1-) gr_modtool newmod howto   //crea un nuevo modulo (con nombre howto) para GNURadio
+2-) gr_modtool add -t general -l cpp square_ff // anhade un nuevo bloque (square_ff) al modulo, tipo general, en C++, y sus entradas-salidas son tipo float las dos (_ff indica entrada y saluda flotante, no es obligado la  nomenclatura pero recomendable para legibilidad del codigo)
+
+3) Entrar en la carpeta python, al archivo qa_square_ff.py, y programar el codigo de prueba del modulo.
+
+4) Luego programamos el bloque DSP en C++. Modificar los archivos square_ff.h de la carpeta include y square_ff.h y square_ff.cc de la carpeta lib. el primero es para la interaccion con la API publica, inicializar parametros del bloque creado, pasarle parametros en tiempo de corrida, modifcar el tipo de bloque, etc. El 2do y 3ro son los .h y .cpp donde va la programacion DSP, ahi se reciben lso parametros  psados al bloque se preocesan y se retornan de vuelta.
+
+5) Luego cmopilar el codigo:
+	mkdir build
+	cd build
+	cmake ../
+	make
+	sudo make install    # Solo si tu versión de GNU Radio es 3.9 o superior
+
+SI ESTA TRABAJANDO CON UN CONTAINER DE DOCKER, y no deseas que el modulo y sus bloques OOT se intalen dentro del container para evitar tener que instalarlo siempre que elimines y vuelvas a levantar el contenedor, entonces haz esto con make para que lo instale en otra ruta. Despues con variables le indicas a GNURadio donde esta el bloque OOT.
+
+################################################
+# 1) Define la carpeta donde vas a instalar los módulos (persistente en tu disco)
+ya decalrada en el docker-compose
+
+# 2) Entra al repositorio del bloque OOT que quieras compilar
+cd /home/eddy/OOT_Instalados
+
+# 3) Limpia y crea el directorio de build fuera de la fuente
+rm -rf build && mkdir build && cd build
+
+# 4) Genera con CMake apuntando al prefijo persistente
+- **cd /home/eddy/OOT_Instalados/build    # o la ruta donde tengas tu módulo
+- **cmake /media/eddy/Dados/Prueba_GNURADIO/Modulos_OOT_GNURadio_Eddy \-DCMAKE_INSTALL_PREFIX="$OOT_PREFIX" 
+- **cmake ../gr-howto  este es para el trabajo
+
+# 5) Compila y prueba
+make -j"$(nproc)"
+ctest --output-on-failure
+
+####################################################################
+
+	mkdir build → crea la carpeta build.
+
+	cd build → entras en ella.
+
+	cmake ../ → le dices a CMake que los archivos de configuración están un nivel más arriba.
+
+	make → compila todo el código.cd
+
+	sudo make install → copia los archivos compilados a donde GNU Radio los pueda encontrar (la llamada install tree).
+
+6) Luego probamos el codigo de prueba para verifar que todo esta bien programaso en C++.
+	EJECUTAR, make test, en el comand line dentro de la carpeta buil creada.
+Si diera error el test, ejecutar ctest -V -R square (square es el nombre del bloque, sin el ff al final), esto devuelve el error y te permite saber que ocurrio para arreglar el codigo.
+
+7) Creando el archivo xml
+Dentro de la carpeta del bloque, howto en este caso, escribe las linea de comando: gr_modtool makexml square_ff
+gr_modtool makexml moving_avg_ff
+
+8) Algunas veces es necesario modificar cosas en el archivo XML
+
+9) Finalmente accede al directorio de build/, y ejecuta: 
+	sudo make install      # instala en /usr/local por defecto
+	sudo ldconfig          # actualiza la caché de libs compartidas
+
+
+##############OJOOOOOOOOOOOOOOOOOOOOOO###########LEVANTAR ESTAS TRES LINEAS DENTRO DEL CONTAINE PARA QUE GNURADIO PUEDO VER LOS BLOQUES CREADOS#########
+echo "$GRC_BLOCKS_PATH" 
+ls -l $OOT_PREFIX/share/gnuradio/grc/blocks/howto_*.xml 
+export GRC_BLOCKS_PATH=$OOT_PREFIX/share/gnuradio/grc/blocks
+########################################################################################################################
+
+10) Borra el bloque con gr_modtool remove
+cd directorio_del_modulo_OOT
+gr_modtool remove nombre_del_bloque
+	Esto elimina:
+	Los archivos .h y .cc del bloque en include/howto/ y lib/.
+	El .block.yml del GRC.
+	Las referencias del bloque en los CMakeLists.txt.
+	El test python/qa_nombre_del_bloque.py.
+	Y te deja el módulo intacto, con los otros bloques respirando tranquilos.
+
+
+https://wiki.gnuradio.org/index.php?title=OutOfTreeModules
+https://wiki.gnuradio.org/index.php?title=XML_GRC
+https://wiki.gnuradio.org/index.php/Guided_Tutorial_GNU_Radio_in_C%2B%2B
+https://wiki.gnuradio.org/index.php?title=BlocksCodingGuide
+
+

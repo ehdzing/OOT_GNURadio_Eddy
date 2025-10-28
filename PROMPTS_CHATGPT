@@ -1,0 +1,56 @@
+##################################################################################################################
+PROMPT PLANTILLA PARA BLOQUES OOT EN GNU RADIO 3.7.11:
+Contexto:
+Estoy trabajando en GNU Radio 3.7.11 y quiero crear un bloque OOT para el siguiente ejercicio o idea:
+
+[DESCRIPCIÓN BREVE DEL BLOQUE O EJERCICIO]
+{{pon aquí el nombre del bloque y 1–3 líneas del enunciado/objetivo}}
+
+Objetivo del asistente (responde con secciones claras y accionables):
+1) Descripción y matemática del bloque
+   - Explica qué hace el bloque y para sirve.
+   - Da la fórmula principal con notación compacta y define cada variable.
+   - Indica variantes útiles si existen (ej. causal vs no causal, FIR vs IIR, ventana, etc.).
+   - Menciona 2–3 casos de uso típicos en DSP/SDR.
+
+2) Especificación de I/O y tipo de bloque en GNU Radio 3.7.11
+   - Número y tipo de entradas (tipos: float, complex, int, short) y por qué.
+   - Número y tipo de salidas.
+   - Tipo de bloque recomendado y justificación: 
+     elige entre sync_block, sync_decimator, sync_interpolator, block/general_block o hier_block2.
+   - Si aplica, indica razón de decimación o interpolación y el factor.
+
+3) Parámetros del bloque
+   - Lista de parámetros externos con nombre, tipo y rango válido.
+   - Indica cuáles son runtime-configurables con setters y cuáles solo en construcción.
+   - Defaults sensatos y qué pasa si el usuario elige valores ridículos.
+   - Nota si requiere history, forecast o buffers grandes.
+
+4) Diseño de implementación 3.7.11
+   - Señala si conviene usar set_history(), forecast(), o un estado interno con suma acumulativa.
+   - Reglas de dimensionamiento: ninput_items_required, noutput_items, latencia.
+   - Tratamiento de tags y boundary conditions, si es relevante.
+   - Complejidad computacional por muestra y memoria.
+
+5) Pasos de creación OOT concretos
+   - Comandos exactos con gr_modtool para crear el módulo y el bloque.
+   - Firma de work() o general_work() esperada y pseudocódigo del núcleo.
+   - Archivos a tocar: .h, .cc, .xml YAML old-style, CMakeLists.txt.
+   - Instrucciones rápidas para construir, instalar, y probar con un flowgraph mínimo en GRC.
+
+6) Pruebas y validación
+   - Test vector mínimo y esperado.
+   - Cómo verificar con QT GUI Sink o File Sink.
+   - Criterios de éxito y métricas básicas.
+
+7) Errores comunes y cómo evitarlos
+   - Lista corta de 5 trampas habituales con soluciones.
+
+Notas operativas:
+- Versión: GNU Radio 3.7.11. Evita soluciones exclusivas de 3.9+.
+- Lenguaje: C++ para el bloque.
+- Precisión: Si el bloque tiene alternativa en punto fijo, coméntalo brevemente.
+- Estilo: Responde técnico, directo y sin relleno.
+
+######################################################################################################3
+
