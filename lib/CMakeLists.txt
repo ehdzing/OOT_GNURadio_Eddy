@@ -24,15 +24,18 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND howto_sources
     square_ff_impl.cc
     gain_ff_impl.cc
     moving_avg_ff_impl.cc
     moving_avg_history_ff_impl.cc
     iq_mag_cf_impl.cc
-    iq_select_cf_impl.cc    
-)
+    iq_select_cf_impl.cc
+    flex_fir_ff_impl.cc
+    flex_fir_cc_impl.cc
+    flex_fir_cf_impl.cc
+    flex_fir_all.cc
+    )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)
 if(NOT howto_sources)

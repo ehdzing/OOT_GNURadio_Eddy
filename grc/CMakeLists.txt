@@ -16,7 +16,6 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
     howto_square_ff.xml
     howto_gain_ff.xml
@@ -24,5 +23,8 @@ install(FILES
     howto_moving_avg_history_ff.xml
     howto_iq_mag_cf.xml
     howto_iq_select_cf.xml
+    howto_flex_fir_ff.xml
+    howto_flex_fir_cc.xml
+    howto_flex_fir_cf.xml
     DESTINATION share/gnuradio/grc/blocks
 )

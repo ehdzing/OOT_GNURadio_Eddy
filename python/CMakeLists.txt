@@ -47,3 +47,5 @@ GR_ADD_TEST(qa_moving_avg_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_moving_avg_history_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_moving_avg_history_ff.py)
 GR_ADD_TEST(qa_iq_mag_cf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_iq_mag_cf.py)
 GR_ADD_TEST(qa_iq_select_cf ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_iq_select_cf.py)
+GR_ADD_TEST(qa_flex_fir ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_flex_fir.py)
+

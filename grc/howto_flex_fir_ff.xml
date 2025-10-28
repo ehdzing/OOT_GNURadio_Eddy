@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<block>
+  <name>Flexible FIR (ff)</name>
+  <key>howto_flex_fir_ff</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+  <make>howto.flex_fir_ff(${mode}, ${samp_rate}, ${f1}, ${f2}, ${width}, ${gain})</make>
+
+  <callback>set_mode(${mode})</callback>
+  <callback>set_samp_rate(${samp_rate})</callback>
+  <callback>set_f1(${f1})</callback>
+  <callback>set_f2(${f2})</callback>
+  <callback>set_width(${width})</callback>
+  <callback>set_gain(${gain})</callback>
+
+  <!-- Mode (enum via <option> entries) -->
+  <param>
+    <name>Mode</name>
+    <key>mode</key>
+    <value>0</value>
+    <type>int</type>
+
+    <option>
+      <name>LP</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>HP</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>BP</name>
+      <key>2</key>
+    </option>
+  </param>
+
+  <param>
+    <name>Sample Rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>1e6</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>F1 (Hz)</name>
+    <key>f1</key>
+    <value>1e3</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>F2 (Hz) [BP only]</name>
+    <key>f2</key>
+    <value>5e3</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Transition Width (Hz)</name>
+    <key>width</key>
+    <value>500</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Gain</name>
+    <key>gain</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <doc>
+    FIR flexible (float→float). Diseña taps con Hamming + sinc en runtime cuando cambian parámetros.
+    mode: 0=lowpass (F1), 1=highpass (F1), 2=bandpass (F1..F2). width: ancho de transición (Hz).
+  </doc>
+</block>
+

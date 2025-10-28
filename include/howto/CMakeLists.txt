@@ -27,6 +27,9 @@ install(FILES
     moving_avg_ff.h
     moving_avg_history_ff.h
     iq_mag_cf.h
-    iq_select_cf.h    
+    iq_select_cf.h 
+    flex_fir_cc.h
+    flex_fir_cf.h
+    flex_fir_ff.h
     DESTINATION include/howto
 )

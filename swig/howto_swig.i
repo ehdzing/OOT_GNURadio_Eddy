@@ -13,6 +13,9 @@
 #include "howto/moving_avg_history_ff.h"
 #include "howto/iq_mag_cf.h"
 #include "howto/iq_select_cf.h"
+#include "howto/flex_fir_ff.h"
+#include "howto/flex_fir_cc.h"
+#include "howto/flex_fir_cf.h"
 %}
 
 
@@ -28,3 +31,10 @@ GR_SWIG_BLOCK_MAGIC2(howto, moving_avg_history_ff);
 GR_SWIG_BLOCK_MAGIC2(howto, iq_mag_cf);
 %include "howto/iq_select_cf.h"
 GR_SWIG_BLOCK_MAGIC2(howto, iq_select_cf);
+%include "howto/flex_fir_ff.h"
+GR_SWIG_BLOCK_MAGIC2(howto, flex_fir_ff);
+%include "howto/flex_fir_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, flex_fir_cc);
+%include "howto/flex_fir_cf.h"
+GR_SWIG_BLOCK_MAGIC2(howto, flex_fir_cf);
+
