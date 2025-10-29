@@ -42,7 +42,8 @@ list(APPEND howto_sources
     flex_fir_cf_impl.cc
     flex_fir_all.cc
     downsample_cc_impl.cc
-    decimate_fir_cc_impl.cc )
+    decimate_fir_cc_impl.cc
+    dual_decimate_ff_impl.cc )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)
 if(NOT howto_sources)

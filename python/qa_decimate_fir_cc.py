@@ -38,4 +38,3 @@ class qa_decimate_fir_cc(gr.top_block):
 
 if __name__ == "__main__":
     qa_decimate_fir_cc()
-
