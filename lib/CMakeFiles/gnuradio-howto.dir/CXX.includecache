@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/decimate_fir_cc_impl.cc
+config.h
+/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/config.h
+decimate_fir_cc_impl.h
+/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/decimate_fir_cc_impl.h
+gnuradio/io_signature.h
+-
+stdexcept
+-
+algorithm
+-
+
+/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/decimate_fir_cc_impl.h
+howto/decimate_fir_cc.h
+-
+boost/thread/mutex.hpp
+-
+gnuradio/filter/firdes.h
+-
+vector
+-
+
+include/howto/api.h
+gnuradio/attributes.h
+-
+
+include/howto/decimate_fir_cc.h
+howto/api.h
+-
+gnuradio/block.h
+-
+boost/shared_ptr.hpp
+-
+

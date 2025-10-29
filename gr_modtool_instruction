@@ -27,7 +27,7 @@ rm -rf build && mkdir build && cd build
 # 4) Genera con CMake apuntando al prefijo persistente
 - **cd /home/eddy/OOT_Instalados/build    # o la ruta donde tengas tu módulo
 - **cmake /media/eddy/Dados/Prueba_GNURADIO/Modulos_OOT_GNURadio_Eddy \-DCMAKE_INSTALL_PREFIX="$OOT_PREFIX" 
-- **cmake ../gr-howto  este es para el trabajo
+- **cmake ../OOT_GNURadio_Eddy  este es para el trabajo
 
 # 5) Compila y prueba
 make -j"$(nproc)"
@@ -58,6 +58,17 @@ gr_modtool makexml moving_avg_ff
 9) Finalmente accede al directorio de build/, y ejecuta: 
 	sudo make install      # instala en /usr/local por defecto
 	sudo ldconfig          # actualiza la caché de libs compartidas
+
+#############################################################################################
+A VECES SE ROMPE EL PYTHON DE GNURADIO POR PROBLEMAS EN LA INSTALACION DE MODULOS, HACER ESTO
+# Ver qué hay
+-** python -c "import sys,glob,site; print('\n'.join(glob.glob('/usr/local/lib/python2.7/dist-packages/howto*')))"
+-** ls -l /usr/local/lib/libgnuradio-howto*.so* || true
+
+# Borrar paquete y libs antiguas
+-** sudo rm -rf /usr/local/lib/python2.7/dist-packages/howto*
+-** sudo rm -f  /usr/local/lib/libgnuradio-howto*.so*
+-** sudo ldconfig
 
 
 ##############OJOOOOOOOOOOOOOOOOOOOOOO###########LEVANTAR ESTAS TRES LINEAS DENTRO DEL CONTAINE PARA QUE GNURADIO PUEDO VER LOS BLOQUES CREADOS#########

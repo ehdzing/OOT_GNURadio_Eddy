@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<block>
+  <name>decimate_fir_cc</name>
+  <key>howto_decimate_fir_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.decimate_fir_cc(${decim}, ${samp_rate}, ${cutoff}, ${transition}, ${window}, ${kaiser_beta})</make>
+
+  <!-- Runtime callbacks -->
+  <callback>set_decimation(${decim})</callback>
+  <callback>set_samp_rate(${samp_rate})</callback>
+  <callback>set_cutoff(${cutoff})</callback>
+  <callback>set_transition(${transition})</callback>
+  <callback>set_window(${window})</callback>
+  <callback>set_kaiser_beta(${kaiser_beta})</callback>
+
+  <param>
+    <name>Decimation D</name>
+    <key>decim</key>
+    <value>4</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Sample Rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>1e6</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>Cutoff (Hz)</name>
+    <key>cutoff</key>
+    <value>200e3</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>Transition (Hz)</name>
+    <key>transition</key>
+    <value>50e3</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>Window</name>
+    <key>window</key>
+    <value>firdes.WIN_HAMMING</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Kaiser Beta</name>
+    <key>kaiser_beta</key>
+    <value>6.76</value>
+    <type>real</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <vlen>1</vlen>
+  </source>
+</block>
+

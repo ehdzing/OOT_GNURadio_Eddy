@@ -1,0 +1,22 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/gnuradio-howto.dir/square_ff_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/gain_ff_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/moving_avg_ff_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/moving_avg_history_ff_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/iq_mag_cf_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/iq_select_cf_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/flex_fir_ff_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/flex_fir_cc_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/flex_fir_cf_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/flex_fir_all.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/downsample_cc_impl.cc.o"
+  "CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.o"
+  "libgnuradio-howto-1.0.0git.pdb"
+  "libgnuradio-howto-1.0.0git.so.0.0.0"
+  "libgnuradio-howto-1.0.0git.so"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/gnuradio-howto.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

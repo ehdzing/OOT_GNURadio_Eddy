@@ -31,5 +31,6 @@ install(FILES
     flex_fir_cc.h
     flex_fir_cf.h
     flex_fir_ff.h
-    downsample_cc.h DESTINATION include/howto
+    downsample_cc.h
+    decimate_fir_cc.h DESTINATION include/howto
 )

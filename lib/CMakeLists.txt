@@ -22,8 +22,14 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
+find_package(Gnuradio REQUIRED COMPONENTS runtime filter blocks fft) #lo anhadi, busca los componentes de gnuradio y en las lineas de abajo los incluyo, ahi los boost de c++ viene incluidos ya de dentro de gnuradio, por eso mas abajo los comente, seria redundadnte
+
+include_directories(${GNURADIO_ALL_INCLUDE_DIRS})   #lo anhadi, para incluir lo que busque arriba
+link_directories(${GNURADIO_ALL_LIBRARY_DIRS})       #lo anhadi, para incluir lo que busque arriba 
+
+#include_directories(${Boost_INCLUDE_DIR})
+#link_directories(${Boost_LIBRARY_DIRS})
+
 list(APPEND howto_sources
     square_ff_impl.cc
     gain_ff_impl.cc
@@ -35,7 +41,8 @@ list(APPEND howto_sources
     flex_fir_cc_impl.cc
     flex_fir_cf_impl.cc
     flex_fir_all.cc
-    downsample_cc_impl.cc )
+    downsample_cc_impl.cc
+    decimate_fir_cc_impl.cc )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)
 if(NOT howto_sources)
@@ -43,8 +50,13 @@ if(NOT howto_sources)
 	return()
 endif(NOT howto_sources)
 
+
 add_library(gnuradio-howto SHARED ${howto_sources})
-target_link_libraries(gnuradio-howto ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
+
+#target_link_libraries(gnuradio-howto ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} ${GNURADIO_FILTER_LIBRARIES})  por alguna razon aqui no esta incluyendo las librerias de filder para filtrado de gnuradio, tal ves esa variable (GNURADIO_FILTER_LIBRARIES) no este definida en GNURadio 3.7.11
+
+target_link_libraries(gnuradio-howto gnuradio-runtime gnuradio-filter gnuradio-blocks gnuradio-fft ${Boost_LIBRARIES})  #lo anhadi para que agarre los filtros de gnuradio filder
+
 set_target_properties(gnuradio-howto PROPERTIES DEFINE_SYMBOL "gnuradio_howto_EXPORTS")
 
 if(APPLE)

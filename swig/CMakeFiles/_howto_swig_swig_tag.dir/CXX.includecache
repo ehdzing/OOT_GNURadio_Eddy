@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/swig/_howto_swig_swig_tag.cpp
+
