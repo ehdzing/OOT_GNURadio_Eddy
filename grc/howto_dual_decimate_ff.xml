@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<block>
+  <name>dual_decimate_ff</name>
+  <key>howto_dual_decimate_ff</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.dual_decimate_ff(${D0}, ${D1})</make>
+  
+  <callback>set_D0(${D0})</callback>
+  <callback>set_D1(${D1})</callback>
+  
+  <param>
+    <name>D0 (decim in0)</name>
+    <key>D0</key>
+    <value>3</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>D1 (decim in1)</name>
+    <key>D1</key>
+    <value>4</value>
+    <type>int</type>
+  </param>
+
+  <sink><name>in0</name><type>float</type></sink>
+  <sink><name>in1</name><type>float</type></sink>
+  <source><name>out0</name><type>float</type></source>
+  <source><name>out1</name><type>float</type></source>
+
+</block>
+
