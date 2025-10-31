@@ -52,3 +52,4 @@ GR_ADD_TEST(qa_flex_fir ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_flex
 GR_ADD_TEST(qa_downsample_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_downsample_cc.py)
 GR_ADD_TEST(qa_decimate_fir_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decimate_fir_cc.py)
 GR_ADD_TEST(qa_dual_decimate_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_dual_decimate_ff.py)
+

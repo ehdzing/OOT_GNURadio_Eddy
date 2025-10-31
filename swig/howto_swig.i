@@ -19,6 +19,9 @@
 #include "howto/downsample_cc.h"
 #include "howto/decimate_fir_cc.h"
 #include "howto/dual_decimate_ff.h"
+#include "howto/detector_ff.h"
+#include "howto/gate_ff.h"
+#include "howto/detector_exp_ff.h"
 %}
 
 
@@ -46,3 +49,12 @@ GR_SWIG_BLOCK_MAGIC2(howto, downsample_cc);
 GR_SWIG_BLOCK_MAGIC2(howto, decimate_fir_cc);
 %include "howto/dual_decimate_ff.h"
 GR_SWIG_BLOCK_MAGIC2(howto, dual_decimate_ff);
+%include "howto/gate_ff.h"
+GR_SWIG_BLOCK_MAGIC2(howto, gate_ff);
+%include "howto/detector_ff.h"
+GR_SWIG_BLOCK_MAGIC2(howto, detector_ff);
+
+
+
+%include "howto/detector_exp_ff.h"
+GR_SWIG_BLOCK_MAGIC2(howto, detector_exp_ff);

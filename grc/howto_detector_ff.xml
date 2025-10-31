@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<block>
+  <name>detector_ff</name>
+  <key>howto_detector_ff</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.detector_ff(${thr_high}, ${thr_low}, ${win})</make>
+
+  <!-- Callbacks: sin <callbacks>, una línea por callback -->
+  <callback>set_thresholds(${thr_high}, ${thr_low})</callback>
+  <callback>set_window(${win})</callback>
+
+
+  <!-- Params (orden: name, key, value, type) -->
+  <param>
+    <name>thr_high</name>
+    <key>thr_high</key>
+    <value>0.7</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>thr_low</name>
+    <key>thr_low</key>
+    <value>0.5</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>win</name>
+    <key>win</key>
+    <value>32</value>
+    <type>int</type>
+  </param>
+
+  <!-- Ports -->
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <source>
+    <name>out_sms</name>
+    <type>message</type>
+    <domain>message</domain>
+  </source>
+
+  <doc>
+Energy detector with hysteresis; publishes PMT messages on 'out' and inserts 'event' START/STOP tags.
+  </doc>
+</block>

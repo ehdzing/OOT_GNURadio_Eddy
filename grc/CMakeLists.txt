@@ -28,5 +28,9 @@ install(FILES
     howto_flex_fir_cf.xml
     howto_downsample_cc.xml
     howto_decimate_fir_cc.xml
-    howto_dual_decimate_ff.xml DESTINATION share/gnuradio/grc/blocks
+    howto_dual_decimate_ff.xml
+    howto_detector_ff.xml
+    howto_gate_ff.xml
+    howto_detector_exp_ff.xml
+DESTINATION share/gnuradio/grc/blocks
 )

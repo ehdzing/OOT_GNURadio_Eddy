@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<block>
+  <name>gate_ff</name>
+  <key>howto_gate_ff</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.gate_ff(${initially_open})</make>
+
+
+  <!-- Callbacks: sin <callbacks>, una línea por callback -->
+  <callback>set_open(${initially_open})</callback>
+
+  <!-- Params (orden: name, key, value, type) -->
+  <param>
+    <name>initially_open</name>
+    <key>initially_open</key>
+    <value>True</value>
+    <type>bool</type>
+  </param>
+  <!-- Ports -->
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <sink>
+    <name>in_ctrl</name>
+    <type>message</type>
+    <domain>message</domain>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <doc>
+Message-controlled gate. START opens; STOP closes. Honors 'event' tags to align the switch at exact offsets.
+  </doc>
+</block>

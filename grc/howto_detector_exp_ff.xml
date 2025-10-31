@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<block>
+  <name>detector_exp_ff</name>
+  <key>howto_detector_exp_ff</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.detector_exp_ff(${length})</make>
+
+  <!-- Callbacks (una línea por callback, sin contenedor) -->
+  <callback>set_length(${length})</callback>
+  <callback>set_Ton(${Ton})</callback>
+  <callback>set_Toff(${Toff})</callback>
+
+  <!-- Parámetros (orden DTD: name -> key -> value -> type) -->
+  <param>
+    <name>Length (N)</name>
+    <key>length</key>
+    <value>50</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Threshold ON (T_on)</name>
+    <key>Ton</key>
+    <value>0.20</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Threshold OFF (T_off)</name>
+    <key>Toff</key>
+    <value>0.10</value>
+    <type>float</type>
+  </param>
+
+  <!-- Entrada stream -->
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+
+  <!-- Salidas stream -->
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+
+  <source>
+    <name>env</name>
+    <type>float</type>
+  </source>
+
+  <!-- Única salida de mensajes -->
+  <source>
+    <name>state_msg</name>
+    <type>message</type>
+    <domain>message</domain>
+  </source>
+
+  <doc>
+Exponential energy detector with hysteresis.
+
+Streams:
+  • out: passthrough of input signal
+  • env: exponential envelope d_env (the thresholded value)
+
+Message output:
+  • state_msg: PMT dict {event: START|STOP, idx: uint64, env: double}
+
+Mathematical model:
+  d_env[n] = α·d_env[n−1] + (1−α)·x[n]²,  0&lt;α&lt;1
+
+Decision rule (hysteresis):
+  START if d_env ≥ T_on
+  STOP  if d_env ≤ T_off  (T_on &gt; T_off)
+
+Metadata on stream:
+  • Input tags are propagated to 'out'.
+  • On 'out', tags are stamped at event sample with:
+      - key "state" = START|STOP
+      - key "env"   = current envelope (double)
+
+Parameters:
+  • length (N): kept for priming/compatibility
+  • Ton / Toff: thresholds (callbacks)
+
+DTD order respected: name, key, category, import*, make, callback*, param*, sink*, source*, doc.
+  </doc>
+</block>

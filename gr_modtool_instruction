@@ -5,6 +5,8 @@
 
 4) Luego programamos el bloque DSP en C++. Modificar los archivos square_ff.h de la carpeta include y square_ff.h y square_ff.cc de la carpeta lib. el primero es para la interaccion con la API publica, inicializar parametros del bloque creado, pasarle parametros en tiempo de corrida, modifcar el tipo de bloque, etc. El 2do y 3ro son los .h y .cpp donde va la programacion DSP, ahi se reciben lso parametros  psados al bloque se preocesan y se retornan de vuelta.
 
+leandros@inatel.br
+
 5) Luego cmopilar el codigo:
 	mkdir build
 	cd build

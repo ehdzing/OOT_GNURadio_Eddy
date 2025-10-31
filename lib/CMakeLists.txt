@@ -43,7 +43,11 @@ list(APPEND howto_sources
     flex_fir_all.cc
     downsample_cc_impl.cc
     decimate_fir_cc_impl.cc
-    dual_decimate_ff_impl.cc )
+    dual_decimate_ff_impl.cc
+    gate_ff_impl.cc
+    detector_ff_impl.cc
+    detector_exp_ff_impl.cc
+)
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)
 if(NOT howto_sources)
