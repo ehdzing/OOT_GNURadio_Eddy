@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_HOWTO_SLOT_CLOCK_CC_H
-#define INCLUDED_HOWTO_SLOT_CLOCK_CC_H
+#ifndef INCLUDED_HOWTO_SIM_TX_MODULATOR_CC_H
+#define INCLUDED_HOWTO_SIM_TX_MODULATOR_CC_H
 
 #include <howto/api.h>
 #include <gnuradio/sync_block.h>
@@ -33,25 +33,24 @@ namespace gr {
      * \ingroup howto
      *
      */
-    class HOWTO_API slot_clock_cc : virtual public gr::sync_block
+    class HOWTO_API sim_tx_modulator_cc : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<slot_clock_cc> sptr;
+      typedef boost::shared_ptr<sim_tx_modulator_cc> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of howto::slot_clock_cc.
+       * \brief Return a shared_ptr to a new instance of howto::sim_tx_modulator_cc.
        *
-       * To avoid accidental use of raw pointers, howto::slot_clock_cc's
+       * To avoid accidental use of raw pointers, howto::sim_tx_modulator_cc's
        * constructor is in a private implementation
-       * class. howto::slot_clock_cc::make is the public interface for
+       * class. howto::sim_tx_modulator_cc::make is the public interface for
        * creating new instances.
        */
-      static sptr make(int samples_per_slot,const std::string& srcid = "slot_clock");
-      virtual void set_samples_per_slot(int samples_per_slot) noexcept = 0;
+      static sptr make();
     };
 
   } // namespace howto
 } // namespace gr
 
-#endif /* INCLUDED_HOWTO_SLOT_CLOCK_CC_H */
+#endif /* INCLUDED_HOWTO_SIM_TX_MODULATOR_CC_H */
 

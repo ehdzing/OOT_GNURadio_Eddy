@@ -40,5 +40,6 @@ install(FILES
     slot_clock_cc.h
     metric_estimator_cc.h
     scheduler_ctrl.h
+    sim_tx_modulator_cc.h
 DESTINATION include/howto
 )

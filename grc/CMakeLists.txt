@@ -35,5 +35,6 @@ install(FILES
     howto_slot_clock_cc.xml
     howto_metric_estimator_cc.xml
     howto_scheduler_ctrl.xml
+    howto_sim_tx_modulator_cc.xml
 DESTINATION share/gnuradio/grc/blocks
 )

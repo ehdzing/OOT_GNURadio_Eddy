@@ -18,37 +18,39 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_HOWTO_METRIC_ESTIMATOR_CC_IMPL_H
-#define INCLUDED_HOWTO_METRIC_ESTIMATOR_CC_IMPL_H
+#ifndef INCLUDED_HOWTO_SIM_TX_MODULATOR_CC_IMPL_H
+#define INCLUDED_HOWTO_SIM_TX_MODULATOR_CC_IMPL_H
 
-#include <howto/metric_estimator_cc.h>
+#include <howto/sim_tx_modulator_cc.h>
 #include <boost/thread/mutex.hpp>
+#include <deque>
 #include <pmt/pmt.h>
 
 namespace gr {
   namespace howto {
 
-    class metric_estimator_cc_impl : public metric_estimator_cc
+    class sim_tx_modulator_cc_impl : public sim_tx_modulator_cc
     {
      private:
-      int d_sps;
-      double d_thrL;
-      double d_thrH;
-      boost::mutex d_mtx;
+      struct pending_change {
+        uint64_t apply_at;   // índice absoluto de muestra donde aplicar
+        float    gain;       // ganancia a usar a partir de ahí
+      };
 
-      pmt::pmt_t d_k_slot;   // "slot_start"
-      pmt::pmt_t d_k_apply;  // "apply_cfg"
-      pmt::pmt_t d_port;     // "cqi_out"
+      boost::mutex      d_mtx;
+      std::deque<pending_change> d_queue;
+      float             d_current_gain;
 
-      pmt::pmt_t cqi_from_power(double p);
+      pmt::pmt_t        d_k_apply;   // "apply_cfg"
+
+      void on_ctrl(pmt::pmt_t msg) noexcept;
+      float gain_from_mcs(const std::string &mcs) const noexcept;
+      float gain_from_dict(pmt::pmt_t dict) const noexcept;
 
      public:
-      metric_estimator_cc_impl(int sps, double thrL, double thrH) noexcept;
-      ~metric_estimator_cc_impl() noexcept override;;
-  
-      void set_thresholds(double thr_low, double thr_high) noexcept override;
-      void set_samples_per_slot(int samples_per_slot) noexcept override;
-  
+      sim_tx_modulator_cc_impl();
+      ~sim_tx_modulator_cc_impl() noexcept override;
+
       // Where all the action really happens
       int work(int noutput_items,
          gr_vector_const_void_star &input_items,
@@ -58,5 +60,5 @@ namespace gr {
   } // namespace howto
 } // namespace gr
 
-#endif /* INCLUDED_HOWTO_METRIC_ESTIMATOR_CC_IMPL_H */
+#endif /* INCLUDED_HOWTO_SIM_TX_MODULATOR_CC_IMPL_H */
 

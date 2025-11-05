@@ -47,7 +47,7 @@ namespace gr {
        * creating new instances.
        */
       static sptr make(int samples_per_slot, double thr_low, double thr_high);
-      virtual void set_samples_per_slot(int sps) noexcept = 0;
+      virtual void set_samples_per_slot(int samples_per_slot) noexcept = 0;
       virtual void set_thresholds(double thr_low, double thr_high) noexcept = 0;
     };
 

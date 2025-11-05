@@ -6,9 +6,8 @@
   <import>import howto</import>
   <make>howto.metric_estimator_cc(${samples_per_slot}, ${thr_low}, ${thr_high})</make>
   
-  <callback>self.set_samples_per_slot(${samples_per_slot})</callback>
-  <callback>self.set_thresholds(${thr_low}, ${thr_high})</callback>
-  <callback>self.set_thresholds(${thr_low}, ${thr_high})</callback>
+  <callback>set_samples_per_slot(${samples_per_slot})</callback>
+  <callback>set_thresholds(${thr_low}, ${thr_high})</callback>
       
   <param>
     <name>samples per slot</name>

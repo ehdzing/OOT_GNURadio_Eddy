@@ -6,7 +6,7 @@
   <import>import howto</import>
   <make>howto.slot_clock_cc(${samples_per_slot}, ${srcid})</make>
   
-  <callback>self.set_samples_per_slot(${samples_per_slot})</callback>
+  <callback>set_samples_per_slot(${samples_per_slot})</callback>
   
   <param>
     <name>samples per slot</name>

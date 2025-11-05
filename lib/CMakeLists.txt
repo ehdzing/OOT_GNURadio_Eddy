@@ -50,6 +50,7 @@ list(APPEND howto_sources
     slot_clock_cc_impl.cc
     metric_estimator_cc_impl.cc
     scheduler_ctrl_impl.cc
+    sim_tx_modulator_cc_impl.cc
 )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)

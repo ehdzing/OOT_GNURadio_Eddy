@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<block>
+  <name>sim_tx_modulator_cc</name>
+  <key>howto_sim_tx_modulator_cc</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+  <make>howto.sim_tx_modulator_cc()</make>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <sink>
+    <name>tx_ctrl</name>
+    <type>message</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+
+  <doc>
+    Recibe mensajes de control producidos por scheduler_ctrl.
+    Si el mensaje trae "mcs", ajusta la ganancia.
+    Si el mensaje trae "apply_at", aplica el cambio a partir de esa muestra.
+  </doc>
+</block>
+

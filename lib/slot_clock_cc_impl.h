@@ -40,7 +40,7 @@ namespace gr {
       slot_clock_cc_impl(int sps,const std::string& srcid) noexcept;
       ~slot_clock_cc_impl() noexcept override;
       
-      void set_samples_per_slot(int sps) noexcept override;
+      void set_samples_per_slot(int samples_per_slot) noexcept override;
       
       // Where all the action really happens
       int work(int noutput_items,

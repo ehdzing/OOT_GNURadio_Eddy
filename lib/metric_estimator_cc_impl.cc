@@ -75,10 +75,10 @@ namespace gr {
     }
 
     void
-    metric_estimator_cc_impl::set_samples_per_slot(int sps) noexcept
+    metric_estimator_cc_impl::set_samples_per_slot(int samples_per_slot) noexcept
     {
       boost::lock_guard<boost::mutex> g(d_mtx);
-      d_sps = (sps > 0) ? sps : 1;
+      d_sps = (samples_per_slot > 0) ? samples_per_slot : 1;
     }
 
     pmt::pmt_t

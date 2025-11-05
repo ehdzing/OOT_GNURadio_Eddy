@@ -6,8 +6,8 @@
   <import>import howto</import>
   <make>howto.scheduler_ctrl(${samples_per_slot})</make>
   
-  <callback>self.set_samples_per_slot(${samples_per_slot})</callback>
-  
+  <callback>set_samples_per_slot(${samples_per_slot})</callback>
+
   <param>
     <name>samples per slot</name>
     <key>samples_per_slot</key>

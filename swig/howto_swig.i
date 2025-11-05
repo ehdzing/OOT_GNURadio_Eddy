@@ -25,6 +25,7 @@
 #include "howto/slot_clock_cc.h"
 #include "howto/metric_estimator_cc.h"
 #include "howto/scheduler_ctrl.h"
+#include "howto/sim_tx_modulator_cc.h"
 %}
 
 
@@ -67,3 +68,5 @@ GR_SWIG_BLOCK_MAGIC2(howto, slot_clock_cc);
 GR_SWIG_BLOCK_MAGIC2(howto, metric_estimator_cc);
 %include "howto/scheduler_ctrl.h"
 GR_SWIG_BLOCK_MAGIC2(howto, scheduler_ctrl);
+%include "howto/sim_tx_modulator_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, sim_tx_modulator_cc);
