@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<block>
+  <name>slot_clock_cc</name>
+  <key>howto_slot_clock_cc</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+  <make>howto.slot_clock_cc(${samples_per_slot}, ${srcid})</make>
+  
+  <callback>self.set_samples_per_slot(${samples_per_slot})</callback>
+  
+  <param>
+    <name>samples per slot</name>
+    <key>samples_per_slot</key>
+    <value>1024</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>src id</name>
+    <key>srcid</key>
+    <value>slot_clock</value>
+    <type>string</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <doc>Marca cada inicio de slot con tag "slot_start" en el flujo complex.</doc>
+</block>
+

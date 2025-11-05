@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<block>
+  <name>metric_estimator_cc</name>
+  <key>howto_metric_estimator_cc</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+  <make>howto.metric_estimator_cc(${samples_per_slot}, ${thr_low}, ${thr_high})</make>
+  
+  <callback>self.set_samples_per_slot(${samples_per_slot})</callback>
+  <callback>self.set_thresholds(${thr_low}, ${thr_high})</callback>
+  <callback>self.set_thresholds(${thr_low}, ${thr_high})</callback>
+      
+  <param>
+    <name>samples per slot</name>
+    <key>samples_per_slot</key>
+    <value>1024</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>thr low</name>
+    <key>thr_low</key>
+    <value>0.01</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>thr high</name>
+    <key>thr_high</key>
+    <value>0.1</value>
+    <type>real</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <source>
+    <name>cqi_out</name>
+    <type>message</type>
+  </source>
+
+  <doc>
+    Estima potencia por slot a partir del tag "slot_start".
+    Publica mensaje con {slot_abs, cqi, pwr} y pone tag "apply_cfg" en el siguiente slot.
+    Permite cambiar samples_per_slot y umbrales en tiempo de ejecución.
+  </doc>
+</block>
+

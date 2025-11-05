@@ -32,5 +32,8 @@ install(FILES
     howto_detector_ff.xml
     howto_gate_ff.xml
     howto_detector_exp_ff.xml
+    howto_slot_clock_cc.xml
+    howto_metric_estimator_cc.xml
+    howto_scheduler_ctrl.xml
 DESTINATION share/gnuradio/grc/blocks
 )

@@ -47,6 +47,9 @@ list(APPEND howto_sources
     gate_ff_impl.cc
     detector_ff_impl.cc
     detector_exp_ff_impl.cc
+    slot_clock_cc_impl.cc
+    metric_estimator_cc_impl.cc
+    scheduler_ctrl_impl.cc
 )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)

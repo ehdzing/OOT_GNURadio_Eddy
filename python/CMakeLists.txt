@@ -53,3 +53,5 @@ GR_ADD_TEST(qa_downsample_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa
 GR_ADD_TEST(qa_decimate_fir_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_decimate_fir_cc.py)
 GR_ADD_TEST(qa_dual_decimate_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_dual_decimate_ff.py)
 
+GR_ADD_TEST(qa_slot_clock_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_slot_clock_cc.py)
+GR_ADD_TEST(qa_metric_estimator_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_metric_estimator_cc.py)

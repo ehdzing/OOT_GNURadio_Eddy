@@ -37,5 +37,8 @@ install(FILES
     detector_ff.h 
     gate_ff.h
     detector_exp_ff.h
+    slot_clock_cc.h
+    metric_estimator_cc.h
+    scheduler_ctrl.h
 DESTINATION include/howto
 )

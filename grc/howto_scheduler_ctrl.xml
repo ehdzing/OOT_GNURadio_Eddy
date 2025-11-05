@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<block>
+  <name>scheduler_ctrl</name>
+  <key>howto_scheduler_ctrl</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+  <make>howto.scheduler_ctrl(${samples_per_slot})</make>
+  
+  <callback>self.set_samples_per_slot(${samples_per_slot})</callback>
+  
+  <param>
+    <name>samples per slot</name>
+    <key>samples_per_slot</key>
+    <value>1024</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>cqi_in</name>
+    <type>message</type>
+  </sink>
+
+  <source>
+    <name>tx_ctrl</name>
+    <type>message</type>
+  </source>
+
+  <doc>
+    Recibe mensajes del estimador con {"slot_abs","cqi",...},
+    decide un MCS válido y emite {"apply_at": slot_abs + samples_per_slot, "mcs": ...}.
+    El parámetro samples_per_slot se puede cambiar en tiempo de ejecución.
+  </doc>
+</block>

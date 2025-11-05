@@ -22,6 +22,9 @@
 #include "howto/detector_ff.h"
 #include "howto/gate_ff.h"
 #include "howto/detector_exp_ff.h"
+#include "howto/slot_clock_cc.h"
+#include "howto/metric_estimator_cc.h"
+#include "howto/scheduler_ctrl.h"
 %}
 
 
@@ -58,3 +61,9 @@ GR_SWIG_BLOCK_MAGIC2(howto, detector_ff);
 
 %include "howto/detector_exp_ff.h"
 GR_SWIG_BLOCK_MAGIC2(howto, detector_exp_ff);
+%include "howto/slot_clock_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, slot_clock_cc);
+%include "howto/metric_estimator_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, metric_estimator_cc);
+%include "howto/scheduler_ctrl.h"
+GR_SWIG_BLOCK_MAGIC2(howto, scheduler_ctrl);
