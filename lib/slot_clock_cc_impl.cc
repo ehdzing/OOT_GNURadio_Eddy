@@ -47,7 +47,8 @@ namespace gr {
         d_key(pmt::intern("slot_start")),
         d_src(pmt::string_to_symbol(srcid))
     {
-      //set_tag_propagation_policy(TPP_ALL);
+      //set_tag_propagation_policy(gr::TPP_ALL);
+      set_tag_propagation_policy(gr::block::TPP_ALL_TO_ALL);
     }
 
     /*

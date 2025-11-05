@@ -58,7 +58,7 @@ namespace gr {
     set_history(d_sps);
 
     // dejamos que pasen los tags
-    //set_tag_propagation_policy(TPP_ALL);
+    set_tag_propagation_policy(gr::block::TPP_ALL_TO_ALL);
     }
 
     /*
@@ -94,6 +94,24 @@ namespace gr {
       if (p < L)  return pmt::intern("cqi_low");
       if (p > H)  return pmt::intern("cqi_high");
       return pmt::intern("cqi_med");
+    }
+
+    pmt::pmt_t
+    metric_estimator_cc_impl::select_mcs(pmt::pmt_t cqi) const noexcept
+    {
+      if (!pmt::is_symbol(cqi))
+        return pmt::PMT_NIL;;
+
+      const std::string s = pmt::symbol_to_string(cqi);
+      if (s == "cqi_high")
+        return pmt::intern("mcs_64qam");
+      if (s == "cqi_med")
+        return pmt::intern("mcs_16qam");
+      if (s == "cqi_low")
+        return pmt::intern("mcs_qpsk");
+
+      // cqi desconocido → no emitir
+      return pmt::PMT_NIL;
     }
 
     int
@@ -143,6 +161,7 @@ namespace gr {
         const double avgp = sum / (double)sps_local;
 
         pmt::pmt_t cqi = cqi_from_power(avgp);
+        pmt::pmt_t mcs = select_mcs(cqi);
 
         pmt::pmt_t m = pmt::make_dict();
         m = pmt::dict_add(m, pmt::intern("slot_abs"), pmt::from_uint64(off));
@@ -152,7 +171,8 @@ namespace gr {
 
         //const uint64_t next_off = off + (uint64_t)sps_local;
         pmt::pmt_t tv = pmt::make_dict();
-        tv = pmt::dict_add(tv, pmt::intern("mcs"), cqi);
+        tv = pmt::dict_add(tv, pmt::intern("cqi"), cqi);
+        tv = pmt::dict_add(tv, pmt::intern("mcs"), mcs);
 
         add_item_tag(0,
                      off,

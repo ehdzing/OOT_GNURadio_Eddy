@@ -27,6 +27,8 @@
 #include <algorithm>
 #include <vector>
 #include <cstring>
+#include <iostream>
+
 
 namespace gr {
   namespace howto {
@@ -53,7 +55,7 @@ namespace gr {
       set_msg_handler(pmt::mp("tx_ctrl"),
                       boost::bind(&sim_tx_modulator_cc_impl::on_ctrl, this, _1));
 
-      //set_tag_propagation_policy(TPP_ALL);
+      set_tag_propagation_policy(gr::block::TPP_ALL_TO_ALL);
     }
 
     /*
@@ -65,9 +67,18 @@ namespace gr {
     sim_tx_modulator_cc_impl::gain_from_mcs(const std::string &mcs) const noexcept
     {
       // mapeo tonto ejemplo
-      if (mcs == "mcs_64qam") return 1.6f;
-      if (mcs == "mcs_16qam") return 1.2f;
-      if (mcs == "mcs_qpsk")  return 1.0f;
+      if (mcs == "mcs_64qam"){
+        //std::cout<<"Seleccionar la gnanacia a 3"<< std::endl;
+        return 3.0f;
+      } 
+      if (mcs == "mcs_16qam"){
+        //std::cout<<"Seleccionar la gnanacia a 2"<< std::endl;
+        return 2.0f;
+      } 
+      if (mcs == "mcs_qpsk"){
+        //std::cout<<"Seleccionar la gnanacia a 1"<< std::endl;
+        return 1.0f;
+      } 
       // desconocido
       return 1.0f;
     }
@@ -78,6 +89,7 @@ namespace gr {
       // dict se espera que tenga {"mcs": <symbol>} o algo parecido
       pmt::pmt_t mcs = pmt::dict_ref(dict, pmt::intern("mcs"), pmt::PMT_NIL);
       if (pmt::is_symbol(mcs)) {
+        //std::cout<< "MSC es un simbol y va a seleccionar la gnanacia"<< std::endl;
         return gain_from_mcs(pmt::symbol_to_string(mcs));
       }
       return 1.0f;
@@ -86,17 +98,21 @@ namespace gr {
     void
     sim_tx_modulator_cc_impl::on_ctrl(pmt::pmt_t msg) noexcept
     {
+      //std::cout<< "Entro un msg"<< std::endl;
       // mensaje externo. puede tener "apply_at" o no.
       if (!pmt::is_dict(msg))
         return;
+
+      //std::cout<< "El msg que entro es un dict"<< std::endl;
 
       uint64_t apply_at = 0;
       bool has_apply_at = false;
 
       pmt::pmt_t p_apply = pmt::dict_ref(msg, pmt::intern("apply_at"), pmt::PMT_NIL);
-      if (pmt::is_integer(p_apply)) {
+      if (pmt::is_uint64(p_apply)) {
         apply_at = pmt::to_uint64(p_apply);
         has_apply_at = true;
+        //std::cout<< "Llego msg y hay datos"<< std::endl;
       }
 
       float g = gain_from_dict(msg);
@@ -108,6 +124,10 @@ namespace gr {
       {
         boost::lock_guard<boost::mutex> lk(d_mtx);
         d_queue.push_back(ev);
+        /*const auto& last = d_queue.back();
+        std::cout << "apply_at=" << last.apply_at
+              << "  gain=" << last.gain << "\n";
+              */
       }
     }
 
@@ -125,7 +145,7 @@ namespace gr {
 
       // 1) copiar entrada→salida luego vamos machacando por tramos
       // (podríamos ir directo pero así queda más claro)
-      std::memcpy(out, in, sizeof(gr_complex) * noutput_items);
+      //std::memcpy(out, in, sizeof(gr_complex) * noutput_items);
 
       // 2) recolectar cambios pendientes desde mensajes que caen en esta ventana
       std::vector<pending_change> local_changes;
@@ -138,13 +158,16 @@ namespace gr {
           const pending_change &ev = d_queue.front();
           if (ev.apply_at == 0 || ev.apply_at < base) {
             // aplicar ya
+            //std::cout<< "Msg antes del rango"<< std::endl;
             d_current_gain = ev.gain;
             d_queue.pop_front();
           } else if (ev.apply_at >= base && ev.apply_at < end_abs) {
             // este sí cae dentro de la ventana
+            //std::cout<< "Msg dentro del rango"<< std::endl;
             local_changes.push_back(ev);
             d_queue.pop_front();
           } else {
+            //std::cout<< "Msg despues del rango"<< std::endl;
             // este y los que siguen son del futuro, dejamos de mirar
             break;
           }
@@ -156,6 +179,7 @@ namespace gr {
       get_tags_in_range(tags, 0, base, end_abs, d_k_apply);
 
       for (size_t i = 0; i < tags.size(); ++i) {
+        //std::cout<< "Vio algun tag"<< std::endl;
         const tag_t &tg = tags[i];
         // offset absoluto del tag
         const uint64_t toff = tg.offset;
@@ -166,8 +190,10 @@ namespace gr {
         float g = 1.0f;
         if (pmt::is_dict(tg.value)) {
           g = gain_from_dict(tg.value);
+          //std::cout<< "El tag es un dict y la ganancia es"<< g << std::endl;
         } else if (pmt::is_symbol(tg.value)) {
           g = gain_from_mcs(pmt::symbol_to_string(tg.value));
+          //std::cout<< "El tag es un symbol y la ganancia es"<< g << std::endl;
         }
 
         pending_change ev;

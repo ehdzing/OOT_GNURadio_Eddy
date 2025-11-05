@@ -69,28 +69,40 @@ namespace gr {
         return pmt::PMT_NIL;;
 
       const std::string s = pmt::symbol_to_string(cqi);
-      if (s == "cqi_high")
+      if (s == "cqi_high"){
+        //std::cout<< "Selecciona mcs_64qam"<< std::endl;
         return pmt::intern("mcs_64qam");
-      if (s == "cqi_med")
+      }
+      if (s == "cqi_med"){
+        //std::cout<< "Selecciona mcs_16qam"<< std::endl;
         return pmt::intern("mcs_16qam");
-      if (s == "cqi_low")
+      }
+      if (s == "cqi_low"){
+        //std::cout<< "Selecciona mcs_qpsk"<< std::endl;
         return pmt::intern("mcs_qpsk");
+      }
 
+      //std::cout<< "Selecciona tipo de mcs pmt::PMT_NIL"<< std::endl;
       // cqi desconocido → no emitir
       return pmt::PMT_NIL;
     }
 
     void
     scheduler_ctrl_impl::on_cqi(pmt::pmt_t msg) noexcept
-    {
+    { 
+      //std::cout<< "Scheduler recibio un msg"<< std::endl;
       if (!pmt::is_dict(msg))
         return;
+
+      //std::cout<< "ES un dict"<< std::endl;
 
       pmt::pmt_t cqi      = pmt::dict_ref(msg, pmt::intern("cqi"), pmt::PMT_NIL);
       pmt::pmt_t slot_abs = pmt::dict_ref(msg, pmt::intern("slot_abs"), pmt::PMT_NIL);
 
-      if (!pmt::is_integer(slot_abs))
+      if (!pmt::is_uint64(slot_abs))
         return;
+
+      //std::cout<< "El slot_abs es un uint64"<< std::endl;
 
       // decidir MCS
       pmt::pmt_t mcs = select_mcs(cqi);
@@ -98,7 +110,7 @@ namespace gr {
         // no hay MCS válido, no molestamos al TX
         return;
       }
-      
+
       const uint64_t slot_val = pmt::to_uint64(slot_abs);
       
       //int sps_local;
@@ -119,6 +131,7 @@ namespace gr {
       out = pmt::dict_add(out, pmt::intern("cqi"), cqi);
 
       message_port_pub(pmt::mp("tx_ctrl"), out);
+      //std::cout<< "Envia el sms por el puerto de salida"<< std::endl;
     }
     
     int

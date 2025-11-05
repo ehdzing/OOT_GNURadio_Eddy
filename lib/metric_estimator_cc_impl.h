@@ -48,6 +48,7 @@ namespace gr {
   
       void set_thresholds(double thr_low, double thr_high) noexcept override;
       void set_samples_per_slot(int samples_per_slot) noexcept override;
+      pmt::pmt_t select_mcs(pmt::pmt_t cqi) const noexcept;
   
       // Where all the action really happens
       int work(int noutput_items,
