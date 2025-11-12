@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<block>
+  <name>Timed Burst Tagger (cc)</name>
+  <key>howto_timed_burst_tagger_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.timed_burst_tagger_cc(${rate}, ${burst_len_s}, ${period_s}, ${offsets_s}, ${amplitude}, ${t0_hw}, ${eob_en})</make>
+
+  <!-- Callbacks (sin envoltura <callbacks>) -->
+  <callback>set_rate(${rate})</callback>
+  <callback>set_burst_len(${burst_len_s})</callback>
+  <callback>set_period(${period_s})</callback>
+  <callback>set_offsets(${offsets_s})</callback>
+  <callback>set_amplitude(${amplitude})</callback>
+  <callback>set_t0_hw(${t0_hw})</callback>
+  <callback>set_eob_en(${eob_en})</callback>
+  <callback>set_drop_outside(${drop_outside})</callback>
+
+  <!-- Parameters -->
+  <param>
+    <name>Sample rate (S/s)</name>
+    <key>rate</key>
+    <value>1e6</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Burst length (s)</name>
+    <key>burst_len_s</key>
+    <value>0.020</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Period (s)</name>
+    <key>period_s</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Offsets within period (CSV, s)</name>
+    <key>offsets_s</key>
+     <value>[0.0, 0.05, 0.1]</value>
+    <type>float_vector</type>
+  </param>
+
+  <param>
+    <name>Amplitude</name>
+    <key>amplitude</key>
+    <value>1.0</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>t0 hardware time (s)</name>
+    <key>t0_hw</key>
+    <value>0.400</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Enable EOB</name>
+    <key>eob_en</key>
+    <value>True</value>
+    <type>bool</type>
+  </param>
+
+  <param>
+    <name>Drop outside windows</name>
+    <key>drop_outside</key>
+    <value>True</value>
+    <type>bool</type>
+  </param>
+
+  <!-- Ports (GRC 3.7 usa sink/source, no input/output) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <doc>
+Forwards a complex input stream into timed bursts and stamps UHD tags:
+
+- tx_time at the first sample of each burst (tuple (uint64 secs, double frac))
+- tx_sob at the first sample
+- tx_eob at the last sample (if enabled)
+
+Modes:
+- drop_outside = False: do not consume outside windows (coordinated MAC–PHY)
+- drop_outside = True: drain upstream when idle to avoid backpressure
+
+Notes:
+1) t0_hw should be in the future relative to device time (e.g., now + 0.3 s on USB).
+2) Place immediately before uhd_usrp_sink.
+3) Each burst sends exactly burst_len_s * rate samples.
+  </doc>
+</block>

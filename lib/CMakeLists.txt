@@ -24,8 +24,12 @@ include(GrPlatform) #define LIB_SUFFIX
 
 find_package(Gnuradio REQUIRED COMPONENTS runtime filter blocks fft) #lo anhadi, busca los componentes de gnuradio y en las lineas de abajo los incluyo, ahi los boost de c++ viene incluidos ya de dentro de gnuradio, por eso mas abajo los comente, seria redundadnte
 
+find_package(UHD REQUIRED)  #para linkear  la libreria UHD y poder usar get_time_now() y otras funciones
+
 include_directories(${GNURADIO_ALL_INCLUDE_DIRS})   #lo anhadi, para incluir lo que busque arriba
 link_directories(${GNURADIO_ALL_LIBRARY_DIRS})       #lo anhadi, para incluir lo que busque arriba 
+
+include_directories(${UHD_INCLUDE_DIRS}) #agrega a la lista de búsqueda de headers las carpetas donde está instalado UHD.
 
 #include_directories(${Boost_INCLUDE_DIR})
 #link_directories(${Boost_LIBRARY_DIRS})
@@ -51,6 +55,7 @@ list(APPEND howto_sources
     metric_estimator_cc_impl.cc
     scheduler_ctrl_impl.cc
     sim_tx_modulator_cc_impl.cc
+    timed_burst_tagger_cc_impl.cc
 )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)
@@ -65,6 +70,8 @@ add_library(gnuradio-howto SHARED ${howto_sources})
 #target_link_libraries(gnuradio-howto ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} ${GNURADIO_FILTER_LIBRARIES})  por alguna razon aqui no esta incluyendo las librerias de filder para filtrado de gnuradio, tal ves esa variable (GNURADIO_FILTER_LIBRARIES) no este definida en GNURadio 3.7.11
 
 target_link_libraries(gnuradio-howto gnuradio-runtime gnuradio-filter gnuradio-blocks gnuradio-fft ${Boost_LIBRARIES})  #lo anhadi para que agarre los filtros de gnuradio filder
+
+target_link_libraries(gnuradio-howto ${UHD_LIBRARIES})  #indica al linker que el ejecutable o módulo gnuradio-howto debe enlazarse contra las librerías de UHD encontradas antes
 
 set_target_properties(gnuradio-howto PROPERTIES DEFINE_SYMBOL "gnuradio_howto_EXPORTS")
 

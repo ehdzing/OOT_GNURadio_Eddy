@@ -41,5 +41,6 @@ install(FILES
     metric_estimator_cc.h
     scheduler_ctrl.h
     sim_tx_modulator_cc.h
+    timed_burst_tagger_cc.h
 DESTINATION include/howto
 )

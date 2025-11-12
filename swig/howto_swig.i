@@ -26,6 +26,7 @@
 #include "howto/metric_estimator_cc.h"
 #include "howto/scheduler_ctrl.h"
 #include "howto/sim_tx_modulator_cc.h"
+#include "howto/timed_burst_tagger_cc.h"
 %}
 
 
@@ -70,3 +71,5 @@ GR_SWIG_BLOCK_MAGIC2(howto, metric_estimator_cc);
 GR_SWIG_BLOCK_MAGIC2(howto, scheduler_ctrl);
 %include "howto/sim_tx_modulator_cc.h"
 GR_SWIG_BLOCK_MAGIC2(howto, sim_tx_modulator_cc);
+%include "howto/timed_burst_tagger_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, timed_burst_tagger_cc);

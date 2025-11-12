@@ -55,3 +55,4 @@ GR_ADD_TEST(qa_dual_decimate_ff ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}
 
 GR_ADD_TEST(qa_slot_clock_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_slot_clock_cc.py)
 GR_ADD_TEST(qa_metric_estimator_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_metric_estimator_cc.py)
+GR_ADD_TEST(qa_timed_burst_tagger_cc ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/qa_timed_burst_tagger_cc.py)
