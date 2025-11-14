@@ -42,5 +42,6 @@ install(FILES
     scheduler_ctrl.h
     sim_tx_modulator_cc.h
     timed_burst_tagger_cc.h
+    burst_time_tagger_cc.h
 DESTINATION include/howto
 )

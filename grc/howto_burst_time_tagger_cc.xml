@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<block>
+  <name>Burst Time Tagger CC</name>
+  <key>howto_burst_time_tagger_cc</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+
+  <!-- Usamos la factory extendida con gap_s -->
+  <make>howto.burst_time_tagger_cc($samp_rate, $period_s, $gap_s, $burst_len, $t0_usrp, $offsets)</make>
+
+  <callback>set_samp_rate($samp_rate)</callback>
+  <callback>set_period($period_s)</callback>
+  <callback>set_gap($gap_s)</callback>
+  <callback>set_burst_len($burst_len)</callback>
+  <callback>set_t0_usrp($t0_usrp)</callback>
+  <callback>set_offsets($offsets)</callback>
+
+  <param>
+    <name>Sample rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>1e6</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Active period (s)</name>
+    <key>period_s</key>
+    <value>0.01</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Gap after period (s)</name>
+    <key>gap_s</key>
+    <value>0.0</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Burst length (samples)</name>
+    <key>burst_len</key>
+    <value>10000</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Initial USRP time (s)</name>
+    <key>t0_usrp</key>
+    <value>0.0</value>
+    <type>float</type>
+  </param>
+
+  <!-- Offsets en segundos como expresión Python (lista) -->
+  <param>
+    <name>Offsets (s)</name>
+    <key>offsets</key>
+    <value>[0.0]</value>
+    <type>raw</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>  
+
+  <doc>
+  This block adds UHD-compatible time tags to a complex stream,
+  generating one or more bursts inside a repeated pattern.
+
+  TIME MODEL:
+
+  - "Active period (s)" (period_s): duration of the region where bursts
+    are allowed (e.g. a 5G-like frame of 10 ms).
+
+  - "Gap after period (s)" (gap_s): optional silent region after the
+    active part, where no bursts are scheduled. This is useful when
+    doing spectrum sensing between frames.
+
+  - Effective repetition period is:
+        T_effective = period_s + gap_s
+
+  For each integer k = 0, 1, 2, ... (period index) and each offset o in
+  "Offsets (s)", a burst is scheduled at:
+
+        t_burst = t0_usrp + k * T_effective + o
+
+  with "Burst length (samples)" samples.
+
+  For each burst:
+    - "tx_time" and "tx_sob" are inserted at the first sample,
+    - "tx_eob" is inserted at the last sample.
+
+  "Sample rate (Hz)" is used to convert sample indices into UHD time.
+
+  SPECIAL CASE:
+    If "Offsets (s)" is an empty list, the block behaves as if it were
+    [0.0] (one burst per active period, starting at the beginning).
+
+  TYPICAL USE CASES:
+
+  1) Simple periodic burst (no gap):
+       period_s = 1e-3, gap_s = 0.0
+       offsets  = [0.0]
+       burst_len = number_of_samples_per_slot
+
+  2) 5G-like frame + silent sensing window:
+       period_s  = 10e-3        (10 ms of frame)
+       gap_s     = 5e-3         (5 ms silent gap)
+       offsets   = [0.0]        (one burst per frame)
+       burst_len = samples_in_10ms
+
+     In this case, the RF transmitter is active for 10 ms and then
+     silent for 5 ms before the next burst.
+
+  PARAMETERS:
+    - Sample rate (Hz): real USRP sampling rate.
+    - Active period (s): length of the active region where bursts live.
+    - Gap after period (s): silent time after the active region.
+    - Burst length (samples): number of samples in each burst.
+    - Initial USRP time (s): absolute UHD time of global sample index 0.
+    - Offsets (s): Python list of offsets inside each active period,
+                   in seconds (e.g. [0.0, 0.001, 0.005]).
+
+  CALLBACKS:
+    - set_samp_rate(samp_rate)
+    - set_period(period_s)
+    - set_gap(gap_s)
+    - set_burst_len(burst_len)
+    - set_t0_usrp(t0_usrp)
+    - set_offsets(offsets_s)
+
+  </doc>
+</block>
