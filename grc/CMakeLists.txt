@@ -38,5 +38,8 @@ install(FILES
     howto_sim_tx_modulator_cc.xml
     howto_timed_burst_tagger_cc.xml
     howto_burst_time_tagger_cc.xml
+    howto_slot_guard_cc.xml
+    howto_frame_gate_cc.xml
+    howto_slot_timing_monitor_cc.xml
 DESTINATION share/gnuradio/grc/blocks
 )

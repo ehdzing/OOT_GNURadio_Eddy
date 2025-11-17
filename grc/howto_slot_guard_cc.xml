@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<block>
+  <name>Slot Guard CC</name>
+  <key>howto_slot_guard_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.slot_guard_cc(${sample_rate}, ${numerology_id}, ${samples_per_slot},
+                           ${use_pps},
+                           ${offset_thr_pass_s}, ${jitter_thr_pass_s},
+                           ${offset_thr_dont_s}, ${jitter_thr_dont_s},
+                           ${hysteresis_slots},
+                           ${dtx_consumes_input},
+                           ${allow_dont_consume},
+                           ${guard_initial_s},
+                           ${lead_s})</make>
+
+  <!-- Callbacks for runtime reconfiguration -->
+  <callback>set_sample_rate(${sample_rate})</callback>
+  <callback>set_numerology_id(${numerology_id})</callback>
+  <callback>set_samples_per_slot(${samples_per_slot})</callback>
+  <callback>set_use_pps(${use_pps})</callback>
+
+  <callback>set_offset_thr_pass(${offset_thr_pass_s})</callback>
+  <callback>set_jitter_thr_pass(${jitter_thr_pass_s})</callback>
+  <callback>set_offset_thr_dont(${offset_thr_dont_s})</callback>
+  <callback>set_jitter_thr_dont(${jitter_thr_dont_s})</callback>
+
+  <callback>set_hysteresis_slots(${hysteresis_slots})</callback>
+  <callback>set_dtx_consumes_input(${dtx_consumes_input})</callback>
+  <callback>set_allow_dont_consume(${allow_dont_consume})</callback>
+
+  <!-- MOD: callbacks for guard / lead -->
+  <callback>set_guard_initial(${guard_initial_s})</callback>
+  <callback>set_lead(${lead_s})</callback>
+
+  <!-- Parameters -->
+  <param>
+    <name>Sample rate (S/s)</name>
+    <key>sample_rate</key>
+    <value>3.072e7</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Numerology id (0..5)</name>
+    <key>numerology_id</key>
+    <value>0</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Samples per slot (0=auto)</name>
+    <key>samples_per_slot</key>
+    <value>30720</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Use PPS</name>
+    <key>use_pps</key>
+    <value>False</value>
+    <type>bool</type>
+  </param>
+
+  <!-- PASS thresholds -->
+  <param>
+    <name>Offset PASS thr (s)</name>
+    <key>offset_thr_pass_s</key>
+    <value>1e-4</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Jitter PASS thr (s)</name>
+    <key>jitter_thr_pass_s</key>
+    <value>5e-5</value>
+    <type>float</type>
+  </param>
+
+  <!-- DONT_CONSUME thresholds -->
+  <param>
+    <name>Offset DONT thr (s)</name>
+    <key>offset_thr_dont_s</key>
+    <value>7e-4</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Jitter DONT thr (s)</name>
+    <key>jitter_thr_dont_s</key>
+    <value>3e-4</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Hysteresis slots</name>
+    <key>hysteresis_slots</key>
+    <value>2</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>DTX consumes input</name>
+    <key>dtx_consumes_input</key>
+    <value>True</value>
+    <type>bool</type>
+  </param>
+
+  <param>
+    <name>Allow DONT_CONSUME (host leads)</name>
+    <key>allow_dont_consume</key>
+    <value>False</value>
+    <type>bool</type>
+  </param>
+
+  <!-- MOD: guard / lead parameters -->
+  <param>
+    <name>Guard initial (s)</name>
+    <key>guard_initial_s</key>
+    <value>0.5</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Lead ahead (s)</name>
+    <key>lead_s</key>
+    <value>0.02</value>
+    <type>float</type>
+  </param>
+
+  <!-- Stream ports -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <!-- Message port for stats -->
+  <source>
+    <name>stats</name>
+    <type>message</type>
+  </source>
+
+  <!-- MOD: control message port towards burst_time_tagger_cc -->
+  <source>
+    <name>ctrl</name>
+    <type>message</type>
+  </source>
+
+  <doc>
+  Slot-level guard for USRP/host time drift. The block:
+
+  - splits the stream into slots of "Samples per slot",
+  - reads host time and USRP time once per slot,
+  - computes a sliding-window jitter on the offset,
+  - decides per slot among:
+      PASS, DTX_ZEROS, DONT_CONSUME
+
+  using two sets of thresholds:
+
+  1) PASS region:
+    - |offset_s| &lt; Offset PASS thr (s)
+    - jitter_s  &lt; Jitter PASS thr (s)
+    =&gt; slot is passed as-is.
+
+  2) DONT_CONSUME region (severe drift):
+    - |offset_s| &gt;= Offset DONT thr (s)  OR
+    - jitter_s  &gt;= Jitter DONT thr (s)
+    AND host is ahead (offset_s &lt; -Offset DONT thr)
+    AND "Allow DONT_CONSUME (host leads)" is True
+    =&gt; slot enters DONT_CONSUME: the block does not
+        consume input nor produce output, creating backpressure
+        so that upstream timing can re-align.
+
+  3) Intermediate region:
+    - outside PASS but not severe enough for DONT_CONSUME
+    =&gt; DTX_ZEROS: the block emits zeros for the slot. If
+        "DTX consumes input" is True, input is also consumed.
+
+  Hysteresis:
+    "Hysteresis slots" controls how many slots in the same
+    direction are required to consolidate a change of decision,
+    avoiding fast flapping between states.
+
+  CONTROL PORT "ctrl" (MOD):
+
+    At initialization, and whenever "Guard initial (s)" or
+    "Lead ahead (s)" are changed via callbacks, the block
+    publishes a PMT dict on port "ctrl":
+
+      {
+        "t0_usrp":  usrp_now + Guard initial (s),
+        "lead_s":   Lead ahead (s)
+      }
+
+    This dict is intended to be connected to the "ctrl" port
+    of the burst_time_tagger_cc block, so that the time tags
+    (tx_time, tx_sob, tx_eob) are scheduled sufficiently in
+    the future with respect to the real USRP clock, taking
+    into account the host/USRP drift and the guard you choose.
+
+  The "stats" message port publishes, once per slot, a PMT dict:
+
+    {
+      "slot_idx":   integer slot index inside the work call,
+      "offset_s":   last measured offset (usrp - host),
+      "jitter_s":   sliding-window jitter of the offset,
+      "decision":   0=PASS, 1=DTX_ZEROS, 2=DONT_CONSUME,
+      "host_s":     host time (seconds),
+      "usrp_s":     USRP time (seconds)
+    }
+
+  </doc>
+</block>

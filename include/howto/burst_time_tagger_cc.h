@@ -50,12 +50,17 @@ namespace gr {
      *
      * For each period k (k = 0, 1, 2, ...), and each offset o in offsets_s,
      * a burst starts at:
-     *     t = t0_usrp + k*T_effective + o
+     *     t = t0_usrp + k*T_effective + o (+ lead_s)
      *
      * Special case:
      *   - If offsets_s is empty, the block behaves as:
      *       offsets_s = [0.0]
      *     i.e. one burst per active period starting at the beginning.
+     *
+     * Runtime control:
+     *   - A message port "ctrl" accepts a PMT dict with keys:
+     *       "t0_usrp" : double (absolute UHD time in seconds)
+     *       "lead_s"  : double (additional lead time in seconds)
      */
     class HOWTO_API burst_time_tagger_cc : public virtual gr::sync_block
     {
@@ -102,6 +107,9 @@ namespace gr {
       virtual void set_t0_usrp(double t0_usrp) = 0;
       virtual void set_offsets(const std::vector<double> &offsets_s) = 0;
 
+      // MOD: runtime setter for per-burst lead time
+      virtual void set_lead(double lead_s) = 0;
+
       // Runtime getters (for external inspection / MAC control logic)
       virtual double get_samp_rate() const = 0;
       virtual double get_period() const = 0;   //!< active part of the period
@@ -109,6 +117,9 @@ namespace gr {
       virtual int    get_burst_len() const = 0;
       virtual double get_t0_usrp() const = 0;
       virtual std::vector<double> get_offsets() const = 0;
+
+      // MOD: getter for lead time
+      virtual double get_lead() const = 0;
     };
 
   } // namespace howto

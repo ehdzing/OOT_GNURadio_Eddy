@@ -28,6 +28,9 @@
 #include "howto/sim_tx_modulator_cc.h"
 #include "howto/timed_burst_tagger_cc.h"
 #include "howto/burst_time_tagger_cc.h"
+#include "howto/slot_guard_cc.h"
+#include "howto/frame_gate_cc.h"
+#include "howto/slot_timing_monitor_cc.h"
 %}
 
 
@@ -76,3 +79,9 @@ GR_SWIG_BLOCK_MAGIC2(howto, sim_tx_modulator_cc);
 GR_SWIG_BLOCK_MAGIC2(howto, timed_burst_tagger_cc);
 %include "howto/burst_time_tagger_cc.h"
 GR_SWIG_BLOCK_MAGIC2(howto, burst_time_tagger_cc);
+%include "howto/slot_guard_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, slot_guard_cc);
+%include "howto/frame_gate_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, frame_gate_cc);
+%include "howto/slot_timing_monitor_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, slot_timing_monitor_cc);

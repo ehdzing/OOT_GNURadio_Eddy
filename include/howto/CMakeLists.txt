@@ -43,5 +43,8 @@ install(FILES
     sim_tx_modulator_cc.h
     timed_burst_tagger_cc.h
     burst_time_tagger_cc.h
+    slot_guard_cc.h
+    frame_gate_cc.h
+    slot_timing_monitor_cc.h
 DESTINATION include/howto
 )

@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<block>
+  <name>Frame Gate CC</name>
+  <key>howto_frame_gate_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.frame_gate_cc(${samp_rate}, ${period_s}, ${gap_s},
+                           ${burst_len}, ${t0_usrp})</make>
+
+  <callback>set_samp_rate(${samp_rate})</callback>
+  <callback>set_period(${period_s})</callback>
+  <callback>set_gap(${gap_s})</callback>
+  <callback>set_burst_len(${burst_len})</callback>
+  <callback>set_t0_usrp(${t0_usrp})</callback>
+
+  <param>
+    <name>Sample rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>3.072e7</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Active period (s)</name>
+    <key>period_s</key>
+    <value>0.01</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Gap after period (s)</name>
+    <key>gap_s</key>
+    <value>0.005</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Burst length (samples)</name>
+    <key>burst_len</key>
+    <value>307200</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Initial USRP time (s)</name>
+    <key>t0_usrp</key>
+    <value>0.0025</value>
+    <type>float</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <doc>
+  Periodic frame gate for 5G-like frames.
+
+  This block uses a simple time model aligned with UHD:
+
+    - "Sample rate (Hz)" (samp_rate)
+    - "Active period (s)" (period_s): duration of the active frame
+      where the RF transmitter is allowed to be "on",
+      e.g. 10 ms.
+    - "Gap after period (s)" (gap_s): silent interval after the
+      active frame, e.g. 5 ms for spectrum sensing.
+    - Effective period:
+          T_eff = period_s + gap_s
+    - "Initial USRP time (s)" (t0_usrp): absolute time in seconds
+      corresponding to global sample index 0.
+
+  For each integer frame index k = 0,1,2,...:
+
+    - Frame start:        t_k = t0_usrp + k * T_eff
+    - Active region:      [t_k, t_k + period_s)
+    - Gap region:         [t_k + period_s, t_k + T_eff)
+
+  Given global sample index n, the block computes:
+
+    t = t0_usrp + n / samp_rate
+
+  If t lies inside the active region, the block passes the input
+  sample to the output. If t lies inside the gap region, the block
+  emits 0+0j (DTX). Input is always consumed, so samples that
+  would fall in the gap are deliberately discarded, as in a real
+  MAC that does not schedule those intervals.
+
+  If "Burst length (samples)" is set to a positive value, it is
+  kept as a reference for the active part. If set to &lt;= 0, the
+  block derives it as:
+
+    burst_len = round(period_s * samp_rate)
+
+  Typical configuration for a 10 ms TX + 5 ms gap at 30.72 Msps:
+
+    - Sample rate (Hz)        = 30.72e6
+    - Active period (s)       = 0.01
+    - Gap after period (s)    = 0.005
+    - Burst length (samples)  = 307200
+    - Initial USRP time (s)   = 0.0025
+
+  This block does NOT insert UHD tags. It only shapes the baseband
+  by gating the IQ stream:
+
+    - Active region:  passes the original signal.
+    - Gap region:     replaces it with zeros.
+
+  To align RF timing, combine it with a burst-time tagger block
+  that inserts tx_time / tx_sob / tx_eob tags using the same
+  (samp_rate, period_s, gap_s, t0_usrp).
+  </doc>
+</block>

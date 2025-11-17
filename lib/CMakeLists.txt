@@ -57,6 +57,9 @@ list(APPEND howto_sources
     sim_tx_modulator_cc_impl.cc
     timed_burst_tagger_cc_impl.cc
     burst_time_tagger_cc_impl.cc
+    slot_guard_cc_impl.cc
+    frame_gate_cc_impl.cc
+    slot_timing_monitor_cc_impl.cc
 )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)

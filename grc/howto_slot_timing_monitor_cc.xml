@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<block>
+  <name>Slot Timing Monitor (CC)</name>
+  <key>howto_slot_timing_monitor_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.slot_timing_monitor_cc(${samp_rate}, ${t0}, ${period_s}, ${threshold}, ${dt_window_len})</make>
+
+
+  <!-- Callbacks a nivel de bloque, estilo GNU Radio 3.7.11 -->
+  <callback>set_samp_rate(${samp_rate})</callback>
+  <callback>set_t0(${t0})</callback>
+  <callback>set_period_s(${period_s})</callback>
+  <callback>set_threshold(${threshold})</callback>
+  <callback>set_dt_window_len(${dt_window_len})</callback>
+  
+  <!-- Parámetros: seguir DTD 3.7.11: name, key, value, type -->
+  <param>
+    <name>Sample rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>30.72e6</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>First burst time t0 (s)</name>
+    <key>t0</key>
+    <value>0.0</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>Burst period (s)</name>
+    <key>period_s</key>
+    <value>0.010</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>Power threshold</name>
+    <key>threshold</key>
+    <value>0.01</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>D(k) window length</name>
+    <key>dt_window_len</key>
+    <value>16</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <doc>
+Slot timing monitor for 5G-like burst experiments.
+
+This block:
+
+  - Takes a complex baseband stream at the receiver side.
+  - Passes it to the output unchanged (pass-through).
+  - Reads the first rx_time tag from the UHD USRP Source in order
+    to anchor the sample index to an absolute UHD time.
+  - Detects burst starts by looking for rising edges of |x[n]|^2
+    above a configurable power threshold.
+  - For each detected burst start, it:
+      1) computes the absolute burst time t_burst (seconds),
+      2) estimates the burst index k as the nearest integer to:
+           k ≈ (t_burst - t0) / period_s,
+      3) computes the ideal burst time:
+           T_tx(k) = t0 + k * period_s,
+      4) computes the timing error:
+           D_k = t_burst - T_tx(k),
+      5) keeps a sliding window of recent D_k values and estimates
+         jitter as the standard deviation of D_k.
+
+The block prints one log line per detected burst:
+
+  [slot_timing_monitor_cc] burst k=K t_burst=... dt=... jitter=... (N=...)
+
+It also exposes two accessors (for use from external C++/Python code):
+
+  - last_offset_s() : last timing error D_k in seconds.
+  - last_jitter_s() : estimated jitter (seconds) over the current window.
+
+Parameters:
+
+  - Sample rate (Hz) [samp_rate]:
+      Sampling rate of the complex stream. Must match the UHD source
+      (e.g. 30.72e6 for 5G-like numerology).
+
+  - First burst time t0 (s) [t0]:
+      Expected absolute UHD time of the first transmitted burst.
+      This should match the tx_time used at the transmitter for
+      the first burst, e.g.:
+        tx_time = {T0_integer, T0_fraction}
+      then:
+        t0 = T0_integer + T0_fraction.
+
+  - Burst period (s) [period_s]:
+      Time between bursts. For example:
+        10 ms burst + 5 ms gap  => period_s = 0.015
+        10 ms burst every 10 ms => period_s = 0.010
+
+  - Power threshold [threshold]:
+      Threshold applied to |x[n]|^2. When the power crosses from
+      below to above this value, a new burst start is detected.
+      Choose a value above noise level and below your burst power.
+
+  - D(k) window length [dt_window_len]:
+      Number of recent timing error samples D_k kept in a sliding
+      window for jitter estimation. Larger window = smoother jitter
+      but slower reaction.
+
+Runtime configuration:
+
+  All parameters can be modified at runtime from GNU Radio Companion
+  via callbacks (see below).
+
+Usage in a 5G-like SDR experiment:
+
+  1) On the transmitter:
+       - Schedule bursts using tx_time with a fixed grid:
+            T_tx(k) = t0 + k * period_s
+         for k = 0, 1, 2, ...
+       - Use 10 ms bursts and 5 ms of silence if you want to
+         emulate frame-based spectral sensing.
+
+  2) On the receiver:
+       - Use UHD: USRP Source and connect it to this block.
+       - Ensure that both TX and RX share the same UHD time
+         domain (same 10 MHz and PPS if using multiple USRPs).
+       - Place this block early in the RX chain, so that the
+         power threshold still sees a clear burst structure.
+
+  3) Monitor the log outputs and the last_offset_s()/last_jitter_s()
+     values to evaluate:
+       - how stable the burst-to-burst timing is,
+       - the mean offset between RX bursts and the ideal grid,
+       - the timing jitter across bursts.
+
+This block is intended as an analysis tool to verify that a
+USRP-based 5G-like burst transmission is correctly aligned in
+time at the receiver, using the same UHD time reference as
+tx_time and rx_time.
+  </doc>
+
+</block>

@@ -1,5 +1,5 @@
 /* -*- c++ -*- */
-/* ... misma cabecera ... */
+/* ... same header comment ... */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -11,6 +11,8 @@
 #include <cstring>
 #include <cmath>
 #include <algorithm>
+// MOD: for message handler binding
+#include <boost/bind.hpp>
 
 #include "burst_time_tagger_cc_impl.h"
 
@@ -72,6 +74,8 @@ namespace gr {
         d_offsets_s(offsets_s),
         d_period_samps(0),
         d_offsets_samps(),
+        // MOD: initialize lead time
+        d_lead_s(0.0),
         d_sample_idx(0)
     {
       if(d_samp_rate <= 0.0)
@@ -94,6 +98,12 @@ namespace gr {
       }
 
       set_output_multiple(d_burst_len);
+
+      // MOD: register control message port ("ctrl") for t0_usrp / lead_s config
+      message_port_register_in(pmt::mp("ctrl"));
+      set_msg_handler(pmt::mp("ctrl"),
+                      boost::bind(&burst_time_tagger_cc_impl::handle_ctrl_msg,
+                                  this, _1));
     }
 
     burst_time_tagger_cc_impl::~burst_time_tagger_cc_impl()
@@ -128,6 +138,38 @@ namespace gr {
       if(d_offsets_samps.empty()) {
         d_offsets_samps.push_back(0);
       }
+    }
+
+    // ===== Control message handler (MOD) =====
+    void
+    burst_time_tagger_cc_impl::handle_ctrl_msg(const pmt::pmt_t& msg)
+    { 
+      // Expect a dict with keys "t0_usrp" and/or "lead_s"
+      if(!pmt::is_dict(msg)) {
+        return;
+      }
+
+      const pmt::pmt_t key_t0   = pmt::intern("t0_usrp");
+      const pmt::pmt_t key_lead = pmt::intern("lead_s");
+
+      if(pmt::dict_has_key(msg, key_t0)) {
+        pmt::pmt_t v = pmt::dict_ref(msg, key_t0, pmt::PMT_NIL);
+        if(pmt::is_number(v)) {
+          double t0 = pmt::to_double(v);
+          set_t0_usrp(t0);
+        }
+      }
+
+      if(pmt::dict_has_key(msg, key_lead)) {
+        pmt::pmt_t v = pmt::dict_ref(msg, key_lead, pmt::PMT_NIL);
+        if(pmt::is_number(v)) {
+          double lead = pmt::to_double(v);
+          set_lead(lead);
+        }
+      }
+
+      std::cout << "LLEGO EL SMS E IMPRIMI [burst] t0_usrp=" << d_t0_usrp << " lead_s=" << d_lead_s << std::endl;
+
     }
 
     // ===== Setters =====
@@ -190,6 +232,14 @@ namespace gr {
       recompute_period_and_offsets_nolock();
     }
 
+    void
+    burst_time_tagger_cc_impl::set_lead(double lead_s)
+    {
+      // MOD: runtime lead setter
+      boost::mutex::scoped_lock lock(d_mutex);
+      d_lead_s = (lead_s >= 0.0) ? lead_s : 0.0;
+    }
+
     // ===== Getters =====
 
     double
@@ -234,6 +284,13 @@ namespace gr {
       return d_offsets_s;
     }
 
+    double
+    burst_time_tagger_cc_impl::get_lead() const
+    {
+      boost::mutex::scoped_lock lock(d_mutex);
+      return d_lead_s;
+    }
+
     // ===== work() =====
 
     int
@@ -252,6 +309,7 @@ namespace gr {
       double    t0_usrp;
       long long period_samps;
       std::vector<long long> offsets_samps;
+      double    lead_s;      // MOD: snapshot lead
 
       {
         boost::mutex::scoped_lock lock(d_mutex);
@@ -262,6 +320,7 @@ namespace gr {
         t0_usrp       = d_t0_usrp;
         period_samps  = d_period_samps;
         offsets_samps = d_offsets_samps;
+        lead_s        = d_lead_s;   // MOD
       }
 
       (void)period_s;
@@ -319,7 +378,11 @@ namespace gr {
           if(burst_start >= block_start && burst_start <= block_end) {
             const int sob_offset = static_cast<int>(burst_start - block_start);
 
-            const double t_burst = t0_usrp + static_cast<double>(burst_start) / samp_rate;
+            // MOD: add lead_s into tx_time calculation
+            const double t_burst = t0_usrp
+                                 + static_cast<double>(burst_start) / samp_rate
+                                 + lead_s;
+
             const long long full_sec = static_cast<long long>(std::floor(t_burst));
             const double frac_sec    = t_burst - static_cast<double>(full_sec);
 
