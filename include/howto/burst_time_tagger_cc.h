@@ -30,7 +30,8 @@ namespace gr {
      *   - an optional silent gap between periods (gap_s >= 0),
      *   - a list of offsets (offsets_s) inside each *active* period,
      *   - burst length in samples (burst_len),
-     *   - USRP time reference t0_usrp.
+     *   - USRP time reference t0_usrp,
+     *   - additional lead time per burst (lead_s).
      *
      * Effective repetition period is:
      *   T_effective = period_s + gap_s
@@ -45,7 +46,8 @@ namespace gr {
      *     i.e. one burst per active period starting at the beginning.
      *
      * Runtime control:
-     *   - A message port "ctrl" accepts a PMT dict with keys:
+     *   - A message port "ctrl" (optional, currently commented in impl) can
+     *     accept a PMT dict with keys:
      *       "t0_usrp" : double (absolute UHD time in seconds)
      *       "lead_s"  : double (additional lead time in seconds)
      */
@@ -55,36 +57,23 @@ namespace gr {
       typedef boost::shared_ptr<burst_time_tagger_cc> sptr;
 
       /*!
-       * Legacy factory:
-       * \param samp_rate   sample rate in Hz.
-       * \param period_s    active part of the period in seconds.
-       * \param burst_len   number of samples per burst.
-       * \param t0_usrp     USRP absolute time at sample index 0 (seconds).
-       * \param offsets_s   list of offsets inside each active period (in seconds).
-       * \note gap_s is assumed to be 0.0.
-       */
-      static sptr make(double samp_rate,
-                       double period_s,
-                       int    burst_len,
-                       double t0_usrp,
-                       const std::vector<double> &offsets_s);
-
-      /*!
-       * Extended factory with explicit gap between periods.
+       * Single factory with all parameters explicit.
        *
        * \param samp_rate   sample rate in Hz.
-       * \param period_s    active part of the period in seconds (e.g. frame length).
+       * \param period_s    active part of the period in seconds.
        * \param gap_s       silent gap after the active part (seconds). Must be >= 0.
        * \param burst_len   number of samples per burst.
        * \param t0_usrp     USRP absolute time at sample index 0 (seconds).
        * \param offsets_s   list of offsets inside each active period (in seconds).
+       * \param lead_s      additional lead added to tx_time (seconds, can be 0).
        */
       static sptr make(double samp_rate,
                        double period_s,
                        double gap_s,
                        int    burst_len,
                        double t0_usrp,
-                       const std::vector<double> &offsets_s);
+                       const std::vector<double> &offsets_s,
+                       double lead_s);
 
       // Runtime setters
       virtual void set_samp_rate(double samp_rate) = 0;
@@ -93,8 +82,6 @@ namespace gr {
       virtual void set_burst_len(int burst_len) = 0;
       virtual void set_t0_usrp(double t0_usrp) = 0;
       virtual void set_offsets(const std::vector<double> &offsets_s) = 0;
-
-      // runtime setter for per-burst lead time
       virtual void set_lead(double lead_s) = 0;
 
       // Runtime getters

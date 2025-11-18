@@ -18,24 +18,7 @@
 namespace gr {
   namespace howto {
 
-    // ===== Factories =====
-
-    burst_time_tagger_cc::sptr
-    burst_time_tagger_cc::make(double samp_rate,
-                               double period_s,
-                               int    burst_len,
-                               double t0_usrp,
-                               const std::vector<double> &offsets_s)
-    {
-      // Legacy factory: gap_s = 0.0
-      return gnuradio::get_initial_sptr(
-          new burst_time_tagger_cc_impl(samp_rate,
-                                        period_s,
-                                        burst_len,
-                                        t0_usrp,
-                                        offsets_s,
-                                        0.0));
-    }
+    // ===== Factory única =====
 
     burst_time_tagger_cc::sptr
     burst_time_tagger_cc::make(double samp_rate,
@@ -43,25 +26,28 @@ namespace gr {
                                double gap_s,
                                int    burst_len,
                                double t0_usrp,
-                               const std::vector<double> &offsets_s)
+                               const std::vector<double> &offsets_s,
+                               double lead_s)
     {
       return gnuradio::get_initial_sptr(
           new burst_time_tagger_cc_impl(samp_rate,
                                         period_s,
+                                        gap_s,
                                         burst_len,
                                         t0_usrp,
                                         offsets_s,
-                                        gap_s));
+                                        lead_s));
     }
 
     // ===== Impl =====
 
     burst_time_tagger_cc_impl::burst_time_tagger_cc_impl(double samp_rate,
                                                          double period_s,
+                                                         double gap_s,
                                                          int    burst_len,
                                                          double t0_usrp,
                                                          const std::vector<double> &offsets_s,
-                                                         double gap_s)
+                                                         double lead_s)
       : gr::sync_block("burst_time_tagger_cc",
                        gr::io_signature::make(1, 1, sizeof(gr_complex)),
                        gr::io_signature::make(1, 1, sizeof(gr_complex))),
@@ -73,9 +59,10 @@ namespace gr {
         d_offsets_s(offsets_s),
         d_period_samps(0),
         d_offsets_samps(),
-        d_lead_s(0.0),
+        // lead_s total controlado por el usuario; solo aseguramos que no sea negativo
+        d_lead_s((lead_s >= 0.0) ? lead_s : 0.0),
         d_sample_idx(0),
-        d_ctrl_ready(false)
+        d_ctrl_ready(true)   // si quieres activar gating por mensaje, pon false y descomenta en work()
     {
       if(d_samp_rate <= 0.0)
         throw std::runtime_error("burst_time_tagger_cc: samp_rate must be > 0");
@@ -86,7 +73,6 @@ namespace gr {
       if(d_gap_s < 0.0)
         throw std::runtime_error("burst_time_tagger_cc: gap_s must be >= 0");
 
-      // If no offsets provided, default to [0.0] -> one burst per active period
       if(d_offsets_s.empty()) {
         d_offsets_s.push_back(0.0);
       }
@@ -98,7 +84,7 @@ namespace gr {
 
       set_output_multiple(d_burst_len);
 
-      // register control message port ("ctrl") for t0_usrp / lead_s config
+      // Puerto de control opcional (comentado en el manejador)
       message_port_register_in(pmt::mp("ctrl"));
       set_msg_handler(pmt::mp("ctrl"),
                       boost::bind(&burst_time_tagger_cc_impl::handle_ctrl_msg,
@@ -112,8 +98,6 @@ namespace gr {
     void
     burst_time_tagger_cc_impl::recompute_period_and_offsets_nolock()
     {
-      // d_mutex must already be locked
-
       const double effective_period_s = d_period_s + d_gap_s;
       double period_samps = effective_period_s * d_samp_rate;
 
@@ -139,11 +123,12 @@ namespace gr {
       }
     }
 
-    // ===== Control message handler =====
     void
     burst_time_tagger_cc_impl::handle_ctrl_msg(const pmt::pmt_t& msg)
     {
-      // Expect a dict with keys "t0_usrp" and/or "lead_s"
+      /*
+      // Si quieres usar mensajes de control, descomenta esto.
+
       if(!pmt::is_dict(msg)) {
         return;
       }
@@ -172,11 +157,13 @@ namespace gr {
       }
 
       if(updated) {
+        boost::mutex::scoped_lock lock(d_mutex);
         d_ctrl_ready = true;
-        std::cout << "LLEGO EL SMS E IMPRIMI [burst] t0_usrp=" << d_t0_usrp
+        std::cout << "[burst] t0_usrp=" << d_t0_usrp
                   << " lead_s=" << d_lead_s
                   << " (ctrl_ready=1)" << std::endl;
       }
+      */
     }
 
     // ===== Setters =====
@@ -218,7 +205,6 @@ namespace gr {
         return;
       boost::mutex::scoped_lock lock(d_mutex);
       d_burst_len = burst_len;
-      // period_samps and offsets_samps do not depend directly on burst_len.
     }
 
     void
@@ -307,13 +293,13 @@ namespace gr {
       const gr_complex *in  = static_cast<const gr_complex *>(input_items[0]);
       gr_complex *out       = static_cast<gr_complex *>(output_items[0]);
 
-      // Pass-through copy
+      // pass-through
       std::memcpy(out, in, noutput_items * sizeof(gr_complex));
 
       const long long block_start = d_sample_idx;
       const long long block_end   = d_sample_idx + static_cast<long long>(noutput_items) - 1;
 
-      // Snapshot parameters under mutex
+      // Snapshot parameters
       double    samp_rate;
       double    period_s;
       double    gap_s;
@@ -326,32 +312,31 @@ namespace gr {
 
       {
         boost::mutex::scoped_lock lock(d_mutex);
-        samp_rate     = d_samp_rate;
-        period_s      = d_period_s;
-        gap_s         = d_gap_s;
-        burst_len     = d_burst_len;
-        t0_usrp       = d_t0_usrp;
-        period_samps  = d_period_samps;
-        offsets_samps = d_offsets_samps;
-        lead_s        = d_lead_s;
+        samp_rate        = d_samp_rate;
+        period_s         = d_period_s;
+        gap_s            = d_gap_s;
+        burst_len        = d_burst_len;
+        t0_usrp          = d_t0_usrp;
+        period_samps     = d_period_samps;
+        offsets_samps    = d_offsets_samps;
+        lead_s           = d_lead_s;
         ctrl_ready_local = d_ctrl_ready;
       }
 
       (void)period_s;
       (void)gap_s;
 
-      // Si todavía no llegó el mensaje de control, no generar tags
-      if(!ctrl_ready_local || period_samps <= 0 || offsets_samps.empty()) {
+      // Si quisieras bloquear hasta mensaje de control, usarías esto:
+      // if(!ctrl_ready_local || period_samps <= 0 || offsets_samps.empty()) { ... }
+      if(period_samps <= 0 || offsets_samps.empty()) {
         d_sample_idx += static_cast<long long>(noutput_items);
         return noutput_items;
       }
 
-      // PMT symbols for UHD tags
       static const pmt::pmt_t key_tx_time = pmt::string_to_symbol("tx_time");
       static const pmt::pmt_t key_tx_sob  = pmt::string_to_symbol("tx_sob");
       static const pmt::pmt_t key_tx_eob  = pmt::string_to_symbol("tx_eob");
 
-      // Compute max offset (in samples) to bound the search in k
       long long max_off = 0;
       for(std::size_t i = 0; i < offsets_samps.size(); ++i) {
         if(offsets_samps[i] > max_off) {
@@ -359,7 +344,6 @@ namespace gr {
         }
       }
 
-      // Determine range of period indices that might intersect this block
       long long k_min;
       if(block_start > max_off) {
         k_min = (block_start - max_off) / period_samps;
@@ -383,11 +367,9 @@ namespace gr {
           const long long burst_start = base + offsets_samps[i];
           const long long burst_end   = burst_start + static_cast<long long>(burst_len) - 1;
 
-          // SOB inside this block?
           if(burst_start >= block_start && burst_start <= block_end) {
             const int sob_offset = static_cast<int>(burst_start - block_start);
 
-            // add lead_s into tx_time calculation
             const double t_burst = t0_usrp
                                  + static_cast<double>(burst_start) / samp_rate
                                  + lead_s;
@@ -410,7 +392,6 @@ namespace gr {
                          pmt::PMT_T);
           }
 
-          // EOB inside this block?
           if(burst_end >= block_start && burst_end <= block_end) {
             const int eob_offset = static_cast<int>(burst_end - block_start);
 
@@ -421,6 +402,8 @@ namespace gr {
           }
         }
       }
+
+      std::cout << "[burst_time_tagger_cc] lead_s=" << lead_s << std::endl;
 
       d_sample_idx += static_cast<long long>(noutput_items);
       return noutput_items;

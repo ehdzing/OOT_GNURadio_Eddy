@@ -34,21 +34,22 @@ namespace gr {
       // Internal global sample index (not under mutex, only used in work())
       long long d_sample_idx;
 
-      // === IMPORTANTE: no generar tags hasta recibir ctrl ===
+      // If you want to gate tag generation until a control message arrives
       bool d_ctrl_ready;
 
       void recompute_period_and_offsets_nolock();
 
-      // handler for control messages (t0_usrp / lead_s)
+      // handler for control messages (t0_usrp / lead_s) - currently commented
       void handle_ctrl_msg(const pmt::pmt_t& msg);
 
      public:
       burst_time_tagger_cc_impl(double samp_rate,
                                 double period_s,
+                                double gap_s,
                                 int    burst_len,
                                 double t0_usrp,
                                 const std::vector<double> &offsets_s,
-                                double gap_s = 0.0);
+                                double lead_s);
 
       ~burst_time_tagger_cc_impl() override;
 
