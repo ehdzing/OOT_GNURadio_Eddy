@@ -1,27 +1,14 @@
 /* -*- c++ -*- */
-/* 
- * Copyright 2025 <+YOU OR YOUR COMPANY+>.
- * 
- * This is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3, or (at your option)
- * any later version.
- * 
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this software; see the file COPYING.  If not, write to
- * the Free Software Foundation, Inc., 51 Franklin Street,
- * Boston, MA 02110-1301, USA.
+/*
+ * burst_time_tagger_cc.h
  */
+
 #ifndef INCLUDED_HOWTO_BURST_TIME_TAGGER_CC_H
 #define INCLUDED_HOWTO_BURST_TIME_TAGGER_CC_H
 
 #include <howto/api.h>
 #include <gnuradio/sync_block.h>
+#include <boost/shared_ptr.hpp>
 #include <vector>
 
 namespace gr {
@@ -107,18 +94,16 @@ namespace gr {
       virtual void set_t0_usrp(double t0_usrp) = 0;
       virtual void set_offsets(const std::vector<double> &offsets_s) = 0;
 
-      // MOD: runtime setter for per-burst lead time
+      // runtime setter for per-burst lead time
       virtual void set_lead(double lead_s) = 0;
 
-      // Runtime getters (for external inspection / MAC control logic)
+      // Runtime getters
       virtual double get_samp_rate() const = 0;
       virtual double get_period() const = 0;   //!< active part of the period
       virtual double get_gap() const = 0;      //!< silent gap after active part
       virtual int    get_burst_len() const = 0;
       virtual double get_t0_usrp() const = 0;
       virtual std::vector<double> get_offsets() const = 0;
-
-      // MOD: getter for lead time
       virtual double get_lead() const = 0;
     };
 

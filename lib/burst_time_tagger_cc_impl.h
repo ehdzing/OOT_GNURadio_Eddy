@@ -1,5 +1,5 @@
 /* -*- c++ -*- */
-/* 
+/*
  * burst_time_tagger_cc_impl.h
  */
 
@@ -28,15 +28,18 @@ namespace gr {
       long long              d_period_samps;    // (period_s + gap_s) * samp_rate (rounded)
       std::vector<long long> d_offsets_samps;   // offsets_s * samp_rate (rounded)
 
-      // MOD: additional per-burst lead time (seconds)
+      // additional per-burst lead time (seconds)
       double                 d_lead_s;
 
       // Internal global sample index (not under mutex, only used in work())
       long long d_sample_idx;
 
+      // === IMPORTANTE: no generar tags hasta recibir ctrl ===
+      bool d_ctrl_ready;
+
       void recompute_period_and_offsets_nolock();
 
-      // MOD: handler for control messages (t0_usrp / lead_s)
+      // handler for control messages (t0_usrp / lead_s)
       void handle_ctrl_msg(const pmt::pmt_t& msg);
 
      public:
@@ -56,7 +59,7 @@ namespace gr {
       void set_burst_len(int burst_len) override;
       void set_t0_usrp(double t0_usrp) override;
       void set_offsets(const std::vector<double> &offsets_s) override;
-      void set_lead(double lead_s) override;     // MOD
+      void set_lead(double lead_s) override;
 
       // Getters
       double get_samp_rate() const override;
@@ -65,7 +68,7 @@ namespace gr {
       int    get_burst_len() const override;
       double get_t0_usrp() const override;
       std::vector<double> get_offsets() const override;
-      double get_lead() const override;          // MOD
+      double get_lead() const override;
 
       int work(int noutput_items,
                gr_vector_const_void_star &input_items,

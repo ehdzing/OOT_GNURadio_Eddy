@@ -3,8 +3,8 @@
   <name>Burst Time Tagger CC</name>
   <key>howto_burst_time_tagger_cc</key>
   <category>[HOWTO]</category>
-  <import>import howto</import>
 
+  <import>import howto</import>
   <!-- Usamos la factory extendida con gap_s -->
   <make>howto.burst_time_tagger_cc($samp_rate, $period_s, $gap_s, $burst_len, $t0_usrp, $offsets)</make>
 
@@ -14,34 +14,33 @@
   <callback>set_burst_len($burst_len)</callback>
   <callback>set_t0_usrp($t0_usrp)</callback>
   <callback>set_offsets($offsets)</callback>
-  <!-- MOD: runtime lead -->
   <callback>set_lead($lead_s)</callback>
 
   <param>
     <name>Sample rate (Hz)</name>
     <key>samp_rate</key>
-    <value>1e6</value>
-    <type>float</type>
+    <value>30.72e6</value>
+    <type>real</type>
   </param>
 
   <param>
     <name>Active period (s)</name>
     <key>period_s</key>
     <value>0.01</value>
-    <type>float</type>
+    <type>real</type>
   </param>
 
   <param>
     <name>Gap after period (s)</name>
     <key>gap_s</key>
     <value>0.0</value>
-    <type>float</type>
+    <type>real</type>
   </param>
 
   <param>
     <name>Burst length (samples)</name>
     <key>burst_len</key>
-    <value>10000</value>
+    <value>30720</value>
     <type>int</type>
   </param>
 
@@ -49,10 +48,9 @@
     <name>Initial USRP time (s)</name>
     <key>t0_usrp</key>
     <value>0.0</value>
-    <type>float</type>
+    <type>real</type>
   </param>
 
-  <!-- Offsets en segundos como expresión Python (lista) -->
   <param>
     <name>Offsets (s)</name>
     <key>offsets</key>
@@ -60,12 +58,11 @@
     <type>raw</type>
   </param>
 
-  <!-- MOD: lead time ahead of nominal burst time -->
   <param>
     <name>Lead ahead (s)</name>
     <key>lead_s</key>
     <value>0.0</value>
-    <type>float</type>
+    <type>real</type>
   </param>
 
   <sink>
@@ -73,7 +70,6 @@
     <type>complex</type>
   </sink>
 
-    <!-- MOD: control message port (from slot_guard_cc) -->
   <sink>
     <name>ctrl</name>
     <type>message</type>
@@ -84,69 +80,80 @@
     <type>complex</type>
   </source>
 
-
   <doc>
-  This block adds UHD-compatible time tags to a complex stream,
-  generating one or more bursts inside a repeated pattern.
+Burst-based tx_time tagger for USRP experiments.
 
-  TIME MODEL:
+The block takes a complex stream and:
 
-  - "Active period (s)" (period_s): duration of the region where bursts
-    are allowed (e.g. a 5G-like frame of 10 ms).
+  - passes it to the output unchanged,
+  - periodically marks bursts of "Burst length (samples)",
+  - for each burst, adds:
+      * tx_time (UHD tuple {full_sec, frac_sec}),
+      * tx_sob at the first sample,
+      * tx_eob at the last sample.
 
-  - "Gap after period (s)" (gap_s): optional silent region after the
-    active part, where no bursts are scheduled. This is useful when
-    doing spectrum sensing between frames.
+Timing model:
 
-  - Effective repetition period is:
-        T_effective = period_s + gap_s
+  Let:
+    - samp_rate  : sample rate in Hz,
+    - period_s   : active period between bursts (seconds),
+    - gap_s      : extra gap appended after each period (seconds),
+    - offsets    : list of offsets (seconds) where each burst starts
+                   inside each active period,
+    - t0_usrp    : UHD time (seconds) of sample index 0,
+    - lead_s     : additional lead in seconds.
 
-  For each integer k = 0, 1, 2, ... (period index) and each offset o in
-  "Offsets (s)", a burst is scheduled at:
+For a burst starting at absolute sample index burst_start:
 
-        t_burst = t0_usrp + k * T_effective + o + lead_s
+  t_burst = t0_usrp + burst_start / samp_rate + lead_s
 
-  with "Burst length (samples)" samples.
+The block converts t_burst into {full_sec, frac_sec} and writes a
+tx_time tag at the beginning of the burst, together with tx_sob,
+and a tx_eob tag at the last sample.
 
-  "Sample rate (Hz)" is used to convert sample indices into UHD time.
+Control message port:
 
-  SPECIAL CASE:
-    If "Offsets (s)" is an empty list, the block behaves as if it were
-    [0.0] (one burst per active period, starting at the beginning).
+  The block has an input message port "ctrl". It expects a PMT dictionary
+  that may contain:
 
-  CONTROL PORT "ctrl" (MOD):
+    - "t0_usrp" : double (UHD time in seconds),
+    - "lead_s"  : double (lead in seconds).
 
-    The message port "ctrl" expects a PMT dict with optional keys:
+When a valid control message is received, the block updates its internal
+t0_usrp and/or lead_s and sets an internal flag so that burst tagging
+only starts after the control message is applied. Before that, the block
+acts as a pure pass-through without any tags.
 
-      - "t0_usrp": double, absolute UHD time in seconds. When present,
-                   it overrides the internal t0_usrp.
-      - "lead_s" : double, additional lead time in seconds applied to
-                   all bursts.
+Parameters:
 
-    This is typically driven by a timing/control block (e.g. slot_guard_cc)
-    which knows the real USRP vs host offset and can select a safe
-    starting time for the bursts.
+  - Sample rate (Hz) [samp_rate]:
+      Must match the USRP sink sample rate.
 
-  PARAMETERS:
-    - Sample rate (Hz): real USRP sampling rate.
-    - Active period (s): length of the active region where bursts live.
-    - Gap after period (s): silent time after the active region.
-    - Burst length (samples): number of samples in each burst.
-    - Initial USRP time (s): absolute UHD time of global sample index 0.
-    - Offsets (s): Python list of offsets inside each active period,
-                   in seconds (e.g. [0.0, 0.001, 0.005]).
-    - Lead ahead (s): extra lead added to the burst time. Can be kept
-                      at 0.0 if a control block is already pushing
-                      t0_usrp far enough into the future.
+  - Active period (s) [period_s]:
+      Duration of the active region where bursts live (e.g. 10 ms).
 
-  CALLBACKS:
-    - set_samp_rate(samp_rate)
-    - set_period(period_s)
-    - set_gap(gap_s)
-    - set_burst_len(burst_len)
-    - set_t0_usrp(t0_usrp)
-    - set_offsets(offsets_s)
-    - set_lead(lead_s)
+  - Gap after period (s) [gap_s]:
+      Extra idle time after the active part. Effective period is
+      (period_s + gap_s).
 
+  - Burst length (samples) [burst_len]:
+      Number of samples inside each burst.
+
+  - Initial USRP time (s) [t0_usrp]:
+      Initial guess for t0_usrp (seconds). This can be later refined
+      via the "ctrl" message from another block.
+
+  - Offsets (s) [offsets]:
+      Python list of offsets in seconds inside each period where each
+      burst starts. For a single burst per period, use [0.0].
+
+  - Lead ahead (s) [lead_s]:
+      Additional lead added to t_burst for tx_time tag computation.
+
+Runtime configuration:
+
+  All parameters have associated callbacks and can be updated from
+  GNU Radio Companion while the flowgraph is running.
   </doc>
+
 </block>
