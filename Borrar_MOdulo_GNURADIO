@@ -1,0 +1,25 @@
+################# BORRAR TODO DE UN MODULO (HOWTO en este caso) DE GNURADIO##############
+XML globales en /usr/local
+Mira qué hay: 
+	sudo find /usr/local/share/gnuradio/grc/blocks -name 'howto_*.xml' -print
+
+Bórralos todos (solo los howto_*.xml):
+	sudo rm /usr/local/share/gnuradio/grc/blocks/howto_*.xml
+
+
+Mira las libs y bindings viejos del módulo howto:
+	sudo find /usr/local/lib -name 'libgnuradio-howto*' -print
+
+Bórralas:
+	sudo rm /usr/local/lib/libgnuradio-howto*
+
+
+Módulos Python howto en /usr/local/lib/python*
+Mira que hay:
+	sudo find /usr/local/lib -path '*python*' -name 'howto*' -print
+
+Borralos:
+	sudo rm -rf /usr/local/lib/python2.7/dist-packages/howto*
+	sudo rm -rf /usr/local/lib/python3*/dist-packages/howto*
+
+

@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-Analizador de sincronismo TX/RX con modos de detección configurables.
+Analizador de sincronismo TX/RX con modos de detección configurables
+y filtrado de ráfagas incompletas.
 
 detection_mode:
   0 = Detección simple por umbral (rising edges).
@@ -10,9 +11,10 @@ detection_mode:
   2 = Primer edge > threshold después de un silencio largo (>= gap_min_s).
 
 Además:
-  - Selección de la cola del archivo (últimas N muestras o suficientes para M ráfagas).
+  - Selección flexible del segmento a analizar (archivo completo / últimas N muestras / últimas N ráfagas).
   - Cálculo de D_k y agrupación por ráfaga k (una muestra representativa por burst).
-  - Gráficas con trazas diezmadAS para no matar el PC.
+  - Cálculo de error e_k respecto al retardo medio.
+  - Gráficas con trazas diezmadas para no matar la CPU.
 """
 
 import numpy as np
@@ -25,8 +27,8 @@ import os
 # ==========================
 
 fs = 30.72e6            # sample rate [Hz]
-t_rx0 =  0.195769    # tiempo de referencia RX (rx_time del sample 0) [s]
-t0_tx = 0.6             # tiempo ideal de la primera ráfaga TX [s]
+t_rx0 =  0.0774739   # tiempo de referencia RX (rx_time del sample 0) [s]
+t0_tx = 0.7             # tiempo ideal de la primera ráfaga TX [s]
 T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
 
 # ==========================
@@ -43,67 +45,64 @@ detection_mode = 0
 power_threshold = 0.01
 
 # --- Modo 1: energía integrada / media móvil ---
-# Ventana de integración en segundos.
-# Cuanto mayor sea, más filtras ruido pero más "desdibujas" el borde.
-# Para 30.72 MHz, 0.1 ms = 3072 muestras, 0.2 ms = 6144 muestras.
-integration_window_s = 0.0002      # 0.2 ms, buen compromiso para coseno ON/OFF
-# El umbral se aplicará sobre la potencia integrada (media móvil).
+integration_window_s = 0.0002      # 0.2 ms
 
 # --- Modo 0 y 1: separación mínima entre detecciones ---
-# Esto evita varios edges muy juntos dentro de la misma ráfaga.
-min_separation_s = 0.003          # 3 ms >> variaciones rápidas, << 15 ms del periodo
-# Con 10 ms ON / 5 ms OFF, 3 ms asegura normalmente 1 detección por ráfaga.
-# Ajustable según lo que veas en los plots.
+min_separation_s = 0.003           # 3 ms
 
 # --- Modo 2: primer edge después de silencio largo ---
-gap_min_s = 0.005                 # silencio mínimo antes del burst (ej. 5 ms)
-# Como tu patrón es 10 ms ON + 5 ms OFF, un gap de 5 ms encaja bien:
-# ignoras cualquier basura interna y sólo aceptas el primer edge
-# después de un silencio continuo >= 5 ms.
+gap_min_s = 0.005                  # 5 ms
 
 # ==========================
-# 3) Configuración de análisis
+# 3) Configuración de análisis (segmento del archivo)
 # ==========================
 
-# Muestras a analizar:
-#   - Si manual_last_samples != None -> siempre las últimas N muestras.
-#   - Si es None -> se calculan según target_num_bursts.
-manual_last_samples = None        # p.ej. 100000 para "últimas 100k muestras"
-target_num_bursts = 200            # ráfagas objetivo a cubrir
+# segment_mode:
+#   0 = usar TODO el archivo
+#   1 = usar SIEMPRE las últimas N muestras
+#   2 = usar las últimas N ráfagas (aprox) según T_period
+segment_mode = 2
 
-max_samples_cap = 20_000_000      # límite duro de muestras a analizar
+manual_last_samples = 1_000_000    # usado solo si segment_mode == 1
+target_num_bursts   = 200          # usado solo si segment_mode == 2
+
+max_samples_cap = 20_000_000_000       # límite duro de muestras a analizar
 
 # Ventanas para superposición de ráfagas (para plots)
-pre_window_s = 1e-3               # tiempo antes del flanco de detección [s]
-post_window_s = 12e-3             # tiempo después del flanco [s]
-max_bursts_for_overlay = 20       # número máx de ráfagas a dibujar
+pre_window_s = 1e-3                # antes del flanco
+post_window_s = 12e-3              # después del flanco
+max_bursts_for_overlay = 20
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 power_filename = os.path.join(base_dir, 'power_rx.dat')
 
-#power_filename = "power_rx.dat"
-
 # ==========================
-# 4) Parámetros gráficos (diezmado para no morir)
+# 4) Parámetros gráficos
 # ==========================
 
-# Queremos como máximo ~100k puntos en cada gráfica grande
 max_points_full_plot = 100_000
-# Y unas ~2k muestras por ráfaga en la overlay
-max_points_overlay = 2000
+max_points_overlay   = 2000
 
 # ==========================
-# 5) Funciones auxiliares
+# 5) Parámetros de ráfaga / estadística
+# ==========================
+
+# Número "esperado" de edges por ráfaga (ajústalo según tu patrón)
+expected_edges_per_burst = 5
+
+# Umbral mínimo para considerar que una ráfaga es "completa" para estadística
+min_edges_for_valid_burst = 5
+
+# ¿Qué representante usar por ráfaga?
+#   False -> D_k más cercano a 0 (robusto)
+#   True  -> primera detección del k (values[0])
+use_first_edge_per_k = False
+
+# ==========================
+# 6) Funciones auxiliares
 # ==========================
 
 def decimate_for_plot(x, y, max_points):
-    """
-    Devuelve versiones diezmadAS de x, y para graficar rápido.
-    No afecta a los cálculos del detector; sólo a las figuras.
-
-    Si len(y) <= max_points -> no hace nada.
-    Si no, toma un punto cada 'step'.
-    """
     n = len(y)
     if n <= max_points:
         return x, y
@@ -112,13 +111,6 @@ def decimate_for_plot(x, y, max_points):
 
 
 def detect_edges_threshold(sig, threshold, fs, min_separation_s=None):
-    """
-    Detección simple por umbral:
-      - Encuentra flancos de subida (debajo -> encima del umbral).
-      - Opcionalmente impone una separación mínima entre detecciones.
-
-    Devuelve: array de índices de detección.
-    """
     above = sig > threshold
     raw_edges = np.where(np.logical_and(above[1:], ~above[:-1]))[0] + 1
 
@@ -136,16 +128,10 @@ def detect_edges_threshold(sig, threshold, fs, min_separation_s=None):
 
 
 def detect_edges_energy(sig, fs, threshold, win_s, min_separation_s=None):
-    """
-    Detección por energía integrada (media móvil) + umbral.
-    1) Se hace media móvil en ventana de win_s segundos.
-    2) Se busca flancos de subida de esa señal filtrada.
-    """
     win_samples = int(round(win_s * fs))
     if win_samples < 1:
         raise ValueError("integration_window_s demasiado pequeño; win_samples < 1")
 
-    # Filtro caja: convolución con vector de unos / win_samples
     kernel = np.ones(win_samples, dtype=np.float32) / float(win_samples)
     smooth = np.convolve(sig, kernel, mode='same')
 
@@ -154,39 +140,26 @@ def detect_edges_energy(sig, fs, threshold, win_s, min_separation_s=None):
 
 
 def detect_edges_after_silence(sig, fs, threshold, gap_min_s):
-    """
-    Primer edge > threshold después de un silencio largo (>= gap_min_s).
-
-    Implementación:
-      - Recorremos la señal.
-      - Contamos cuántas muestras consecutivas ha estado por debajo del umbral.
-      - Cuando vemos flanco de subida y el contador de silencio >= gap_min_samples,
-        registramos ese índice como detección.
-    """
     gap_min_samples = int(round(gap_min_s * fs))
 
     edges = []
     silence_count = 0
 
     for i in range(1, len(sig)):
-        # Actualizamos contador de silencio
         if sig[i-1] <= threshold:
             silence_count += 1
         else:
             silence_count = 0
 
-        # Flanco de subida
         if sig[i-1] <= threshold and sig[i] > threshold:
             if silence_count >= gap_min_samples:
                 edges.append(i)
-                # Después de detectar, reseteamos el silencio
-                # para no disparar varios edges dentro del mismo ON
                 silence_count = 0
 
     return np.array(edges, dtype=int)
 
 # ==========================
-# 6) Carga de datos
+# 7) Carga de datos
 # ==========================
 
 power = np.fromfile(power_filename, dtype=np.float32)
@@ -197,30 +170,44 @@ if total_samples == 0:
     raise RuntimeError("El archivo de potencia está vacío. Nada que analizar.")
 
 # ==========================
-# 7) Selección de la cola del archivo
+# 8) Selección del segmento
 # ==========================
 
 samples_per_period = int(round(T_period * fs))
 
-if manual_last_samples is not None:
-    n_analyze = min(total_samples, int(manual_last_samples))
-    reason = "manual_last_samples"
-else:
+if segment_mode == 0:
+    # Todo el archivo
+    n_analyze = min(total_samples, max_samples_cap)
+    start_index = total_samples - n_analyze
+    reason = "full_file"
+
+elif segment_mode == 1:
+    # Últimas N muestras
+    n_analyze = min(total_samples, int(manual_last_samples), max_samples_cap)
+    start_index = total_samples - n_analyze
+    reason = "last_N_samples"
+
+elif segment_mode == 2:
+    # Últimas N ráfagas (aprox)
     n_needed = target_num_bursts * samples_per_period
     n_analyze = min(total_samples, n_needed, max_samples_cap)
-    reason = "target_num_bursts"
+    start_index = total_samples - n_analyze
+    reason = "last_N_bursts"
+else:
+    raise ValueError("segment_mode inválido. Usa 0, 1 o 2.")
 
 if n_analyze <= 0:
     raise RuntimeError("n_analyze <= 0, revisa configuración.")
 
-start_index = total_samples - n_analyze
 power_seg = power[start_index:]
-
-print("Analizando", n_analyze, "muestras (modo:", reason, ", start_index =", start_index, ")")
+print("Analizando", n_analyze, "muestras (modo_segmento:", reason,
+      ", start_index =", start_index, ")")
 
 # ==========================
-# 8) Detección según detection_mode
+# 9) Detección según detection_mode
 # ==========================
+
+smooth_for_plot = None
 
 if detection_mode == 0:
     print("Modo de detección 0: simple por umbral.")
@@ -230,7 +217,6 @@ if detection_mode == 0:
         fs=fs,
         min_separation_s=min_separation_s
     )
-    smooth_for_plot = None  # no hay señal suavizada
 
 elif detection_mode == 1:
     print("Modo de detección 1: energía integrada (media móvil) + umbral.")
@@ -250,8 +236,6 @@ elif detection_mode == 2:
         threshold=power_threshold,
         gap_min_s=gap_min_s
     )
-    smooth_for_plot = None
-
 else:
     raise ValueError("detection_mode inválido. Usa 0, 1 o 2.")
 
@@ -259,7 +243,6 @@ print("Detectadas", len(edges), "ráfagas (edges) en el segmento analizado")
 
 if len(edges) == 0:
     print("No se detectaron ráfagas. Ajusta umbral o parámetros del detector.")
-    # Dibujamos sólo potencia para inspección
     t_seg = np.arange(n_analyze) / fs
     t_seg_ms = t_seg * 1e3
     t_seg_ms_d, power_seg_d = decimate_for_plot(t_seg_ms, power_seg, max_points_full_plot)
@@ -276,13 +259,13 @@ if len(edges) == 0:
     raise SystemExit
 
 # ==========================
-# 9) Cálculo de tiempos RX por edge
+# 10) Tiempos RX por edge
 # ==========================
 
 t_bursts_rx = t_rx0 + (start_index + edges) / fs
 
 # ==========================
-# 10) Cálculo de D_k por tag y agrupación por ráfaga k
+# 11) Cálculo de D_k por tag
 # ==========================
 
 D_list = []
@@ -297,51 +280,104 @@ for i, t_rx in enumerate(t_bursts_rx):
     D_list.append(D_k)
     k_list.append(k)
 
-    print("tag i={} k={} t_rx={:.9f} t_tx_ideal={:.9f} D_k={:.9e}".format(
-        i, k, t_rx, t_tx_ideal, D_k))
+    D_samples = D_k * fs
+    print("tag i={} k={} t_rx={:.9f} t_tx_ideal={:.9f} D_k={:.9e} s ({:.3f} muestras)".format(
+        i, k, t_rx, t_tx_ideal, D_k, D_samples))
 
 D = np.array(D_list)
 
-# Estadísticas globales con todas las etiquetas
 if len(D) > 0:
     D_mean_all = D.mean()
     D_std_all = D.std()
     print("\n[GLOBAL - TODAS LAS ETIQUETAS]")
-    print("Offset medio D̄_all     = {:.3e} s".format(D_mean_all))
-    print("Jitter (std) σ_all      = {:.3e} s".format(D_std_all))
+    print("Offset medio D̄_all     = {:.3e} s ({:.3f} muestras)".format(
+        D_mean_all, D_mean_all * fs))
+    print("Jitter (std) σ_all      = {:.3e} s ({:.3f} muestras)".format(
+        D_std_all, D_std_all * fs))
 
-# Agrupar por k
+# ==========================
+# 12) Agrupar por ráfaga k
+# ==========================
+
 by_k = defaultdict(list)
 for k, D_k in zip(k_list, D_list):
     by_k[k].append(D_k)
 
+print("\n[POR RÁFAGA - TODAS LAS ETIQUETAS POR k]")
+for k in sorted(by_k.keys()):
+    values = by_k[k]
+    print("k={} -> num_tags={}  D_k = {}".format(
+        k, len(values), ["{:.3e}".format(v) for v in values]))
+
+# Representante por ráfaga (y filtrado de ráfagas incompletas)
 D_burst_list = []
+k_valid_list = []
 
 print("\n[POR RÁFAGA - UNA MUESTRA REPRESENTATIVA POR k]")
 for k in sorted(by_k.keys()):
     values = by_k[k]
+    num_tags = len(values)
 
-    # ESTRATEGIA DE SELECCIÓN:
-    # Aquí seguimos usando "el D_k más cercano a cero" para robustez.
-    # Si quisieras forzar "el primero" podrías usar: D_rep = values[0]
-    D_rep = min(values, key=lambda x: abs(x))
+    # Info básica
+    print("  k={} -> num_tags={}".format(k, num_tags), end='')
+
+    # Comprobamos si la ráfaga es "completa" o no
+    if num_tags < min_edges_for_valid_burst:
+        print("  -> IGNORADA en estadísticas (burst incompleto)")
+        continue
+
+    # Elegimos representante
+    if use_first_edge_per_k:
+        D_rep = values[0]
+    else:
+        # Más cercano a 0 (robusto a outliers dentro de la ráfaga)
+        D_rep = min(values, key=lambda x: abs(x))
+
     D_burst_list.append(D_rep)
+    k_valid_list.append(k)
 
-    print("k={} -> num_tags={}  D_k_rep={:.9e} s".format(
-        k, len(values), D_rep))
+    D_rep_samples = D_rep * fs
+    print("  -> D_k_rep={:.9e} s ({:.3f} muestras)".format(D_rep, D_rep_samples))
 
 D_burst = np.array(D_burst_list)
 
-if len(D_burst) > 0:
+if len(D_burst) == 0:
+    print("\nNo quedó ninguna ráfaga válida tras el filtrado (min_edges_for_valid_burst = {}).".format(
+        min_edges_for_valid_burst))
+    # A estas alturas ya has sufrido bastante, así que no dibujo más cosas.
+else:
     D_mean_burst = D_burst.mean()
     D_std_burst = D_burst.std()
     print("\n[RESUMEN POR RÁFAGA - UNA ETIQUETA POR BURST]")
-    print("Offset medio D̄_burst   = {:.3e} s".format(D_mean_burst))
-    print("Jitter (std) σ_burst    = {:.3e} s".format(D_std_burst))
-    print("Número de ráfagas (k únicos) =", len(D_burst))
+    print("Offset medio D̄_burst   = {:.3e} s ({:.3f} muestras)".format(
+        D_mean_burst, D_mean_burst * fs))
+    print("Jitter (std) σ_burst    = {:.3e} s ({:.3f} muestras)".format(
+        D_std_burst, D_std_burst * fs))
+    print("Número de ráfagas válidas (k únicos) =", len(D_burst))
 
+    # ==========================
+    # 13) Cálculo de e_k y jitter "puro"
+    # ==========================
+
+    print("\n[ERROR POR RÁFAGA RESPECTO AL RETARDO MEDIO]")
+    e_list = []
+    for k, D_rep in zip(k_valid_list, D_burst):
+        e_k = D_rep - D_mean_burst
+        e_samples = e_k * fs
+        print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), e_k={:.9e} s ({:.3f} muestras)".format(
+            k, D_rep, D_rep * fs, e_k, e_samples))
+        e_list.append(e_k)
+
+    e = np.array(e_list)
+    e_std = e.std()
+    print("\n[RESUMEN JITTER]")
+    print("Retardo medio τ_est      = {:.3e} s ({:.3f} muestras)".format(
+        D_mean_burst, D_mean_burst * fs))
+    print("Jitter (std e_k)         = {:.3e} s ({:.3f} muestras)".format(
+        e_std, e_std * fs))
+""" 
 # ==========================
-# 11) Gráfica 1: potencia segmentada + detecciones
+# 14) Gráfica 1: potencia segmentada + detecciones
 # ==========================
 
 t_seg = np.arange(n_analyze) / fs
@@ -351,15 +387,12 @@ t_seg_ms_d, power_seg_d = decimate_for_plot(t_seg_ms, power_seg, max_points_full
 plt.figure()
 plt.plot(t_seg_ms_d, power_seg_d, label="Potencia")
 
-# Marcar edges (sin diezmar, pero son pocos)
 for idx, e in enumerate(edges):
     t_e_ms = (e / fs) * 1e3
-    # Sólo lo pintamos si cae dentro del rango diezmado
     if t_e_ms >= t_seg_ms_d[0] and t_e_ms <= t_seg_ms_d[-1]:
         label = "Detección ráfaga" if idx == 0 else None
         plt.axvline(t_e_ms, linestyle='--', linewidth=0.8, label=label)
 
-# Si en modo 1 tenemos señal suavizada, opcionalmente la ploteamos (diezmada)
 if smooth_for_plot is not None:
     _, smooth_d = decimate_for_plot(t_seg_ms, smooth_for_plot, max_points_full_plot)
     plt.plot(t_seg_ms_d, smooth_d, label="Potencia integrada (media móvil)", alpha=0.7)
@@ -373,7 +406,7 @@ plt.legend(loc="best")
 plt.tight_layout()
 
 # ==========================
-# 12) Gráfica 2: superposición de ráfagas
+# 15) Gráfica 2: superposición de ráfagas
 # ==========================
 
 pre_win_samples = int(round(pre_window_s * fs))
@@ -394,7 +427,6 @@ if len(segments) > 0:
     segments = np.array(segments)
     n_plot = min(max_bursts_for_overlay, segments.shape[0])
 
-    # Diezmamos en eje de muestras para no dibujar 400k puntos por ráfaga
     step_overlay = max(1, win_len // max_points_overlay)
     t_rel = (np.arange(0, win_len, step_overlay) - pre_win_samples) / fs * 1e3
 
@@ -415,10 +447,8 @@ else:
     print("No se pudieron construir ventanas para superposición; ajusta pre/post_window_s.")
 
 # ==========================
-# 13) Mostrar figuras
+# 16) Mostrar figuras
 # ==========================
 
-# plt.show() es BLOQUEANTE: el script no termina hasta que cierres las ventanas.
-# Eso es normal. Si quisieras que no bloquee, puedes usar plt.show(block=False),
-# pero entonces el script podría terminar antes de que veas los gráficos.
 plt.show()
+ """
