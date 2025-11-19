@@ -25,7 +25,7 @@ import os
 # ==========================
 
 fs = 30.72e6            # sample rate [Hz]
-t_rx0 = 0.20796        # tiempo de referencia RX (rx_time del sample 0) [s]
+t_rx0 =  0.195769    # tiempo de referencia RX (rx_time del sample 0) [s]
 t0_tx = 0.6             # tiempo ideal de la primera ráfaga TX [s]
 T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
 
@@ -69,7 +69,7 @@ gap_min_s = 0.005                 # silencio mínimo antes del burst (ej. 5 ms)
 #   - Si manual_last_samples != None -> siempre las últimas N muestras.
 #   - Si es None -> se calculan según target_num_bursts.
 manual_last_samples = None        # p.ej. 100000 para "últimas 100k muestras"
-target_num_bursts = 40            # ráfagas objetivo a cubrir
+target_num_bursts = 200            # ráfagas objetivo a cubrir
 
 max_samples_cap = 20_000_000      # límite duro de muestras a analizar
 

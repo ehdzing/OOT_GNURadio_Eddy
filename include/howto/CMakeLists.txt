@@ -46,5 +46,6 @@ install(FILES
     slot_guard_cc.h
     frame_gate_cc.h
     slot_timing_monitor_cc.h
+    time_tagger_cc.h
 DESTINATION include/howto
 )

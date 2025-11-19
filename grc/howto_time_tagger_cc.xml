@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <block>
-  <name>Burst Time Tagger CC</name>
-  <key>howto_burst_time_tagger_cc</key>
+  <name>Time Tagger CC</name>
+  <key>howto_time_tagger_cc</key>
   <category>[HOWTO]</category>
 
   <import>import howto</import>
 
-  <!-- Bloque con una única factory: 7 parámetros -->
-  <make>howto.burst_time_tagger_cc($samp_rate,
-                                   $period_s,
-                                   $gap_s,
-                                   $burst_len,
-                                   $t0_usrp,
-                                   $offsets,
-                                   $lead_s)</make>
+  <make>howto.time_tagger_cc($samp_rate,
+                             $period_s,
+                             $gap_s,
+                             $burst_len,
+                             $t0_usrp,
+                             $offsets,
+                             $lead_s,
+                             $tx_time_interval)</make>
 
   <callback>set_samp_rate($samp_rate)</callback>
   <callback>set_period($period_s)</callback>
@@ -22,6 +22,7 @@
   <callback>set_t0_usrp($t0_usrp)</callback>
   <callback>set_offsets($offsets)</callback>
   <callback>set_lead($lead_s)</callback>
+  <callback>set_tx_time_interval($tx_time_interval)</callback>
 
   <param>
     <name>Sample rate (Hz)</name>
@@ -72,6 +73,13 @@
     <type>real</type>
   </param>
 
+  <param>
+    <name>TX_TIME interval (bursts)</name>
+    <key>tx_time_interval</key>
+    <value>1</value>
+    <type>int</type>
+  </param>
+
   <sink>
     <name>in</name>
     <type>complex</type>
@@ -94,9 +102,11 @@ Burst-based tx_time tagger for USRP experiments.
 The block takes a complex stream and:
 
   - passes it to the output unchanged,
-  - periodically marks bursts of "Burst length (samples)",
+  - periodically, according to TX_TIME interval value marks tx_time (UHD tuple {full_sec, frac_sec})
+      Ex: 1 = en cada burst
+          10 = solo cada 10 bursts
+          0 = coloca tx_time solo en la 1r rafaga
   - for each burst, adds:
-      * tx_time (UHD tuple {full_sec, frac_sec}),
       * tx_sob at the first sample,
       * tx_eob at the last sample.
 
@@ -109,6 +119,7 @@ Parameters:
   - Initial USRP time (s) [t0_usrp]
   - Offsets (s) [offsets] : list of offsets inside each active period.
   - Lead ahead (s) [lead_s] : additional lead added to tx_time.
+  - TX_TIME interval: define cada cuántos bursts se añade tx_time.
 
 All parameters have callbacks and can be updated at runtime.
   </doc>

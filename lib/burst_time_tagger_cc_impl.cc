@@ -403,7 +403,7 @@ namespace gr {
         }
       }
 
-      std::cout << "[burst_time_tagger_cc] lead_s=" << lead_s << std::endl;
+      //std::cout << "[burst_time_tagger_cc] lead_s=" << lead_s << std::endl;
 
       d_sample_idx += static_cast<long long>(noutput_items);
       return noutput_items;

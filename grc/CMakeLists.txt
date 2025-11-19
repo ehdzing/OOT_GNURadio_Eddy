@@ -41,5 +41,6 @@ install(FILES
     howto_slot_guard_cc.xml
     howto_frame_gate_cc.xml
     howto_slot_timing_monitor_cc.xml
+    howto_time_tagger_cc.xml
 DESTINATION share/gnuradio/grc/blocks
 )
