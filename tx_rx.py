@@ -32,15 +32,15 @@ fs = 30.72e6            # sample rate físico del sistema [Hz]
 rx_decim = 20           # factor de diezmado aplicado ANTES de guardar power_rx.dat (1 si no hubo)
 fs_eff = fs / rx_decim  # sample rate efectivo de las muestras guardadas [Hz]
 
-# Cómo debe mostrarse el eje X en la gráfica inicial:
+# Cómo debe mostrarse el eje X en la gráfica inicial (cuando usamos tiempo):
 # 0 = tiempo ABSOLUTO (comienza en t_rx0)
 # 1 = tiempo RELATIVO (comienza en 0 ms)
 align_x_mode = 0
 
-
-#t_rx0 = 0.0977908    # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
-t_rx0 = 0.068225    # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
-#t_rx0 = 0.0488185    # tiempo de referencia RX (rx_time del sample 0, en segundos)
+t_rx0 = 0.110729    # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo 
+#t_rx0 = 0.0451207    # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
+#t_rx0 = 0.051205   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
+#t_rx0 = 0.046903    # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
 
 t0_tx = 0.7             # tiempo ideal de la primera ráfaga TX [s]
 T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
@@ -77,10 +77,10 @@ gap_min_s = 0.005                  # 5 ms
 #   2 = usar las últimas N ráfagas (aprox) según T_period
 #   3 = usar SIEMPRE las primeras N muestras
 #   4 = usar las primeras N ráfagas (aprox) según T_period
-segment_mode = 3
+segment_mode = 4
 
 manual_last_samples = 10_000_000    # usado solo si segment_mode == 1 ó 3
-target_num_bursts   = 500          # usado solo si segment_mode == 2 ó 4
+target_num_bursts   = 7583          # usado solo si segment_mode == 2 ó 4
 
 max_samples_cap = 20_000_000_000   # límite duro de muestras a analizar
 
@@ -90,7 +90,7 @@ post_window_s = 12e-3              # después del flanco
 max_bursts_for_overlay = 20
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-power_filename = os.path.join(base_dir, 'power_rx1.dat')
+power_filename = os.path.join(base_dir, 'power_rxp.dat')
 
 # ==========================
 # 4) Parámetros gráficos globales
@@ -107,10 +107,16 @@ max_points_overlay   = 2000
 plot_initial_enabled   = True      # pon False si no quieres esta gráfica
 
 # Número de muestras iniciales a inspeccionar (ANTES de segmentar)
-plot_initial_nsamples  = 10_000_000   # muestras de power_rx.dat
+plot_initial_nsamples  = 200_000_000   # muestras de power_rx.dat
 
 # Factor de diezmado para esa gráfica (1 = sin diezmado)
-plot_initial_decim     = 2000
+plot_initial_decim     = 200
+
+# Modo de eje X para la figura inicial:
+# 0 = tiempo en ms (usa align_x_mode para absoluto/relativo)
+# 1 = índice de muestra (archivo diezmado)
+# 2 = "índice de ráfaga ideal" k ≈ (t_abs - t0_tx) / T_period
+initial_x_mode = 2
 
 # ==========================
 # 4ter) Ventana temporal manual (opcional)
@@ -239,21 +245,35 @@ if plot_initial_enabled:
         # Tiempo ABSOLUTO: cada muestra del archivo equivale a rx_decim muestras físicas
         # pero ya hemos metido eso en fs_eff, así que usamos fs_eff:
         t_abs = t_rx0 + idxs / fs_eff        # segundos
-        
-        # Alineación del eje X
-        if align_x_mode == 0:
-            # Mostrar tiempo absoluto
-            x_axis_ms = t_abs * 1e3
-        elif align_x_mode == 1:
-            # Tiempo relativo (empezar en 0)
-            x_axis_ms = (t_abs - t_abs[0]) * 1e3
+
+        # Selección de eje X según initial_x_mode
+        if initial_x_mode == 0:
+            # Eje X en tiempo (ms), usando align_x_mode
+            if align_x_mode == 0:
+                # Mostrar tiempo absoluto
+                x_axis = t_abs * 1e3
+                x_label = "Tiempo absoluto [ms]"
+            elif align_x_mode == 1:
+                # Tiempo relativo (empezar en 0)
+                x_axis = (t_abs - t_abs[0]) * 1e3
+                x_label = "Tiempo relativo [ms]"
+            else:
+                raise ValueError("align_x_mode debe ser 0 o 1")
+        elif initial_x_mode == 1:
+            # Eje X = índice de muestra (archivo diezmado)
+            x_axis = idxs.astype(float)
+            x_label = "Índice de muestra (archivo diezmado)"
+        elif initial_x_mode == 2:
+            # Eje X = índice de ráfaga ideal k ≈ (t_abs - t0_tx) / T_period
+            k_axis = (t_abs - t0_tx) / T_period
+            x_axis = k_axis
+            x_label = "Índice de ráfaga ideal k"
         else:
-            raise ValueError("align_x_mode debe ser 0 o 1")
-        
+            raise ValueError("initial_x_mode debe ser 0, 1 o 2")
 
         plt.figure()
-        plt.plot(x_axis_ms, sig_init_decim, label="Potencia RX (inicial, diezmada)")
-        plt.xlabel("Tiempo absoluto [ms]")
+        plt.plot(x_axis, sig_init_decim, label="Potencia RX (inicial, diezmada)")
+        plt.xlabel(x_label)
         plt.ylabel("Potencia [u.a.]")
         plt.title("Muestras iniciales RX ({} muestras, decim = {})".format(n_init, decim))
         plt.grid(True)
@@ -331,7 +351,10 @@ else:
 if n_analyze <= 0:
     raise RuntimeError("n_analyze <= 0, revisa configuración.")
 
-power_seg = power[start_index:]
+end_index = start_index + n_analyze
+power_seg = power[start_index:end_index]
+
+#power_seg = power[start_index:]
 print("Analizando", n_analyze, "muestras (modo_segmento:", reason,
       ", start_index =", start_index, ")")
 
@@ -396,6 +419,7 @@ if len(edges) == 0:
 
 # Cada índice del archivo equivale a 1/fs_eff segundos
 t_bursts_rx = t_rx0 + (start_index + edges) / fs_eff
+
 
 # ==========================
 # 11) Cálculo de D_k por tag
@@ -508,6 +532,14 @@ else:
         D_mean_burst, D_mean_burst * fs))
     print("Jitter (std e_k)         = {:.3e} s ({:.3f} muestras)".format(
         e_std, e_std * fs))
+    
+    print("\n[CHEQUEO DELTA ENTRE RÁFAGAS]")
+
+    for i in range(1, len(t_bursts_rx)):
+        dt = t_bursts_rx[i] - t_bursts_rx[i-1]
+        err = dt - T_period
+        if i > 7390 and i < 7410:  # por ejemplo, alrededor de donde ves el salto
+            print("i={} -> dt={:.9e} s, dt - T_period={:.3e} s".format(i, dt, err))
 
 # ==========================
 # 12bis) Contabilidad de ráfagas esperadas vs recibidas (con t0_tx)
@@ -557,7 +589,7 @@ print("Ráfagas esperadas = {}".format(expected_count))
 print("Ráfagas recibidas = {}".format(received_count))
 print("Ráfagas perdidas  = {}".format(len(missing_ks)))
 
-# También mostramos qué k caen fuera del rango esperado
+# También mostramos qué k caen fuera de la ventana esperada
 extra_ks_before = sorted(k for k in received_ks_all if k < k_start_exp)
 extra_ks_after  = sorted(k for k in received_ks_all if k > k_end_exp)
 #print("Ráfagas detectadas fuera de la ventana esperada:")
@@ -577,20 +609,20 @@ if len(missing_ks) > 0:
 
     ranges = compress_indices(missing_ks)
 
-    #print("Lista de ráfagas perdidas (por índice k):")
-    #print("k_miss =", missing_ks)
+    print("Lista de ráfagas perdidas (por índice k):")
+    print("k_miss =", missing_ks)
 
-    #print("Rangos compactados de k perdidos:")
-    #for r0, r1 in ranges:
-        #if r0 == r1:
-            #print("  k = {}".format(r0))
-        #else:
-            #print("  k = {}..{}".format(r0, r1))
+    print("Rangos compactados de k perdidos:")
+    for r0, r1 in ranges:
+        if r0 == r1:
+            print("  k = {}".format(r0))
+        else:
+            print("  k = {}..{}".format(r0, r1))
 
-    #print("\nEjemplos de tiempos ideales de ráfagas perdidas (primeros 10):")
-    #for k in missing_ks[:10]:
-    #    t_tx_ideal = t0_tx + k * T_period
-    #    print("  k={} -> t_tx_ideal={:.9f} s".format(k, t_tx_ideal))
+    print("\nEjemplos de tiempos ideales de ráfagas perdidas (primeros 10):")
+    for k in missing_ks[:10]:
+        t_tx_ideal = t0_tx + k * T_period
+        print("  k={} -> t_tx_ideal={:.9f} s".format(k, t_tx_ideal))
 else:
     print("No se detectaron ráfagas perdidas en el segmento (todas las k esperadas tienen detección).")
 

@@ -102,6 +102,7 @@ namespace gr {
       // Initial host–USRP time bias (usrp_now - host_now at init)
       double d_dt0_bias;
 
+
       // State
       decision_t_cc  d_last_decision;
       int            d_stable_counter;
@@ -119,7 +120,7 @@ namespace gr {
       double now_host_seconds_() const;
       double usrp_now_seconds_() const;
 
-      void   update_stats_(double dt);
+      void   update_stats_(double dt_raw);
       decision_t_cc decide_(double dt, double jitter);
 
       size_t copy_pass_(const gr_complex* in, gr_complex* out, size_t n);

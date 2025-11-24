@@ -210,9 +210,27 @@ namespace gr {
       d_samples_per_slot = round_to_size(samples_per_symbol * 14.0);
     }
 
-    void slot_guard_cc_impl::update_stats_(double dt)
+    void slot_guard_cc_impl::update_stats_(double dt_raw)
     {
+      // 1) Adaptive bias (slowly track long-term drift)
+      static const double alpha = 1e-5;   // adjust after experiments
+
+      // Update bias
+      d_dt0_bias = (1.0 - alpha) * d_dt0_bias + alpha * dt_raw;
+
+      // Propuesta de bias solo si el jitter actual es pequeño
+      //const bool can_update_bias = (std::fabs(dt_raw - d_dt0_bias) < 1e-3); // <1ms
+      //if (can_update_bias) {
+      //  d_dt0_bias = (1.0 - alpha) * d_dt0_bias + alpha * dt_raw;
+      //}
+
+      // 2) Bias-corrected offset
+      const double dt = dt_raw - d_dt0_bias;
+
+      // 3) Store corrected offset for decision logic and stats
       d_last_offset_s = dt;
+
+      // 4) Jitter estimation on dt (not on dt_raw)
       d_dt_window.push_back(dt);
       while (d_dt_window.size() > d_dt_window_len) {
         d_dt_window.pop_front();
@@ -365,17 +383,23 @@ namespace gr {
       size_t consumed = 0;
       size_t produced = 0;
 
+
+
       for (size_t s = 0; s < slots_to_process; ++s) {
+
+        // Host time now 
         double t_host = now_host_seconds_();
+        // USRP time now (authoritative clock)
         double t_usrp = usrp_now_seconds_();
 
-        // Raw offset between clocks
-        double dt_raw = t_usrp - t_host;
-        // Corrected offset removing initial bias
-        double dt = dt_raw - d_dt0_bias;
 
-        update_stats_(dt);
-        decision_t_cc d = decide_(dt, d_last_jitter_s);
+        // Raw offset between clocks
+        double dt_raw = t_usrp - t_host;  //solo cuando se usa referencia de tiempo host
+        // Corrected offset removing initial bias
+        //double dt = dt_raw - d_dt0_bias;  // solo cuando se usa referencia de tiempo host
+
+        update_stats_(dt_raw);
+        decision_t_cc d = decide_(d_last_offset_s, d_last_jitter_s);
 
         const gr_complex* in_slot = in + consumed;
         gr_complex*       out_slot = out + produced;

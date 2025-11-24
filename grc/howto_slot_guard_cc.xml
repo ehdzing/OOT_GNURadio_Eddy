@@ -207,12 +207,16 @@
   The "stats" message port publishes, once per slot, a PMT dict:
 
     {
-      "slot_idx":   integer slot index inside the work call,
-      "offset_s":   last measured offset (usrp - host),
+      "slot_idx":   posición del slot actual en la secuencia de transmisión,
+      "offset_s":   last measured offset between USRP time and the
+                    ideal slot time (usrp_time - t_ideal_slot),
       "jitter_s":   sliding-window jitter of the offset,
       "decision":   0=PASS, 1=DTX_ZEROS, 2=DONT_CONSUME,
       "host_s":     host time (seconds),
-      "usrp_s":     USRP time (seconds)
+      "usrp_s":     USRP time (seconds),
+      "t_ideal_usrp:"  El tiempo ideal del centro del slot actual,
+      "offset_host_s = tusrp - thost:" drift real del oscilador del host,
+      "delta_host_vs_ideal_s = tideal​ - thost:" muestra cuánto se separa el host del calendario perfecto USRP
     }
 
   </doc>
