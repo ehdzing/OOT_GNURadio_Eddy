@@ -46,7 +46,7 @@ fs_eff = fs / rx_decim  # sample rate efectivo de las muestras guardadas [Hz]
 # 1 = tiempo RELATIVO (comienza en 0 ms)
 align_x_mode = 0
 
-t_rx0 = 0.417379   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
+t_rx0 = 0.32172   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
 #t_rx0 = 0.0648104   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
 #t_rx0 =  0.0679978    # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
 
@@ -85,7 +85,7 @@ gap_min_s = 0.005                  # 5 ms
 #   2 = usar las últimas N ráfagas (aprox) según T_period
 #   3 = usar SIEMPRE las primeras N muestras
 #   4 = usar las primeras N ráfagas (aprox) según T_period
-segment_mode = 4
+segment_mode = 0
 
 manual_last_samples = 10_000_000    # usado solo si segment_mode == 1 ó 3
 target_num_bursts   = 2000          # usado solo si segment_mode == 2 ó 4
@@ -145,7 +145,7 @@ t_win_end   = 0.530      # fin [s]
 
 # Control de impresión de jitter por ráfaga
 print_all_ek = False       # True = imprime TODAS las ráfagas
-topN_jitter  = 5         # si print_all_ek=False, imprime solo las top-N con mayor |e_k|
+topN_jitter  = 5           # si print_all_ek=False, imprime solo las top-N con mayor |e_k|
 jitter_min_samples = 0.0   # también puedes exigir un mínimo |e_k| en muestras (0 = sin filtro)
 
 # Número "esperado" de edges por ráfaga (ajústalo según tu patrón)
@@ -159,11 +159,16 @@ min_edges_for_valid_burst = 1
 #   True  -> primera detección del k (values[0])
 use_first_edge_per_k = False
 
-# *** NUEVO ***
+# *** NUEVO (ya lo tenías): filtro de outliers ***
 # Factor de outlier para jitter:
 # un D_k se marca como outlier si |D_k - D̄_raw| > jitter_outlier_factor * σ_raw
 # (σ_raw = std de D_k sin filtrar)
 jitter_outlier_factor = 4.0
+
+# *** NUEVO: compensación de drift lineal en el análisis (solo para tx_time único) ***
+# Si True: estima un drift D_k ≈ a*k + b sobre los D_k FILTRADOS (sin outliers)
+#          y genera curvas extra "sin drift (comp.)" en la evolución de τ_est y jitter.
+enable_drift_compensation = True
 
 # ==========================
 # 6) Funciones auxiliares
@@ -503,30 +508,17 @@ by_k = defaultdict(list)
 for k, D_k in zip(k_list, D_list):
     by_k[k].append(D_k)
 
-#print("\n[POR RÁFAGA - TODAS LAS ETIQUETAS POR k]")
-for k in sorted(by_k.keys()):
-    values = by_k[k]
-    #print("k={} -> num_tags={}  D_k = {}".format(
-    #    k, len(values), ["{:.3e}".format(v) for v in values]))
-
 # Representante por ráfaga (y filtrado de ráfagas incompletas)
 D_burst_list = []
 k_valid_list = []
 
-#print("\n[POR RÁFAGA - UNA MUESTRA REPRESENTATIVA POR k]")
 for k in sorted(by_k.keys()):
     values = by_k[k]
     num_tags = len(values)
 
-    # Info básica
-    #print("  k={} -> num_tags={}".format(k, num_tags), end='')
-
-    # Comprobamos si la ráfaga es "completa" o no
     if num_tags < min_edges_for_valid_burst:
-        #print("  -> IGNORADA en estadísticas (burst incompleto)")
         continue
 
-    # Elegimos representante
     if use_first_edge_per_k:
         D_rep = values[0]
     else:
@@ -535,9 +527,6 @@ for k in sorted(by_k.keys()):
 
     D_burst_list.append(D_rep)
     k_valid_list.append(k)
-
-    D_rep_samples = D_rep * fs
-    #print("  -> D_k_rep={:.9e} s ({:.3f} muestras)".format(D_rep, D_rep_samples))
 
 D_burst = np.array(D_burst_list)
 
@@ -554,15 +543,6 @@ else:
 
     D_mean_raw = D_burst.mean()
     D_std_raw  = D_burst.std()
-
-    """
-    print("\n[RESUMEN POR RÁFAGA - BRUTO (CON OUTLIERS)]")
-    print("Offset medio D̄_raw     = {:.3e} s ({:.3f} muestras)".format(
-        D_mean_raw, D_mean_raw * fs))
-    print("Jitter bruto σ_raw      = {:.3e} s ({:.3f} muestras)".format(
-        D_std_raw, D_std_raw * fs))
-    print ("Número de ráfagas válidas (k únicos) =", len(D_burst))
-    """
 
     # ==========================
     # 13) Filtro de outliers para jitter "normal"
@@ -624,16 +604,13 @@ else:
     e_samples_all = e * fs
 
     if print_all_ek:
-        # Modo antiguo: imprimir todo
         for k, D_rep, e_k, e_samp in zip(k_in, D_burst_in, e, e_samples_all):
             print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), e_k={:.9e} s ({:.3f} muestras)".format(
                 k, D_rep, D_rep * fs, e_k, e_samp))
     else:
-        # Nuevo modo: solo las ráfagas con mayor |e_k|
         print("Mostrando solo las {} ráfagas con mayor |e_k| (y |e_k| >= {:.3f} muestras)".format(
             topN_jitter, jitter_min_samples))
         
-        # Índices ordenados por |e_k| de mayor a menor
         idx_sorted = np.argsort(np.abs(e_samples_all))[::-1]
 
         shown = 0
@@ -652,16 +629,11 @@ else:
                 k, D_rep, D_rep * fs, e_k, e_samp))
             shown += 1
 
-    """ print("\n[RESUMEN JITTER FINAL]")
-    print("Retardo medio τ_est      = {:.3e} s ({:.3f} muestras)".format(
-        D_mean_filt, D_mean_filt * fs))
-    print("Jitter (std e_k)         = {:.3e} s ({:.3f} muestras)".format(
-        e_std, e_std * fs))
-    """
     # ==========================
     # 13ter) Evolución acumulativa de τ_est y jitter
     #          - con outliers
     #          - sin outliers
+    #          - (opcional) sin drift lineal
     # ==========================
 
     # 1) Evolución bruta (con outliers)
@@ -684,16 +656,43 @@ else:
         running_mean_filt_sec[i] = subset.mean()
         running_std_filt_sec[i]  = subset.std()
 
-    """ # Para info rápida
-    print("\n[EVOLUCIÓN CUMULATIVA τ_est Y JITTER]")
-    print("  τ_est_final_raw   = {:.3e} s ({:.3f} muestras)".format(
-        running_mean_raw_sec[-1], running_mean_raw_sec[-1] * fs))
-    print("  jitter_final_raw  = {:.3e} s ({:.3f} muestras)".format(
-        running_std_raw_sec[-1], running_std_raw_sec[-1] * fs))
-    print("  τ_est_final_filt  = {:.3e} s ({:.3f} muestras)".format(
-        running_mean_filt_sec[-1], running_mean_filt_sec[-1] * fs))
-    print("  jitter_final_filt = {:.3e} s ({:.3f} muestras)".format(
-        running_std_filt_sec[-1], running_std_filt_sec[-1] * fs)) """
+    # 3) (NUEVO) Evolución filtrada + compensación de drift lineal
+    running_mean_corr_sec = None
+    running_std_corr_sec  = None
+    drift_slope = 0.0
+    drift_intercept = 0.0
+
+    if enable_drift_compensation and len(D_burst_in) >= 2:
+        # Ajuste lineal D_k ≈ a*k + b sobre los inliers
+        k_in_float = k_in.astype(float)
+        drift_coeffs = np.polyfit(k_in_float, D_burst_in, 1)
+        drift_slope = drift_coeffs[0]
+        drift_intercept = drift_coeffs[1]
+
+        print("\n[COMPENSACIÓN DE DRIFT LINEAL]")
+        print("D_k ≈ a*k + b,  a = {:.3e} s/ráfaga, b = {:.3e} s".format(
+            drift_slope, drift_intercept))
+        print("Drift por segundo ≈ a/T_period = {:.3e} s/s".format(
+            drift_slope / T_period))
+
+        trend = drift_slope * k_in_float + drift_intercept
+        D_burst_corr = D_burst_in - trend
+
+        n_corr = len(D_burst_corr)
+        running_mean_corr_sec = np.zeros(n_corr, dtype=float)
+        running_std_corr_sec  = np.zeros(n_corr, dtype=float)
+
+        for i in range(n_corr):
+            subset = D_burst_corr[:i+1]
+            running_mean_corr_sec[i] = subset.mean()
+            running_std_corr_sec[i]  = subset.std()
+
+        # Pequeño resumen extra (no sustituye al jitter oficial)
+        mean_corr = D_burst_corr.mean()
+        std_corr  = D_burst_corr.std()
+        print("Después de compensar drift: τ̄_corr = {:.3e} s ({:.3f} muestras), "
+              "σ_corr = {:.3e} s ({:.3f} muestras)".format(
+                  mean_corr, mean_corr * fs, std_corr, std_corr * fs))
 
     # Plot comparativo
     plt.figure()
@@ -702,6 +701,9 @@ else:
              marker='.', linewidth=0.6, label='Con outliers')
     plt.plot(k_in, running_mean_filt_sec * 1e6,
              marker='.', linewidth=0.6, label='Sin outliers')
+    if enable_drift_compensation and running_mean_corr_sec is not None:
+        plt.plot(k_in, running_mean_corr_sec * 1e6,
+                 marker='.', linewidth=0.6, label='Sin drift (comp.)')
     plt.xlabel("Índice de ráfaga k")
     plt.ylabel("τ_est acumulado [µs]")
     plt.title("Evolución acumulativa del retardo medio")
@@ -713,6 +715,9 @@ else:
              marker='.', linewidth=0.6, label='Con outliers')
     plt.plot(k_in, running_std_filt_sec * 1e6,
              marker='.', linewidth=0.6, label='Sin outliers')
+    if enable_drift_compensation and running_std_corr_sec is not None:
+        plt.plot(k_in, running_std_corr_sec * 1e6,
+                 marker='.', linewidth=0.6, label='Sin drift (comp.)')
     plt.xlabel("Índice de ráfaga k")
     plt.ylabel("Jitter acumulativo (std) [µs]")
     plt.title("Evolución acumulativa del jitter")
@@ -737,13 +742,12 @@ else:
 t_ref_start = max(t_start_seg, t0_tx)
 
 if t_end_seg < t0_tx:
-    # Segmento completamente antes del inicio de TX: no debería haber ráfagas
     expected_ks = np.array([], dtype=int)
     k_start_exp = 0
     k_end_exp   = -1
 else:
     k_start_exp = int(np.ceil((t_ref_start - t0_tx) / T_period))
-    k_start_exp = max(k_start_exp, 0)   # por seguridad
+    k_start_exp = max(k_start_exp, 0)
     k_end_exp   = int(np.floor((t_end_seg - t0_tx) / T_period))
 
     if k_end_exp >= k_start_exp:
@@ -774,7 +778,6 @@ print("Ráfagas recibidas = {}".format(received_count))
 print("Ráfagas perdidas  = {}".format(len(missing_ks)))
 
 if len(missing_ks) > 0:
-    # Función auxiliar para comprimir índices en rangos
     def compress_indices(indices):
         ranges = []
         for k in sorted(indices):

@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <iostream>   // for prints
+#include <vector>     // GPSDO: for sensor name list
 
 namespace gr {
   namespace howto {
@@ -131,6 +132,59 @@ namespace gr {
       // USRP handle
       uhd::device_addr_t dev_addr;
       d_usrp = uhd::usrp::multi_usrp::make(dev_addr);
+
+      // GPSDO: configure clock/time sources to use on-board GPSDO if present
+      try {
+        // Reloj de 10 MHz desde GPSDO (OCXO disciplinado cuando haya lock)
+        d_usrp->set_clock_source("gpsdo");
+        std::cout << "[slot_guard_cc] clock_source set to 'gpsdo'" << std::endl;
+      } catch (const std::exception &e) {
+        std::cerr << "[slot_guard_cc] WARNING: set_clock_source('gpsdo') failed: "
+                  << e.what() << std::endl;
+      }
+
+      try {
+        // Para este bloque usamos siempre nuestro propio epoch (set_time_now /
+        // set_time_next_pps), así que el time_source es menos crítico.
+        // Aun así, si vas a usar PPS del GPSDO, tiene sentido "gpsdo";
+        // si no, "internal" también es válido.
+        if (d_use_pps) {
+          d_usrp->set_time_source("gpsdo");
+        } else {
+          d_usrp->set_time_source("internal");
+        }
+
+        std::cout << "[slot_guard_cc] time_source = '"
+                  << d_usrp->get_time_source(0) << "'" << std::endl;
+        std::cout << "[slot_guard_cc] clock_source (query) = '"
+                  << d_usrp->get_clock_source(0) << "'" << std::endl;
+      } catch (const std::exception &e) {
+        std::cerr << "[slot_guard_cc] WARNING: setting time_source failed: "
+                  << e.what() << std::endl;
+      }
+
+
+      // GPSDO: print some interesting sensors if available
+      try {
+        std::vector<std::string> sns = d_usrp->get_mboard_sensor_names(0);
+        for (size_t i = 0; i < sns.size(); ++i) {
+          const std::string &name = sns[i];
+          if (name == "gps_locked" ||
+              name == "gpsdo_locked" ||
+              name == "ref_locked"   ||
+              name == "10mhz_locked" ||
+              name == "pps_locked") {
+            uhd::sensor_value_t sv = d_usrp->get_mboard_sensor(name, 0);
+            std::cout << "[slot_guard_cc] sensor " << name
+                      << " = " << sv.to_pp_string() << std::endl;
+          }
+        }
+      } catch (const std::exception &e) {
+        std::cerr << "[slot_guard_cc] WARNING: reading GPSDO sensors failed: "
+                  << e.what() << std::endl;
+      }
+
+      // Initialize USRP/host time relation
       init_time_();
 
       // Slot size
@@ -166,11 +220,16 @@ namespace gr {
 
       // Align USRP time to 0 or next PPS
       if (d_use_pps) {
+        std::cout << "[slot_guard_cc] init_time_: using set_time_next_pps(0.0)"
+                  << std::endl;
         d_usrp->set_time_next_pps(uhd::time_spec_t(0.0));
-        // In a real PPS setup you would sleep until the PPS edge here.
+        // En un sistema real deberías dormir hasta el flanco de PPS aquí.
       } else {
+        std::cout << "[slot_guard_cc] init_time_: using set_time_now(0.0)"
+                  << std::endl;
         d_usrp->set_time_now(uhd::time_spec_t(0.0));
       }
+
       d_usrp->clear_command_time();
 
       // Measure initial bias between USRP and host clocks
@@ -495,6 +554,9 @@ namespace gr {
     {
       boost::mutex::scoped_lock lock(d_mutex);
       d_use_pps = use_pps;
+      // Nota: si cambias esto en runtime NO re-llamamos init_time_()
+      // para no romper el flujo; si necesitas re-sincronizar, crea
+      // otro bloque o añade una acción explícita.
     }
 
     void slot_guard_cc_impl::set_offset_thr_pass(double v)
