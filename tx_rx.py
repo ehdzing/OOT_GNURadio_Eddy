@@ -17,12 +17,21 @@ Además:
   - Gráficas con trazas diezmadas para no matar la CPU.
   - Gráfica de muestras iniciales RX (potencia) con tiempo ABSOLUTO.
   - Soporte para diezmado previo en RX: rx_decim.
+  - OPCIÓN: usar tiempos reales grabados por un bloque OOT (rx_time_recorder_cc).
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
 import os
+
+# ==========================
+# 0) Modo de tiempo
+# ==========================
+
+# Si False: comportamiento antiguo, reconstruyendo t_rx = t_rx0 + idx/fs_eff.
+# Si True : usa archivo de tiempos reales (double) generado por tu bloque OOT.
+use_recorded_time = True  # pon True cuando tengas el archivo de tiempos del USRP
 
 # ==========================
 # 1) Parámetros físicos
@@ -32,15 +41,14 @@ fs = 30.72e6            # sample rate físico del sistema [Hz]
 rx_decim = 20           # factor de diezmado aplicado ANTES de guardar power_rx.dat (1 si no hubo)
 fs_eff = fs / rx_decim  # sample rate efectivo de las muestras guardadas [Hz]
 
-# Cómo debe mostrarse el eje X en la gráfica inicial (cuando usamos tiempo):
+# Cómo debe mostrarse el eje X en la gráfica inicial:
 # 0 = tiempo ABSOLUTO (comienza en t_rx0)
 # 1 = tiempo RELATIVO (comienza en 0 ms)
 align_x_mode = 0
 
-t_rx0 = 0.110729    # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo 
-#t_rx0 = 0.0451207    # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
-#t_rx0 = 0.051205   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
-#t_rx0 = 0.046903    # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
+t_rx0 = 0.417379   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
+#t_rx0 = 0.0648104   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
+#t_rx0 =  0.0679978    # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
 
 t0_tx = 0.7             # tiempo ideal de la primera ráfaga TX [s]
 T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
@@ -53,7 +61,7 @@ T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
 #   0 = simple por umbral
 #   1 = energía integrada (media móvil) + umbral
 #   2 = primer edge > threshold luego de silencio largo
-detection_mode = 0
+detection_mode = 1
 
 # Umbral base de potencia (se usa en todos los modos)
 power_threshold = 0.01
@@ -80,7 +88,7 @@ gap_min_s = 0.005                  # 5 ms
 segment_mode = 4
 
 manual_last_samples = 10_000_000    # usado solo si segment_mode == 1 ó 3
-target_num_bursts   = 7583          # usado solo si segment_mode == 2 ó 4
+target_num_bursts   = 2000          # usado solo si segment_mode == 2 ó 4
 
 max_samples_cap = 20_000_000_000   # límite duro de muestras a analizar
 
@@ -90,7 +98,10 @@ post_window_s = 12e-3              # después del flanco
 max_bursts_for_overlay = 20
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-power_filename = os.path.join(base_dir, 'power_rxp.dat')
+power_filename = os.path.join(base_dir, 'power_rx0')
+
+# Archivo de tiempos reales (convención: mismo nombre + "_time.dat")
+time_filename = power_filename + "_time.dat"
 
 # ==========================
 # 4) Parámetros gráficos globales
@@ -107,16 +118,16 @@ max_points_overlay   = 2000
 plot_initial_enabled   = True      # pon False si no quieres esta gráfica
 
 # Número de muestras iniciales a inspeccionar (ANTES de segmentar)
-plot_initial_nsamples  = 200_000_000   # muestras de power_rx.dat
+plot_initial_nsamples  = 20_000_000   # muestras de power_rx.dat
 
 # Factor de diezmado para esa gráfica (1 = sin diezmado)
 plot_initial_decim     = 200
 
 # Modo de eje X para la figura inicial:
-# 0 = tiempo en ms (usa align_x_mode para absoluto/relativo)
+# 0 = tiempo en ms (usa align_x_mode cuando no hay tiempos grabados)
 # 1 = índice de muestra (archivo diezmado)
-# 2 = "índice de ráfaga ideal" k ≈ (t_abs - t0_tx) / T_period
-initial_x_mode = 2
+# 2 = índice de ráfaga ideal k ≈ (t_abs - t0_tx) / T_period
+initial_x_mode = 0
 
 # ==========================
 # 4ter) Ventana temporal manual (opcional)
@@ -132,6 +143,11 @@ t_win_end   = 0.530      # fin [s]
 # 5) Parámetros de ráfaga / estadística
 # ==========================
 
+# Control de impresión de jitter por ráfaga
+print_all_ek = False       # True = imprime TODAS las ráfagas
+topN_jitter  = 5         # si print_all_ek=False, imprime solo las top-N con mayor |e_k|
+jitter_min_samples = 0.0   # también puedes exigir un mínimo |e_k| en muestras (0 = sin filtro)
+
 # Número "esperado" de edges por ráfaga (ajústalo según tu patrón)
 expected_edges_per_burst = 1
 
@@ -142,6 +158,12 @@ min_edges_for_valid_burst = 1
 #   False -> D_k más cercano a 0 (robusto)
 #   True  -> primera detección del k (values[0])
 use_first_edge_per_k = False
+
+# *** NUEVO ***
+# Factor de outlier para jitter:
+# un D_k se marca como outlier si |D_k - D̄_raw| > jitter_outlier_factor * σ_raw
+# (σ_raw = std de D_k sin filtrar)
+jitter_outlier_factor = 4.0
 
 # ==========================
 # 6) Funciones auxiliares
@@ -216,9 +238,30 @@ def detect_edges_after_silence(sig, fs_local, threshold, gap_min_s):
 # 7) Carga de datos
 # ==========================
 
-power = np.fromfile(power_filename, dtype=np.float32)
-total_samples = len(power)
-print("Leí", total_samples, "muestras de potencia de", power_filename)
+t_all = None
+
+if use_recorded_time:
+    # Nuevo formato combinado: [double t][float p] repetido
+    if not os.path.exists(power_filename):
+        raise RuntimeError("use_recorded_time=True pero no existe '{}'".format(power_filename))
+
+    dtype_combined = np.dtype([('t', np.float64), ('p', np.float32)])
+    data = np.fromfile(power_filename, dtype=dtype_combined)
+
+    if data.size == 0:
+        raise RuntimeError("El archivo combinado de tiempo+potencia está vacío.")
+
+    t_all = data['t'].astype(np.float64)
+    power = data['p'].astype(np.float32)
+    total_samples = len(power)
+
+    print("Leí", total_samples, "registros (tiempo+potencia) de", power_filename)
+else:
+    # Modo legacy: archivo con solo potencia float32
+    power = np.fromfile(power_filename, dtype=np.float32)
+    total_samples = len(power)
+    print("Leí", total_samples, "muestras de potencia de", power_filename)
+
 print("fs    (físico)   = {:.3f} MHz".format(fs / 1e6))
 print("rx_decim         = {}".format(rx_decim))
 print("fs_eff (archivo) = {:.3f} MHz".format(fs_eff / 1e6))
@@ -242,14 +285,18 @@ if plot_initial_enabled:
         # Índices de las muestras diezmadas
         idxs = np.arange(len(sig_init_decim)) * decim
         
-        # Tiempo ABSOLUTO: cada muestra del archivo equivale a rx_decim muestras físicas
-        # pero ya hemos metido eso en fs_eff, así que usamos fs_eff:
-        t_abs = t_rx0 + idxs / fs_eff        # segundos
+        # Tiempo ABSOLUTO: si tenemos archivo de tiempos, usamos eso.
+        if use_recorded_time:
+            t_abs = t_all[:n_init][::decim]
+        else:
+            # Cada muestra del archivo equivale a rx_decim muestras físicas
+            # pero ya hemos metido eso en fs_eff, así que usamos fs_eff:
+            t_abs = t_rx0 + idxs / fs_eff        # segundos
 
-        # Selección de eje X según initial_x_mode
+        # Selección del eje X en la figura inicial
         if initial_x_mode == 0:
-            # Eje X en tiempo (ms), usando align_x_mode
-            if align_x_mode == 0:
+            # Eje X en tiempo (ms)
+            if use_recorded_time or align_x_mode == 0:
                 # Mostrar tiempo absoluto
                 x_axis = t_abs * 1e3
                 x_label = "Tiempo absoluto [ms]"
@@ -285,11 +332,14 @@ if plot_initial_enabled:
 # ==========================
 
 if plot_time_window_enabled:
-    t_all = t_rx0 + np.arange(total_samples) / fs_eff
+    if use_recorded_time:
+        t_all_win = t_all
+    else:
+        t_all_win = t_rx0 + np.arange(total_samples) / fs_eff
 
-    mask = np.logical_and(t_all >= t_win_start, t_all <= t_win_end)
+    mask = np.logical_and(t_all_win >= t_win_start, t_all_win <= t_win_end)
     if np.any(mask):
-        t_sel = t_all[mask]
+        t_sel = t_all_win[mask]
         power_sel = power[mask]
 
         decim = max(1, int(len(power_sel) // 100_000))  # hasta 100k puntos
@@ -354,7 +404,6 @@ if n_analyze <= 0:
 end_index = start_index + n_analyze
 power_seg = power[start_index:end_index]
 
-#power_seg = power[start_index:]
 print("Analizando", n_analyze, "muestras (modo_segmento:", reason,
       ", start_index =", start_index, ")")
 
@@ -398,8 +447,12 @@ print("Detectadas", len(edges), "ráfagas (edges) en el segmento analizado")
 
 if len(edges) == 0:
     print("No se detectaron ráfagas. Ajusta umbral o parámetros del detector.")
-    t_seg = np.arange(n_analyze) / fs_eff
-    t_seg_ms = t_seg * 1e3
+    if use_recorded_time and t_all is not None:
+        time_seg = t_all[start_index:end_index]
+        t_seg_ms = (time_seg - time_seg[0]) * 1e3
+    else:
+        t_seg = np.arange(n_analyze) / fs_eff
+        t_seg_ms = t_seg * 1e3
     t_seg_ms_d, power_seg_d = decimate_for_plot(t_seg_ms, power_seg, max_points_full_plot)
 
     plt.figure()
@@ -417,9 +470,12 @@ if len(edges) == 0:
 # 10) Tiempos RX por edge (ABSOLUTOS)
 # ==========================
 
-# Cada índice del archivo equivale a 1/fs_eff segundos
-t_bursts_rx = t_rx0 + (start_index + edges) / fs_eff
-
+# Cada índice del archivo equivale a 1/fs_eff segundos (si reconstruimos)
+if use_recorded_time and t_all is not None:
+    time_seg = t_all[start_index:end_index]
+    t_bursts_rx = time_seg[edges]
+else:
+    t_bursts_rx = t_rx0 + (start_index + edges) / fs_eff
 
 # ==========================
 # 11) Cálculo de D_k por tag
@@ -437,21 +493,7 @@ for i, t_rx in enumerate(t_bursts_rx):
     D_list.append(D_k)
     k_list.append(k)
 
-    # Expresamos D_k en muestras FÍSICAS, usando fs original
-    D_samples = D_k * fs
-    print("tag i={} k={} t_rx={:.9f} t_tx_ideal={:.9f} D_k={:.9e} s ({:.3f} muestras)".format(
-        i, k, t_rx, t_tx_ideal, D_k, D_samples))
-
 D = np.array(D_list)
-
-if len(D) > 0:
-    D_mean_all = D.mean()
-    D_std_all = D.std()
-    print("\n[GLOBAL - TODAS LAS ETIQUETAS]")
-    print("Offset medio D̄_all     = {:.3e} s ({:.3f} muestras)".format(
-        D_mean_all, D_mean_all * fs))
-    print("Jitter (std) σ_all      = {:.3e} s ({:.3f} muestras)".format(
-        D_std_all, D_std_all * fs))
 
 # ==========================
 # 12) Agrupar por ráfaga k
@@ -461,27 +503,27 @@ by_k = defaultdict(list)
 for k, D_k in zip(k_list, D_list):
     by_k[k].append(D_k)
 
-print("\n[POR RÁFAGA - TODAS LAS ETIQUETAS POR k]")
+#print("\n[POR RÁFAGA - TODAS LAS ETIQUETAS POR k]")
 for k in sorted(by_k.keys()):
     values = by_k[k]
-    print("k={} -> num_tags={}  D_k = {}".format(
-        k, len(values), ["{:.3e}".format(v) for v in values]))
+    #print("k={} -> num_tags={}  D_k = {}".format(
+    #    k, len(values), ["{:.3e}".format(v) for v in values]))
 
 # Representante por ráfaga (y filtrado de ráfagas incompletas)
 D_burst_list = []
 k_valid_list = []
 
-print("\n[POR RÁFAGA - UNA MUESTRA REPRESENTATIVA POR k]")
+#print("\n[POR RÁFAGA - UNA MUESTRA REPRESENTATIVA POR k]")
 for k in sorted(by_k.keys()):
     values = by_k[k]
     num_tags = len(values)
 
     # Info básica
-    print("  k={} -> num_tags={}".format(k, num_tags), end='')
+    #print("  k={} -> num_tags={}".format(k, num_tags), end='')
 
     # Comprobamos si la ráfaga es "completa" o no
     if num_tags < min_edges_for_valid_burst:
-        print("  -> IGNORADA en estadísticas (burst incompleto)")
+        #print("  -> IGNORADA en estadísticas (burst incompleto)")
         continue
 
     # Elegimos representante
@@ -495,59 +537,201 @@ for k in sorted(by_k.keys()):
     k_valid_list.append(k)
 
     D_rep_samples = D_rep * fs
-    print("  -> D_k_rep={:.9e} s ({:.3f} muestras)".format(D_rep, D_rep_samples))
+    #print("  -> D_k_rep={:.9e} s ({:.3f} muestras)".format(D_rep, D_rep_samples))
 
 D_burst = np.array(D_burst_list)
 
 if len(D_burst) == 0:
     print("\nNo quedó ninguna ráfaga válida tras el filtrado (min_edges_for_valid_burst = {}).".format(
         min_edges_for_valid_burst))
+
 else:
-    D_mean_burst = D_burst.mean()
-    D_std_burst = D_burst.std()
-    print("\n[RESUMEN POR RÁFAGA - UNA ETIQUETA POR BURST]")
-    print("Offset medio D̄_burst   = {:.3e} s ({:.3f} muestras)".format(
-        D_mean_burst, D_mean_burst * fs))
-    print("Jitter (std) σ_burst    = {:.3e} s ({:.3f} muestras)".format(
-        D_std_burst, D_std_burst * fs))
-    print("Número de ráfagas válidas (k únicos) =", len(D_burst))
+    k_valid_arr = np.array(k_valid_list, dtype=int)
 
     # ==========================
-    # 13) Cálculo de e_k y jitter "puro"
+    # 12bis) Estadística bruta (con outliers)
     # ==========================
 
-    print("\n[ERROR POR RÁFAGA RESPECTO AL RETARDO MEDIO]")
+    D_mean_raw = D_burst.mean()
+    D_std_raw  = D_burst.std()
+
+    """
+    print("\n[RESUMEN POR RÁFAGA - BRUTO (CON OUTLIERS)]")
+    print("Offset medio D̄_raw     = {:.3e} s ({:.3f} muestras)".format(
+        D_mean_raw, D_mean_raw * fs))
+    print("Jitter bruto σ_raw      = {:.3e} s ({:.3f} muestras)".format(
+        D_std_raw, D_std_raw * fs))
+    print ("Número de ráfagas válidas (k únicos) =", len(D_burst))
+    """
+
+    # ==========================
+    # 13) Filtro de outliers para jitter "normal"
+    #      |D_k - D̄_raw| > jitter_outlier_factor * σ_raw
+    # ==========================
+
+    if D_std_raw > 0 and jitter_outlier_factor > 0:
+        abs_dev = np.abs(D_burst - D_mean_raw)
+        threshold = jitter_outlier_factor * D_std_raw
+        outlier_mask = abs_dev > threshold
+    else:
+        outlier_mask = np.zeros_like(D_burst, dtype=bool)
+
+    inlier_mask = ~outlier_mask
+
+    D_burst_in = D_burst[inlier_mask]
+    k_in       = k_valid_arr[inlier_mask]
+    D_burst_out = D_burst[outlier_mask]
+    k_out       = k_valid_arr[outlier_mask]
+
+    if np.any(outlier_mask):
+        print("\n[OUTLIERS EN D_k (NO SE USAN PARA JITTER NORMAL)]")
+        for k, Dk, dev in zip(k_out, D_burst_out, abs_dev[outlier_mask]):
+            print("  k={} -> D_k={:.3e} s ({:.1f} muestras), |D_k - D̄_raw|={:.1f} muestras".format(
+                k, Dk, Dk * fs, dev * fs))
+
+    if len(D_burst_in) == 0:
+        print("\nATENCIÓN: después de aplicar jitter_outlier_factor={} no queda ninguna ráfaga para calcular jitter."
+              .format(jitter_outlier_factor))
+        # En este caso degradado usamos todo
+        D_burst_in = D_burst
+        k_in       = k_valid_arr
+
+    # Estadística filtrada (la que consideramos "oficial")
+    D_mean_filt = D_burst_in.mean()
+    D_std_filt  = D_burst_in.std()
+
+    print("\n[RESUMEN POR RÁFAGA - FILTRADO (SIN OUTLIERS)]")
+    print("Offset medio D̄_filt    = {:.3e} s ({:.3f} muestras)".format(
+        D_mean_filt, D_mean_filt * fs))
+    print("Jitter σ_filt           = {:.3e} s ({:.3f} muestras)".format(
+        D_std_filt, D_std_filt * fs))
+    print("Ráfagas usadas para jitter =", len(D_burst_in))
+
+    # ==========================
+    # 13bis) Cálculo de e_k y jitter "puro" (sin outliers)
+    # ==========================
+
+    print("\n[ERROR POR RÁFAGA RESPECTO AL RETARDO MEDIO (SIN OUTLIERS)]")
     e_list = []
-    for k, D_rep in zip(k_valid_list, D_burst):
-        e_k = D_rep - D_mean_burst
-        e_samples = e_k * fs
-        print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), e_k={:.9e} s ({:.3f} muestras)".format(
-            k, D_rep, D_rep * fs, e_k, e_samples))
+    for k, D_rep in zip(k_in, D_burst_in):
+        e_k = D_rep - D_mean_filt
         e_list.append(e_k)
 
     e = np.array(e_list)
     e_std = e.std()
-    print("\n[RESUMEN JITTER]")
+
+    # Convertimos todo a muestras para poder filtrar por magnitud
+    e_samples_all = e * fs
+
+    if print_all_ek:
+        # Modo antiguo: imprimir todo
+        for k, D_rep, e_k, e_samp in zip(k_in, D_burst_in, e, e_samples_all):
+            print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), e_k={:.9e} s ({:.3f} muestras)".format(
+                k, D_rep, D_rep * fs, e_k, e_samp))
+    else:
+        # Nuevo modo: solo las ráfagas con mayor |e_k|
+        print("Mostrando solo las {} ráfagas con mayor |e_k| (y |e_k| >= {:.3f} muestras)".format(
+            topN_jitter, jitter_min_samples))
+        
+        # Índices ordenados por |e_k| de mayor a menor
+        idx_sorted = np.argsort(np.abs(e_samples_all))[::-1]
+
+        shown = 0
+        for idx in idx_sorted:
+            if shown >= topN_jitter:
+                break
+            if abs(e_samples_all[idx]) < jitter_min_samples:
+                continue
+
+            k = k_in[idx]
+            D_rep = D_burst_in[idx]
+            e_k = e[idx]
+            e_samp = e_samples_all[idx]
+
+            print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), e_k={:.9e} s ({:.3f} muestras)".format(
+                k, D_rep, D_rep * fs, e_k, e_samp))
+            shown += 1
+
+    """ print("\n[RESUMEN JITTER FINAL]")
     print("Retardo medio τ_est      = {:.3e} s ({:.3f} muestras)".format(
-        D_mean_burst, D_mean_burst * fs))
+        D_mean_filt, D_mean_filt * fs))
     print("Jitter (std e_k)         = {:.3e} s ({:.3f} muestras)".format(
         e_std, e_std * fs))
-    
-    print("\n[CHEQUEO DELTA ENTRE RÁFAGAS]")
+    """
+    # ==========================
+    # 13ter) Evolución acumulativa de τ_est y jitter
+    #          - con outliers
+    #          - sin outliers
+    # ==========================
 
-    for i in range(1, len(t_bursts_rx)):
-        dt = t_bursts_rx[i] - t_bursts_rx[i-1]
-        err = dt - T_period
-        if i > 7390 and i < 7410:  # por ejemplo, alrededor de donde ves el salto
-            print("i={} -> dt={:.9e} s, dt - T_period={:.3e} s".format(i, dt, err))
+    # 1) Evolución bruta (con outliers)
+    n_raw = len(D_burst)
+    running_mean_raw_sec = np.zeros(n_raw, dtype=float)
+    running_std_raw_sec  = np.zeros(n_raw, dtype=float)
+
+    for i in range(n_raw):
+        subset = D_burst[:i+1]
+        running_mean_raw_sec[i] = subset.mean()
+        running_std_raw_sec[i]  = subset.std()
+
+    # 2) Evolución filtrada (sin outliers)
+    n_filt = len(D_burst_in)
+    running_mean_filt_sec = np.zeros(n_filt, dtype=float)
+    running_std_filt_sec  = np.zeros(n_filt, dtype=float)
+
+    for i in range(n_filt):
+        subset = D_burst_in[:i+1]
+        running_mean_filt_sec[i] = subset.mean()
+        running_std_filt_sec[i]  = subset.std()
+
+    """ # Para info rápida
+    print("\n[EVOLUCIÓN CUMULATIVA τ_est Y JITTER]")
+    print("  τ_est_final_raw   = {:.3e} s ({:.3f} muestras)".format(
+        running_mean_raw_sec[-1], running_mean_raw_sec[-1] * fs))
+    print("  jitter_final_raw  = {:.3e} s ({:.3f} muestras)".format(
+        running_std_raw_sec[-1], running_std_raw_sec[-1] * fs))
+    print("  τ_est_final_filt  = {:.3e} s ({:.3f} muestras)".format(
+        running_mean_filt_sec[-1], running_mean_filt_sec[-1] * fs))
+    print("  jitter_final_filt = {:.3e} s ({:.3f} muestras)".format(
+        running_std_filt_sec[-1], running_std_filt_sec[-1] * fs)) """
+
+    # Plot comparativo
+    plt.figure()
+    plt.subplot(2, 1, 1)
+    plt.plot(k_valid_arr, running_mean_raw_sec * 1e6,
+             marker='.', linewidth=0.6, label='Con outliers')
+    plt.plot(k_in, running_mean_filt_sec * 1e6,
+             marker='.', linewidth=0.6, label='Sin outliers')
+    plt.xlabel("Índice de ráfaga k")
+    plt.ylabel("τ_est acumulado [µs]")
+    plt.title("Evolución acumulativa del retardo medio")
+    plt.grid(True)
+    plt.legend(loc="best")
+
+    plt.subplot(2, 1, 2)
+    plt.plot(k_valid_arr, running_std_raw_sec * 1e6,
+             marker='.', linewidth=0.6, label='Con outliers')
+    plt.plot(k_in, running_std_filt_sec * 1e6,
+             marker='.', linewidth=0.6, label='Sin outliers')
+    plt.xlabel("Índice de ráfaga k")
+    plt.ylabel("Jitter acumulativo (std) [µs]")
+    plt.title("Evolución acumulativa del jitter")
+    plt.grid(True)
+    plt.legend(loc="best")
+
+    plt.tight_layout()
 
 # ==========================
 # 12bis) Contabilidad de ráfagas esperadas vs recibidas (con t0_tx)
 # ==========================
 
-# Ojo: t_start_seg y t_end_seg en tiempo ABSOLUTO usando fs_eff
-t_start_seg = t_rx0 + start_index / fs_eff
-t_end_seg   = t_rx0 + (start_index + n_analyze - 1) / fs_eff
+# Ojo: t_start_seg y t_end_seg en tiempo ABSOLUTO
+if use_recorded_time and t_all is not None:
+    t_start_seg = t_all[start_index]
+    t_end_seg   = t_all[start_index + n_analyze - 1]
+else:
+    t_start_seg = t_rx0 + start_index / fs_eff
+    t_end_seg   = t_rx0 + (start_index + n_analyze - 1) / fs_eff
 
 # Segmento vs inicio de TX
 t_ref_start = max(t_start_seg, t0_tx)
@@ -589,13 +773,6 @@ print("Ráfagas esperadas = {}".format(expected_count))
 print("Ráfagas recibidas = {}".format(received_count))
 print("Ráfagas perdidas  = {}".format(len(missing_ks)))
 
-# También mostramos qué k caen fuera de la ventana esperada
-extra_ks_before = sorted(k for k in received_ks_all if k < k_start_exp)
-extra_ks_after  = sorted(k for k in received_ks_all if k > k_end_exp)
-#print("Ráfagas detectadas fuera de la ventana esperada:")
-#print("  Antes de k_start_exp (k < {}): {}".format(k_start_exp, extra_ks_before))
-#print("  Después de k_end_exp (k > {}): {}".format(k_end_exp, extra_ks_after))
-
 if len(missing_ks) > 0:
     # Función auxiliar para comprimir índices en rangos
     def compress_indices(indices):
@@ -625,76 +802,6 @@ if len(missing_ks) > 0:
         print("  k={} -> t_tx_ideal={:.9f} s".format(k, t_tx_ideal))
 else:
     print("No se detectaron ráfagas perdidas en el segmento (todas las k esperadas tienen detección).")
-
-## ==========================
-## 14) Gráfica 1: potencia segmentada + detecciones
-## ==========================
-#
-#t_seg = np.arange(n_analyze) / fs_eff
-#t_seg_ms = t_seg * 1e3
-#t_seg_ms_d, power_seg_d = decimate_for_plot(t_seg_ms, power_seg, max_points_full_plot)
-#
-#plt.figure()
-#plt.plot(t_seg_ms_d, power_seg_d, label="Potencia")
-#
-#for idx, e in enumerate(edges):
-#    t_e_ms = (e / fs_eff) * 1e3
-#    if t_e_ms >= t_seg_ms_d[0] and t_e_ms <= t_seg_ms_d[-1]:
-#        label = "Detección ráfaga" if idx == 0 else None
-#        plt.axvline(t_e_ms, linestyle='--', linewidth=0.8, label=label)
-#
-#if smooth_for_plot is not None:
-#    _, smooth_d = decimate_for_plot(t_seg_ms, smooth_for_plot, max_points_full_plot)
-#    plt.plot(t_seg_ms_d, smooth_d, label="Potencia integrada (media móvil)", alpha=0.7)
-#
-#plt.xlabel("Tiempo en segmento [ms]")
-#plt.ylabel("Potencia [u.a.]")
-#plt.title("Potencia segmentada con detecciones (modo {}, umbral = {:.3f})".format(
-#    detection_mode, power_threshold))
-#plt.grid(True)
-#plt.legend(loc="best")
-#plt.tight_layout()
-#
-## ==========================
-## 15) Gráfica 2: superposición de ráfagas
-## ==========================
-#
-#pre_win_samples = int(round(pre_window_s * fs_eff))
-#post_win_samples = int(round(post_window_s * fs_eff))
-#win_len = pre_win_samples + post_window_s
-#
-#segments = []
-#for e in edges:
-#    s = e - pre_win_samples
-#    en = e + post_win_samples
-#    if s < 0 or en > n_analyze:
-#        continue
-#    seg = power_seg[s:en]
-#    if len(seg) == win_len:
-#        segments.append(seg)
-#
-#if len(segments) > 0:
-#    segments = np.array(segments)
-#    n_plot = min(max_bursts_for_overlay, segments.shape[0])
-#
-#    step_overlay = max(1, win_len // max_points_overlay)
-#    t_rel = (np.arange(0, win_len, step_overlay) - pre_win_samples) / fs_eff * 1e3
-#
-#    plt.figure()
-#    for i in range(n_plot):
-#        seg_d = segments[i, ::step_overlay]
-#        plt.plot(t_rel, seg_d, alpha=0.5)
-#    plt.axvline(0.0, linestyle='--', linewidth=1.0, label="Punto de detección")
-#
-#    plt.xlabel("Tiempo relativo a la detección [ms]")
-#    plt.ylabel("Potencia [u.a.]")
-#    plt.title("Superposición de ráfagas alineadas ({} mostradas, modo {})".format(
-#        n_plot, detection_mode))
-#    plt.grid(True)
-#    plt.legend(loc="best")
-#    plt.tight_layout()
-#else:
-#   print("No se pudieron construir ventanas para superposición; ajusta pre/post_window_s.")
 
 # ==========================
 # 16) Mostrar figuras

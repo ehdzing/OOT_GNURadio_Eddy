@@ -61,6 +61,7 @@ list(APPEND howto_sources
     frame_gate_cc_impl.cc
     slot_timing_monitor_cc_impl.cc
     time_tagger_cc_impl.cc
+    rx_time_recorder_cc_impl.cc
 )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)

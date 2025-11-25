@@ -47,5 +47,6 @@ install(FILES
     frame_gate_cc.h
     slot_timing_monitor_cc.h
     time_tagger_cc.h
+    rx_time_recorder_cc.h
 DESTINATION include/howto
 )

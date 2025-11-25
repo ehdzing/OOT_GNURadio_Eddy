@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<block>
+  <name>RX Time Recorder CC</name>
+  <key>howto_rx_time_recorder_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+  <make>howto.rx_time_recorder_cc($samp_rate, $filename, $decim)</make>
+
+  <param>
+    <name>Sample rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>30.72e6</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>Output filename</name>
+    <key>filename</key>
+    <value>power_rx1</value>
+    <type>string</type>
+  </param>
+
+  <param>
+    <name>Decimation</name>
+    <key>decim</key>
+    <value>20</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <doc>
+    This block records decimated RX power and USRP "rx_time" into a single
+    binary file.
+
+    - Input: complex stream (typically from an UHD USRP Source).
+    - The block looks for the "rx_time" tag to build an absolute time axis.
+    - It keeps one sample every "decim" input samples.
+    - For each kept sample it writes:
+
+        [double t_rx][float power]
+
+      where:
+        * t_rx is the absolute RX time in seconds.
+        * power = |x|^2.
+
+    The output file (default "power_rx1") can be read in Python with a
+    structured dtype, for example:
+
+        import numpy as np
+        dt = np.dtype([('t', np.float64), ('p', np.float32)])
+        data = np.fromfile('power_rx1', dtype=dt)
+        t_all   = data['t']
+        power   = data['p']
+  </doc>
+</block>

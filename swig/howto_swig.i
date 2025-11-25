@@ -32,6 +32,7 @@
 #include "howto/frame_gate_cc.h"
 #include "howto/slot_timing_monitor_cc.h"
 #include "howto/time_tagger_cc.h"
+#include "howto/rx_time_recorder_cc.h"
 %}
 
 
@@ -88,3 +89,5 @@ GR_SWIG_BLOCK_MAGIC2(howto, frame_gate_cc);
 GR_SWIG_BLOCK_MAGIC2(howto, slot_timing_monitor_cc);
 %include "howto/time_tagger_cc.h"
 GR_SWIG_BLOCK_MAGIC2(howto, time_tagger_cc);
+%include "howto/rx_time_recorder_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, rx_time_recorder_cc);
