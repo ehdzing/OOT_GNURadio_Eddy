@@ -4740,5 +4740,6438 @@ decimate_fir_cc_sptr_swigregister(decimate_fir_cc_sptr)
 decimate_fir_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
 decimate_fir_cc = decimate_fir_cc.make;
 
+class dual_decimate_ff(object):
+    """Proxy of C++ gr::howto::dual_decimate_ff class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(D0, D1):
+        """make(int D0, int D1) -> dual_decimate_ff_sptr"""
+        return _howto_swig.dual_decimate_ff_make(D0, D1)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _howto_swig.delete_dual_decimate_ff
+    __del__ = lambda self: None
+
+    def set_D0(self, D0):
+        """set_D0(dual_decimate_ff self, int D0)"""
+        return _howto_swig.dual_decimate_ff_set_D0(self, D0)
+
+
+    def set_D1(self, D1):
+        """set_D1(dual_decimate_ff self, int D1)"""
+        return _howto_swig.dual_decimate_ff_set_D1(self, D1)
+
+
+    def D0(self):
+        """D0(dual_decimate_ff self) -> int"""
+        return _howto_swig.dual_decimate_ff_D0(self)
+
+
+    def D1(self):
+        """D1(dual_decimate_ff self) -> int"""
+        return _howto_swig.dual_decimate_ff_D1(self)
+
+dual_decimate_ff_swigregister = _howto_swig.dual_decimate_ff_swigregister
+dual_decimate_ff_swigregister(dual_decimate_ff)
+
+def dual_decimate_ff_make(D0, D1):
+    """dual_decimate_ff_make(int D0, int D1) -> dual_decimate_ff_sptr"""
+    return _howto_swig.dual_decimate_ff_make(D0, D1)
+
+class dual_decimate_ff_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::dual_decimate_ff)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::dual_decimate_ff)> self) -> dual_decimate_ff_sptr
+        __init__(boost::shared_ptr<(gr::howto::dual_decimate_ff)> self, dual_decimate_ff p) -> dual_decimate_ff_sptr
+        """
+        this = _howto_swig.new_dual_decimate_ff_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(dual_decimate_ff_sptr self) -> dual_decimate_ff"""
+        return _howto_swig.dual_decimate_ff_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_dual_decimate_ff_sptr
+    __del__ = lambda self: None
+
+    def make(self, D0, D1):
+        """make(dual_decimate_ff_sptr self, int D0, int D1) -> dual_decimate_ff_sptr"""
+        return _howto_swig.dual_decimate_ff_sptr_make(self, D0, D1)
+
+
+    def set_D0(self, D0):
+        """set_D0(dual_decimate_ff_sptr self, int D0)"""
+        return _howto_swig.dual_decimate_ff_sptr_set_D0(self, D0)
+
+
+    def set_D1(self, D1):
+        """set_D1(dual_decimate_ff_sptr self, int D1)"""
+        return _howto_swig.dual_decimate_ff_sptr_set_D1(self, D1)
+
+
+    def D0(self):
+        """D0(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_D0(self)
+
+
+    def D1(self):
+        """D1(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_D1(self)
+
+
+    def history(self):
+        """history(dual_decimate_ff_sptr self) -> unsigned int"""
+        return _howto_swig.dual_decimate_ff_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(dual_decimate_ff_sptr self, int which, int delay)
+        declare_sample_delay(dual_decimate_ff_sptr self, unsigned int delay)
+        """
+        return _howto_swig.dual_decimate_ff_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(dual_decimate_ff_sptr self, int which) -> unsigned int"""
+        return _howto_swig.dual_decimate_ff_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(dual_decimate_ff_sptr self) -> double"""
+        return _howto_swig.dual_decimate_ff_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(dual_decimate_ff_sptr self) -> bool"""
+        return _howto_swig.dual_decimate_ff_sptr_start(self)
+
+
+    def stop(self):
+        """stop(dual_decimate_ff_sptr self) -> bool"""
+        return _howto_swig.dual_decimate_ff_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(dual_decimate_ff_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.dual_decimate_ff_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(dual_decimate_ff_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.dual_decimate_ff_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(dual_decimate_ff_sptr self, int m)"""
+        return _howto_swig.dual_decimate_ff_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(dual_decimate_ff_sptr self)"""
+        return _howto_swig.dual_decimate_ff_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(dual_decimate_ff_sptr self) -> bool"""
+        return _howto_swig.dual_decimate_ff_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(dual_decimate_ff_sptr self, int m)"""
+        return _howto_swig.dual_decimate_ff_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(dual_decimate_ff_sptr self, int i) -> long"""
+        return _howto_swig.dual_decimate_ff_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(dual_decimate_ff_sptr self, long max_output_buffer)
+        set_max_output_buffer(dual_decimate_ff_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.dual_decimate_ff_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(dual_decimate_ff_sptr self, int i) -> long"""
+        return _howto_swig.dual_decimate_ff_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(dual_decimate_ff_sptr self, long min_output_buffer)
+        set_min_output_buffer(dual_decimate_ff_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.dual_decimate_ff_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(dual_decimate_ff_sptr self, int which) -> float
+        pc_input_buffers_full(dual_decimate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.dual_decimate_ff_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(dual_decimate_ff_sptr self, int which) -> float
+        pc_input_buffers_full_avg(dual_decimate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.dual_decimate_ff_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(dual_decimate_ff_sptr self, int which) -> float
+        pc_input_buffers_full_var(dual_decimate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.dual_decimate_ff_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(dual_decimate_ff_sptr self, int which) -> float
+        pc_output_buffers_full(dual_decimate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.dual_decimate_ff_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(dual_decimate_ff_sptr self, int which) -> float
+        pc_output_buffers_full_avg(dual_decimate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.dual_decimate_ff_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(dual_decimate_ff_sptr self, int which) -> float
+        pc_output_buffers_full_var(dual_decimate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.dual_decimate_ff_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(dual_decimate_ff_sptr self) -> float"""
+        return _howto_swig.dual_decimate_ff_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(dual_decimate_ff_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.dual_decimate_ff_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(dual_decimate_ff_sptr self)"""
+        return _howto_swig.dual_decimate_ff_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(dual_decimate_ff_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.dual_decimate_ff_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(dual_decimate_ff_sptr self) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(dual_decimate_ff_sptr self, int priority) -> int"""
+        return _howto_swig.dual_decimate_ff_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(dual_decimate_ff_sptr self) -> std::string"""
+        return _howto_swig.dual_decimate_ff_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(dual_decimate_ff_sptr self) -> std::string"""
+        return _howto_swig.dual_decimate_ff_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(dual_decimate_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.dual_decimate_ff_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(dual_decimate_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.dual_decimate_ff_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(dual_decimate_ff_sptr self) -> long"""
+        return _howto_swig.dual_decimate_ff_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(dual_decimate_ff_sptr self) -> basic_block_sptr"""
+        return _howto_swig.dual_decimate_ff_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(dual_decimate_ff_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.dual_decimate_ff_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(dual_decimate_ff_sptr self) -> std::string"""
+        return _howto_swig.dual_decimate_ff_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(dual_decimate_ff_sptr self, std::string name)"""
+        return _howto_swig.dual_decimate_ff_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(dual_decimate_ff_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.dual_decimate_ff_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(dual_decimate_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.dual_decimate_ff_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(dual_decimate_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.dual_decimate_ff_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(dual_decimate_ff_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.dual_decimate_ff_sptr_message_subscribers(self, which_port)
+
+dual_decimate_ff_sptr_swigregister = _howto_swig.dual_decimate_ff_sptr_swigregister
+dual_decimate_ff_sptr_swigregister(dual_decimate_ff_sptr)
+
+
+dual_decimate_ff_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+dual_decimate_ff = dual_decimate_ff.make;
+
+class gate_ff(object):
+    """Proxy of C++ gr::howto::gate_ff class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(initially_open):
+        """make(bool initially_open) -> gate_ff_sptr"""
+        return _howto_swig.gate_ff_make(initially_open)
+
+    make = staticmethod(make)
+
+    def set_open(self, open_now):
+        """set_open(gate_ff self, bool open_now)"""
+        return _howto_swig.gate_ff_set_open(self, open_now)
+
+
+    def is_open(self):
+        """is_open(gate_ff self) -> bool"""
+        return _howto_swig.gate_ff_is_open(self)
+
+    __swig_destroy__ = _howto_swig.delete_gate_ff
+    __del__ = lambda self: None
+gate_ff_swigregister = _howto_swig.gate_ff_swigregister
+gate_ff_swigregister(gate_ff)
+
+def gate_ff_make(initially_open):
+    """gate_ff_make(bool initially_open) -> gate_ff_sptr"""
+    return _howto_swig.gate_ff_make(initially_open)
+
+class gate_ff_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::gate_ff)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::gate_ff)> self) -> gate_ff_sptr
+        __init__(boost::shared_ptr<(gr::howto::gate_ff)> self, gate_ff p) -> gate_ff_sptr
+        """
+        this = _howto_swig.new_gate_ff_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(gate_ff_sptr self) -> gate_ff"""
+        return _howto_swig.gate_ff_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_gate_ff_sptr
+    __del__ = lambda self: None
+
+    def make(self, initially_open):
+        """make(gate_ff_sptr self, bool initially_open) -> gate_ff_sptr"""
+        return _howto_swig.gate_ff_sptr_make(self, initially_open)
+
+
+    def set_open(self, open_now):
+        """set_open(gate_ff_sptr self, bool open_now)"""
+        return _howto_swig.gate_ff_sptr_set_open(self, open_now)
+
+
+    def is_open(self):
+        """is_open(gate_ff_sptr self) -> bool"""
+        return _howto_swig.gate_ff_sptr_is_open(self)
+
+
+    def history(self):
+        """history(gate_ff_sptr self) -> unsigned int"""
+        return _howto_swig.gate_ff_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(gate_ff_sptr self, int which, int delay)
+        declare_sample_delay(gate_ff_sptr self, unsigned int delay)
+        """
+        return _howto_swig.gate_ff_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(gate_ff_sptr self, int which) -> unsigned int"""
+        return _howto_swig.gate_ff_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(gate_ff_sptr self) -> int"""
+        return _howto_swig.gate_ff_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(gate_ff_sptr self) -> double"""
+        return _howto_swig.gate_ff_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(gate_ff_sptr self) -> bool"""
+        return _howto_swig.gate_ff_sptr_start(self)
+
+
+    def stop(self):
+        """stop(gate_ff_sptr self) -> bool"""
+        return _howto_swig.gate_ff_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(gate_ff_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.gate_ff_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(gate_ff_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.gate_ff_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(gate_ff_sptr self) -> int"""
+        return _howto_swig.gate_ff_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(gate_ff_sptr self, int m)"""
+        return _howto_swig.gate_ff_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(gate_ff_sptr self)"""
+        return _howto_swig.gate_ff_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(gate_ff_sptr self) -> bool"""
+        return _howto_swig.gate_ff_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(gate_ff_sptr self, int m)"""
+        return _howto_swig.gate_ff_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(gate_ff_sptr self) -> int"""
+        return _howto_swig.gate_ff_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(gate_ff_sptr self, int i) -> long"""
+        return _howto_swig.gate_ff_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(gate_ff_sptr self, long max_output_buffer)
+        set_max_output_buffer(gate_ff_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.gate_ff_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(gate_ff_sptr self, int i) -> long"""
+        return _howto_swig.gate_ff_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(gate_ff_sptr self, long min_output_buffer)
+        set_min_output_buffer(gate_ff_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.gate_ff_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(gate_ff_sptr self, int which) -> float
+        pc_input_buffers_full(gate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.gate_ff_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(gate_ff_sptr self, int which) -> float
+        pc_input_buffers_full_avg(gate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.gate_ff_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(gate_ff_sptr self, int which) -> float
+        pc_input_buffers_full_var(gate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.gate_ff_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(gate_ff_sptr self, int which) -> float
+        pc_output_buffers_full(gate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.gate_ff_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(gate_ff_sptr self, int which) -> float
+        pc_output_buffers_full_avg(gate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.gate_ff_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(gate_ff_sptr self, int which) -> float
+        pc_output_buffers_full_var(gate_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.gate_ff_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(gate_ff_sptr self) -> float"""
+        return _howto_swig.gate_ff_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(gate_ff_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.gate_ff_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(gate_ff_sptr self)"""
+        return _howto_swig.gate_ff_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(gate_ff_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.gate_ff_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(gate_ff_sptr self) -> int"""
+        return _howto_swig.gate_ff_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(gate_ff_sptr self) -> int"""
+        return _howto_swig.gate_ff_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(gate_ff_sptr self, int priority) -> int"""
+        return _howto_swig.gate_ff_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(gate_ff_sptr self) -> std::string"""
+        return _howto_swig.gate_ff_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(gate_ff_sptr self) -> std::string"""
+        return _howto_swig.gate_ff_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(gate_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.gate_ff_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(gate_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.gate_ff_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(gate_ff_sptr self) -> long"""
+        return _howto_swig.gate_ff_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(gate_ff_sptr self) -> basic_block_sptr"""
+        return _howto_swig.gate_ff_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(gate_ff_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.gate_ff_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(gate_ff_sptr self) -> std::string"""
+        return _howto_swig.gate_ff_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(gate_ff_sptr self, std::string name)"""
+        return _howto_swig.gate_ff_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(gate_ff_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.gate_ff_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(gate_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.gate_ff_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(gate_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.gate_ff_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(gate_ff_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.gate_ff_sptr_message_subscribers(self, which_port)
+
+gate_ff_sptr_swigregister = _howto_swig.gate_ff_sptr_swigregister
+gate_ff_sptr_swigregister(gate_ff_sptr)
+
+
+gate_ff_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+gate_ff = gate_ff.make;
+
+class detector_ff(object):
+    """Proxy of C++ gr::howto::detector_ff class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(thr_high, thr_low, win):
+        """make(float thr_high, float thr_low, int win) -> detector_ff_sptr"""
+        return _howto_swig.detector_ff_make(thr_high, thr_low, win)
+
+    make = staticmethod(make)
+
+    def set_thresholds(self, thr_high, thr_low):
+        """set_thresholds(detector_ff self, float thr_high, float thr_low)"""
+        return _howto_swig.detector_ff_set_thresholds(self, thr_high, thr_low)
+
+
+    def set_window(self, win):
+        """set_window(detector_ff self, int win)"""
+        return _howto_swig.detector_ff_set_window(self, win)
+
+
+    def thr_high(self):
+        """thr_high(detector_ff self) -> float"""
+        return _howto_swig.detector_ff_thr_high(self)
+
+
+    def thr_low(self):
+        """thr_low(detector_ff self) -> float"""
+        return _howto_swig.detector_ff_thr_low(self)
+
+
+    def window(self):
+        """window(detector_ff self) -> int"""
+        return _howto_swig.detector_ff_window(self)
+
+    __swig_destroy__ = _howto_swig.delete_detector_ff
+    __del__ = lambda self: None
+detector_ff_swigregister = _howto_swig.detector_ff_swigregister
+detector_ff_swigregister(detector_ff)
+
+def detector_ff_make(thr_high, thr_low, win):
+    """detector_ff_make(float thr_high, float thr_low, int win) -> detector_ff_sptr"""
+    return _howto_swig.detector_ff_make(thr_high, thr_low, win)
+
+class detector_ff_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::detector_ff)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::detector_ff)> self) -> detector_ff_sptr
+        __init__(boost::shared_ptr<(gr::howto::detector_ff)> self, detector_ff p) -> detector_ff_sptr
+        """
+        this = _howto_swig.new_detector_ff_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(detector_ff_sptr self) -> detector_ff"""
+        return _howto_swig.detector_ff_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_detector_ff_sptr
+    __del__ = lambda self: None
+
+    def make(self, thr_high, thr_low, win):
+        """make(detector_ff_sptr self, float thr_high, float thr_low, int win) -> detector_ff_sptr"""
+        return _howto_swig.detector_ff_sptr_make(self, thr_high, thr_low, win)
+
+
+    def set_thresholds(self, thr_high, thr_low):
+        """set_thresholds(detector_ff_sptr self, float thr_high, float thr_low)"""
+        return _howto_swig.detector_ff_sptr_set_thresholds(self, thr_high, thr_low)
+
+
+    def set_window(self, win):
+        """set_window(detector_ff_sptr self, int win)"""
+        return _howto_swig.detector_ff_sptr_set_window(self, win)
+
+
+    def thr_high(self):
+        """thr_high(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_thr_high(self)
+
+
+    def thr_low(self):
+        """thr_low(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_thr_low(self)
+
+
+    def window(self):
+        """window(detector_ff_sptr self) -> int"""
+        return _howto_swig.detector_ff_sptr_window(self)
+
+
+    def history(self):
+        """history(detector_ff_sptr self) -> unsigned int"""
+        return _howto_swig.detector_ff_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(detector_ff_sptr self, int which, int delay)
+        declare_sample_delay(detector_ff_sptr self, unsigned int delay)
+        """
+        return _howto_swig.detector_ff_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(detector_ff_sptr self, int which) -> unsigned int"""
+        return _howto_swig.detector_ff_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(detector_ff_sptr self) -> int"""
+        return _howto_swig.detector_ff_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(detector_ff_sptr self) -> double"""
+        return _howto_swig.detector_ff_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(detector_ff_sptr self) -> bool"""
+        return _howto_swig.detector_ff_sptr_start(self)
+
+
+    def stop(self):
+        """stop(detector_ff_sptr self) -> bool"""
+        return _howto_swig.detector_ff_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(detector_ff_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.detector_ff_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(detector_ff_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.detector_ff_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(detector_ff_sptr self) -> int"""
+        return _howto_swig.detector_ff_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(detector_ff_sptr self, int m)"""
+        return _howto_swig.detector_ff_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(detector_ff_sptr self)"""
+        return _howto_swig.detector_ff_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(detector_ff_sptr self) -> bool"""
+        return _howto_swig.detector_ff_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(detector_ff_sptr self, int m)"""
+        return _howto_swig.detector_ff_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(detector_ff_sptr self) -> int"""
+        return _howto_swig.detector_ff_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(detector_ff_sptr self, int i) -> long"""
+        return _howto_swig.detector_ff_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(detector_ff_sptr self, long max_output_buffer)
+        set_max_output_buffer(detector_ff_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.detector_ff_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(detector_ff_sptr self, int i) -> long"""
+        return _howto_swig.detector_ff_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(detector_ff_sptr self, long min_output_buffer)
+        set_min_output_buffer(detector_ff_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.detector_ff_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(detector_ff_sptr self, int which) -> float
+        pc_input_buffers_full(detector_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_ff_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(detector_ff_sptr self, int which) -> float
+        pc_input_buffers_full_avg(detector_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_ff_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(detector_ff_sptr self, int which) -> float
+        pc_input_buffers_full_var(detector_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_ff_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(detector_ff_sptr self, int which) -> float
+        pc_output_buffers_full(detector_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_ff_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(detector_ff_sptr self, int which) -> float
+        pc_output_buffers_full_avg(detector_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_ff_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(detector_ff_sptr self, int which) -> float
+        pc_output_buffers_full_var(detector_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_ff_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(detector_ff_sptr self) -> float"""
+        return _howto_swig.detector_ff_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(detector_ff_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.detector_ff_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(detector_ff_sptr self)"""
+        return _howto_swig.detector_ff_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(detector_ff_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.detector_ff_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(detector_ff_sptr self) -> int"""
+        return _howto_swig.detector_ff_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(detector_ff_sptr self) -> int"""
+        return _howto_swig.detector_ff_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(detector_ff_sptr self, int priority) -> int"""
+        return _howto_swig.detector_ff_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(detector_ff_sptr self) -> std::string"""
+        return _howto_swig.detector_ff_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(detector_ff_sptr self) -> std::string"""
+        return _howto_swig.detector_ff_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(detector_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.detector_ff_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(detector_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.detector_ff_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(detector_ff_sptr self) -> long"""
+        return _howto_swig.detector_ff_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(detector_ff_sptr self) -> basic_block_sptr"""
+        return _howto_swig.detector_ff_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(detector_ff_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.detector_ff_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(detector_ff_sptr self) -> std::string"""
+        return _howto_swig.detector_ff_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(detector_ff_sptr self, std::string name)"""
+        return _howto_swig.detector_ff_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(detector_ff_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.detector_ff_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(detector_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.detector_ff_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(detector_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.detector_ff_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(detector_ff_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.detector_ff_sptr_message_subscribers(self, which_port)
+
+detector_ff_sptr_swigregister = _howto_swig.detector_ff_sptr_swigregister
+detector_ff_sptr_swigregister(detector_ff_sptr)
+
+
+detector_ff_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+detector_ff = detector_ff.make;
+
+class detector_exp_ff(object):
+    """Proxy of C++ gr::howto::detector_exp_ff class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(length):
+        """make(int length) -> detector_exp_ff_sptr"""
+        return _howto_swig.detector_exp_ff_make(length)
+
+    make = staticmethod(make)
+
+    def set_length(self, n):
+        """set_length(detector_exp_ff self, int n)"""
+        return _howto_swig.detector_exp_ff_set_length(self, n)
+
+
+    def set_Ton(self, t):
+        """set_Ton(detector_exp_ff self, float t)"""
+        return _howto_swig.detector_exp_ff_set_Ton(self, t)
+
+
+    def set_Toff(self, t):
+        """set_Toff(detector_exp_ff self, float t)"""
+        return _howto_swig.detector_exp_ff_set_Toff(self, t)
+
+    __swig_destroy__ = _howto_swig.delete_detector_exp_ff
+    __del__ = lambda self: None
+detector_exp_ff_swigregister = _howto_swig.detector_exp_ff_swigregister
+detector_exp_ff_swigregister(detector_exp_ff)
+
+def detector_exp_ff_make(length):
+    """detector_exp_ff_make(int length) -> detector_exp_ff_sptr"""
+    return _howto_swig.detector_exp_ff_make(length)
+
+class detector_exp_ff_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::detector_exp_ff)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::detector_exp_ff)> self) -> detector_exp_ff_sptr
+        __init__(boost::shared_ptr<(gr::howto::detector_exp_ff)> self, detector_exp_ff p) -> detector_exp_ff_sptr
+        """
+        this = _howto_swig.new_detector_exp_ff_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(detector_exp_ff_sptr self) -> detector_exp_ff"""
+        return _howto_swig.detector_exp_ff_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_detector_exp_ff_sptr
+    __del__ = lambda self: None
+
+    def make(self, length):
+        """make(detector_exp_ff_sptr self, int length) -> detector_exp_ff_sptr"""
+        return _howto_swig.detector_exp_ff_sptr_make(self, length)
+
+
+    def set_length(self, n):
+        """set_length(detector_exp_ff_sptr self, int n)"""
+        return _howto_swig.detector_exp_ff_sptr_set_length(self, n)
+
+
+    def set_Ton(self, t):
+        """set_Ton(detector_exp_ff_sptr self, float t)"""
+        return _howto_swig.detector_exp_ff_sptr_set_Ton(self, t)
+
+
+    def set_Toff(self, t):
+        """set_Toff(detector_exp_ff_sptr self, float t)"""
+        return _howto_swig.detector_exp_ff_sptr_set_Toff(self, t)
+
+
+    def history(self):
+        """history(detector_exp_ff_sptr self) -> unsigned int"""
+        return _howto_swig.detector_exp_ff_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(detector_exp_ff_sptr self, int which, int delay)
+        declare_sample_delay(detector_exp_ff_sptr self, unsigned int delay)
+        """
+        return _howto_swig.detector_exp_ff_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(detector_exp_ff_sptr self, int which) -> unsigned int"""
+        return _howto_swig.detector_exp_ff_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(detector_exp_ff_sptr self) -> int"""
+        return _howto_swig.detector_exp_ff_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(detector_exp_ff_sptr self) -> double"""
+        return _howto_swig.detector_exp_ff_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(detector_exp_ff_sptr self) -> bool"""
+        return _howto_swig.detector_exp_ff_sptr_start(self)
+
+
+    def stop(self):
+        """stop(detector_exp_ff_sptr self) -> bool"""
+        return _howto_swig.detector_exp_ff_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(detector_exp_ff_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.detector_exp_ff_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(detector_exp_ff_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.detector_exp_ff_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(detector_exp_ff_sptr self) -> int"""
+        return _howto_swig.detector_exp_ff_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(detector_exp_ff_sptr self, int m)"""
+        return _howto_swig.detector_exp_ff_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(detector_exp_ff_sptr self)"""
+        return _howto_swig.detector_exp_ff_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(detector_exp_ff_sptr self) -> bool"""
+        return _howto_swig.detector_exp_ff_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(detector_exp_ff_sptr self, int m)"""
+        return _howto_swig.detector_exp_ff_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(detector_exp_ff_sptr self) -> int"""
+        return _howto_swig.detector_exp_ff_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(detector_exp_ff_sptr self, int i) -> long"""
+        return _howto_swig.detector_exp_ff_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(detector_exp_ff_sptr self, long max_output_buffer)
+        set_max_output_buffer(detector_exp_ff_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.detector_exp_ff_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(detector_exp_ff_sptr self, int i) -> long"""
+        return _howto_swig.detector_exp_ff_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(detector_exp_ff_sptr self, long min_output_buffer)
+        set_min_output_buffer(detector_exp_ff_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.detector_exp_ff_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(detector_exp_ff_sptr self, int which) -> float
+        pc_input_buffers_full(detector_exp_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_exp_ff_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(detector_exp_ff_sptr self, int which) -> float
+        pc_input_buffers_full_avg(detector_exp_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_exp_ff_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(detector_exp_ff_sptr self, int which) -> float
+        pc_input_buffers_full_var(detector_exp_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_exp_ff_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(detector_exp_ff_sptr self, int which) -> float
+        pc_output_buffers_full(detector_exp_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_exp_ff_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(detector_exp_ff_sptr self, int which) -> float
+        pc_output_buffers_full_avg(detector_exp_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_exp_ff_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(detector_exp_ff_sptr self, int which) -> float
+        pc_output_buffers_full_var(detector_exp_ff_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.detector_exp_ff_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(detector_exp_ff_sptr self) -> float"""
+        return _howto_swig.detector_exp_ff_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(detector_exp_ff_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.detector_exp_ff_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(detector_exp_ff_sptr self)"""
+        return _howto_swig.detector_exp_ff_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(detector_exp_ff_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.detector_exp_ff_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(detector_exp_ff_sptr self) -> int"""
+        return _howto_swig.detector_exp_ff_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(detector_exp_ff_sptr self) -> int"""
+        return _howto_swig.detector_exp_ff_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(detector_exp_ff_sptr self, int priority) -> int"""
+        return _howto_swig.detector_exp_ff_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(detector_exp_ff_sptr self) -> std::string"""
+        return _howto_swig.detector_exp_ff_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(detector_exp_ff_sptr self) -> std::string"""
+        return _howto_swig.detector_exp_ff_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(detector_exp_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.detector_exp_ff_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(detector_exp_ff_sptr self) -> io_signature_sptr"""
+        return _howto_swig.detector_exp_ff_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(detector_exp_ff_sptr self) -> long"""
+        return _howto_swig.detector_exp_ff_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(detector_exp_ff_sptr self) -> basic_block_sptr"""
+        return _howto_swig.detector_exp_ff_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(detector_exp_ff_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.detector_exp_ff_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(detector_exp_ff_sptr self) -> std::string"""
+        return _howto_swig.detector_exp_ff_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(detector_exp_ff_sptr self, std::string name)"""
+        return _howto_swig.detector_exp_ff_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(detector_exp_ff_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.detector_exp_ff_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(detector_exp_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.detector_exp_ff_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(detector_exp_ff_sptr self) -> swig_int_ptr"""
+        return _howto_swig.detector_exp_ff_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(detector_exp_ff_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.detector_exp_ff_sptr_message_subscribers(self, which_port)
+
+detector_exp_ff_sptr_swigregister = _howto_swig.detector_exp_ff_sptr_swigregister
+detector_exp_ff_sptr_swigregister(detector_exp_ff_sptr)
+
+
+detector_exp_ff_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+detector_exp_ff = detector_exp_ff.make;
+
+class slot_clock_cc(object):
+    """Proxy of C++ gr::howto::slot_clock_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(*args, **kwargs):
+        """make(int samples_per_slot, std::string const & srcid) -> slot_clock_cc_sptr"""
+        return _howto_swig.slot_clock_cc_make(*args, **kwargs)
+
+    make = staticmethod(make)
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(slot_clock_cc self, int samples_per_slot)"""
+        return _howto_swig.slot_clock_cc_set_samples_per_slot(self, samples_per_slot)
+
+    __swig_destroy__ = _howto_swig.delete_slot_clock_cc
+    __del__ = lambda self: None
+slot_clock_cc_swigregister = _howto_swig.slot_clock_cc_swigregister
+slot_clock_cc_swigregister(slot_clock_cc)
+
+def slot_clock_cc_make(*args, **kwargs):
+    """slot_clock_cc_make(int samples_per_slot, std::string const & srcid) -> slot_clock_cc_sptr"""
+    return _howto_swig.slot_clock_cc_make(*args, **kwargs)
+
+class slot_clock_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::slot_clock_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::slot_clock_cc)> self) -> slot_clock_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::slot_clock_cc)> self, slot_clock_cc p) -> slot_clock_cc_sptr
+        """
+        this = _howto_swig.new_slot_clock_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(slot_clock_cc_sptr self) -> slot_clock_cc"""
+        return _howto_swig.slot_clock_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_slot_clock_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, *args, **kwargs):
+        """make(slot_clock_cc_sptr self, int samples_per_slot, std::string const & srcid) -> slot_clock_cc_sptr"""
+        return _howto_swig.slot_clock_cc_sptr_make(self, *args, **kwargs)
+
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(slot_clock_cc_sptr self, int samples_per_slot)"""
+        return _howto_swig.slot_clock_cc_sptr_set_samples_per_slot(self, samples_per_slot)
+
+
+    def history(self):
+        """history(slot_clock_cc_sptr self) -> unsigned int"""
+        return _howto_swig.slot_clock_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(slot_clock_cc_sptr self, int which, int delay)
+        declare_sample_delay(slot_clock_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.slot_clock_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(slot_clock_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.slot_clock_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(slot_clock_cc_sptr self) -> int"""
+        return _howto_swig.slot_clock_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(slot_clock_cc_sptr self) -> double"""
+        return _howto_swig.slot_clock_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(slot_clock_cc_sptr self) -> bool"""
+        return _howto_swig.slot_clock_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(slot_clock_cc_sptr self) -> bool"""
+        return _howto_swig.slot_clock_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(slot_clock_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.slot_clock_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(slot_clock_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.slot_clock_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(slot_clock_cc_sptr self) -> int"""
+        return _howto_swig.slot_clock_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(slot_clock_cc_sptr self, int m)"""
+        return _howto_swig.slot_clock_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(slot_clock_cc_sptr self)"""
+        return _howto_swig.slot_clock_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(slot_clock_cc_sptr self) -> bool"""
+        return _howto_swig.slot_clock_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(slot_clock_cc_sptr self, int m)"""
+        return _howto_swig.slot_clock_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(slot_clock_cc_sptr self) -> int"""
+        return _howto_swig.slot_clock_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(slot_clock_cc_sptr self, int i) -> long"""
+        return _howto_swig.slot_clock_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(slot_clock_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(slot_clock_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.slot_clock_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(slot_clock_cc_sptr self, int i) -> long"""
+        return _howto_swig.slot_clock_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(slot_clock_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(slot_clock_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.slot_clock_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(slot_clock_cc_sptr self, int which) -> float
+        pc_input_buffers_full(slot_clock_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_clock_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(slot_clock_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(slot_clock_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_clock_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(slot_clock_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(slot_clock_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_clock_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(slot_clock_cc_sptr self, int which) -> float
+        pc_output_buffers_full(slot_clock_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_clock_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(slot_clock_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(slot_clock_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_clock_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(slot_clock_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(slot_clock_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_clock_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(slot_clock_cc_sptr self) -> float"""
+        return _howto_swig.slot_clock_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(slot_clock_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.slot_clock_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(slot_clock_cc_sptr self)"""
+        return _howto_swig.slot_clock_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(slot_clock_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.slot_clock_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(slot_clock_cc_sptr self) -> int"""
+        return _howto_swig.slot_clock_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(slot_clock_cc_sptr self) -> int"""
+        return _howto_swig.slot_clock_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(slot_clock_cc_sptr self, int priority) -> int"""
+        return _howto_swig.slot_clock_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(slot_clock_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_clock_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(slot_clock_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_clock_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(slot_clock_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.slot_clock_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(slot_clock_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.slot_clock_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(slot_clock_cc_sptr self) -> long"""
+        return _howto_swig.slot_clock_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(slot_clock_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.slot_clock_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(slot_clock_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.slot_clock_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(slot_clock_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_clock_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(slot_clock_cc_sptr self, std::string name)"""
+        return _howto_swig.slot_clock_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(slot_clock_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.slot_clock_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(slot_clock_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.slot_clock_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(slot_clock_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.slot_clock_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(slot_clock_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.slot_clock_cc_sptr_message_subscribers(self, which_port)
+
+slot_clock_cc_sptr_swigregister = _howto_swig.slot_clock_cc_sptr_swigregister
+slot_clock_cc_sptr_swigregister(slot_clock_cc_sptr)
+
+
+slot_clock_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+slot_clock_cc = slot_clock_cc.make;
+
+class metric_estimator_cc(object):
+    """Proxy of C++ gr::howto::metric_estimator_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(samples_per_slot, thr_low, thr_high):
+        """make(int samples_per_slot, double thr_low, double thr_high) -> metric_estimator_cc_sptr"""
+        return _howto_swig.metric_estimator_cc_make(samples_per_slot, thr_low, thr_high)
+
+    make = staticmethod(make)
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(metric_estimator_cc self, int samples_per_slot)"""
+        return _howto_swig.metric_estimator_cc_set_samples_per_slot(self, samples_per_slot)
+
+
+    def set_thresholds(self, thr_low, thr_high):
+        """set_thresholds(metric_estimator_cc self, double thr_low, double thr_high)"""
+        return _howto_swig.metric_estimator_cc_set_thresholds(self, thr_low, thr_high)
+
+    __swig_destroy__ = _howto_swig.delete_metric_estimator_cc
+    __del__ = lambda self: None
+metric_estimator_cc_swigregister = _howto_swig.metric_estimator_cc_swigregister
+metric_estimator_cc_swigregister(metric_estimator_cc)
+
+def metric_estimator_cc_make(samples_per_slot, thr_low, thr_high):
+    """metric_estimator_cc_make(int samples_per_slot, double thr_low, double thr_high) -> metric_estimator_cc_sptr"""
+    return _howto_swig.metric_estimator_cc_make(samples_per_slot, thr_low, thr_high)
+
+class metric_estimator_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::metric_estimator_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::metric_estimator_cc)> self) -> metric_estimator_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::metric_estimator_cc)> self, metric_estimator_cc p) -> metric_estimator_cc_sptr
+        """
+        this = _howto_swig.new_metric_estimator_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(metric_estimator_cc_sptr self) -> metric_estimator_cc"""
+        return _howto_swig.metric_estimator_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_metric_estimator_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, samples_per_slot, thr_low, thr_high):
+        """make(metric_estimator_cc_sptr self, int samples_per_slot, double thr_low, double thr_high) -> metric_estimator_cc_sptr"""
+        return _howto_swig.metric_estimator_cc_sptr_make(self, samples_per_slot, thr_low, thr_high)
+
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(metric_estimator_cc_sptr self, int samples_per_slot)"""
+        return _howto_swig.metric_estimator_cc_sptr_set_samples_per_slot(self, samples_per_slot)
+
+
+    def set_thresholds(self, thr_low, thr_high):
+        """set_thresholds(metric_estimator_cc_sptr self, double thr_low, double thr_high)"""
+        return _howto_swig.metric_estimator_cc_sptr_set_thresholds(self, thr_low, thr_high)
+
+
+    def history(self):
+        """history(metric_estimator_cc_sptr self) -> unsigned int"""
+        return _howto_swig.metric_estimator_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(metric_estimator_cc_sptr self, int which, int delay)
+        declare_sample_delay(metric_estimator_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.metric_estimator_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(metric_estimator_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.metric_estimator_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(metric_estimator_cc_sptr self) -> int"""
+        return _howto_swig.metric_estimator_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(metric_estimator_cc_sptr self) -> double"""
+        return _howto_swig.metric_estimator_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(metric_estimator_cc_sptr self) -> bool"""
+        return _howto_swig.metric_estimator_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(metric_estimator_cc_sptr self) -> bool"""
+        return _howto_swig.metric_estimator_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(metric_estimator_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.metric_estimator_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(metric_estimator_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.metric_estimator_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(metric_estimator_cc_sptr self) -> int"""
+        return _howto_swig.metric_estimator_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(metric_estimator_cc_sptr self, int m)"""
+        return _howto_swig.metric_estimator_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(metric_estimator_cc_sptr self)"""
+        return _howto_swig.metric_estimator_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(metric_estimator_cc_sptr self) -> bool"""
+        return _howto_swig.metric_estimator_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(metric_estimator_cc_sptr self, int m)"""
+        return _howto_swig.metric_estimator_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(metric_estimator_cc_sptr self) -> int"""
+        return _howto_swig.metric_estimator_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(metric_estimator_cc_sptr self, int i) -> long"""
+        return _howto_swig.metric_estimator_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(metric_estimator_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(metric_estimator_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.metric_estimator_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(metric_estimator_cc_sptr self, int i) -> long"""
+        return _howto_swig.metric_estimator_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(metric_estimator_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(metric_estimator_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.metric_estimator_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(metric_estimator_cc_sptr self, int which) -> float
+        pc_input_buffers_full(metric_estimator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.metric_estimator_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(metric_estimator_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(metric_estimator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.metric_estimator_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(metric_estimator_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(metric_estimator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.metric_estimator_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(metric_estimator_cc_sptr self, int which) -> float
+        pc_output_buffers_full(metric_estimator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.metric_estimator_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(metric_estimator_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(metric_estimator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.metric_estimator_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(metric_estimator_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(metric_estimator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.metric_estimator_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(metric_estimator_cc_sptr self) -> float"""
+        return _howto_swig.metric_estimator_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(metric_estimator_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.metric_estimator_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(metric_estimator_cc_sptr self)"""
+        return _howto_swig.metric_estimator_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(metric_estimator_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.metric_estimator_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(metric_estimator_cc_sptr self) -> int"""
+        return _howto_swig.metric_estimator_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(metric_estimator_cc_sptr self) -> int"""
+        return _howto_swig.metric_estimator_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(metric_estimator_cc_sptr self, int priority) -> int"""
+        return _howto_swig.metric_estimator_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(metric_estimator_cc_sptr self) -> std::string"""
+        return _howto_swig.metric_estimator_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(metric_estimator_cc_sptr self) -> std::string"""
+        return _howto_swig.metric_estimator_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(metric_estimator_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.metric_estimator_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(metric_estimator_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.metric_estimator_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(metric_estimator_cc_sptr self) -> long"""
+        return _howto_swig.metric_estimator_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(metric_estimator_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.metric_estimator_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(metric_estimator_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.metric_estimator_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(metric_estimator_cc_sptr self) -> std::string"""
+        return _howto_swig.metric_estimator_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(metric_estimator_cc_sptr self, std::string name)"""
+        return _howto_swig.metric_estimator_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(metric_estimator_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.metric_estimator_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(metric_estimator_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.metric_estimator_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(metric_estimator_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.metric_estimator_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(metric_estimator_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.metric_estimator_cc_sptr_message_subscribers(self, which_port)
+
+metric_estimator_cc_sptr_swigregister = _howto_swig.metric_estimator_cc_sptr_swigregister
+metric_estimator_cc_sptr_swigregister(metric_estimator_cc_sptr)
+
+
+metric_estimator_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+metric_estimator_cc = metric_estimator_cc.make;
+
+class scheduler_ctrl(object):
+    """Proxy of C++ gr::howto::scheduler_ctrl class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(samples_per_slot):
+        """make(int samples_per_slot) -> scheduler_ctrl_sptr"""
+        return _howto_swig.scheduler_ctrl_make(samples_per_slot)
+
+    make = staticmethod(make)
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(scheduler_ctrl self, int samples_per_slot)"""
+        return _howto_swig.scheduler_ctrl_set_samples_per_slot(self, samples_per_slot)
+
+    __swig_destroy__ = _howto_swig.delete_scheduler_ctrl
+    __del__ = lambda self: None
+scheduler_ctrl_swigregister = _howto_swig.scheduler_ctrl_swigregister
+scheduler_ctrl_swigregister(scheduler_ctrl)
+
+def scheduler_ctrl_make(samples_per_slot):
+    """scheduler_ctrl_make(int samples_per_slot) -> scheduler_ctrl_sptr"""
+    return _howto_swig.scheduler_ctrl_make(samples_per_slot)
+
+class scheduler_ctrl_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::scheduler_ctrl)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::scheduler_ctrl)> self) -> scheduler_ctrl_sptr
+        __init__(boost::shared_ptr<(gr::howto::scheduler_ctrl)> self, scheduler_ctrl p) -> scheduler_ctrl_sptr
+        """
+        this = _howto_swig.new_scheduler_ctrl_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(scheduler_ctrl_sptr self) -> scheduler_ctrl"""
+        return _howto_swig.scheduler_ctrl_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_scheduler_ctrl_sptr
+    __del__ = lambda self: None
+
+    def make(self, samples_per_slot):
+        """make(scheduler_ctrl_sptr self, int samples_per_slot) -> scheduler_ctrl_sptr"""
+        return _howto_swig.scheduler_ctrl_sptr_make(self, samples_per_slot)
+
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(scheduler_ctrl_sptr self, int samples_per_slot)"""
+        return _howto_swig.scheduler_ctrl_sptr_set_samples_per_slot(self, samples_per_slot)
+
+
+    def history(self):
+        """history(scheduler_ctrl_sptr self) -> unsigned int"""
+        return _howto_swig.scheduler_ctrl_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(scheduler_ctrl_sptr self, int which, int delay)
+        declare_sample_delay(scheduler_ctrl_sptr self, unsigned int delay)
+        """
+        return _howto_swig.scheduler_ctrl_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(scheduler_ctrl_sptr self, int which) -> unsigned int"""
+        return _howto_swig.scheduler_ctrl_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(scheduler_ctrl_sptr self) -> int"""
+        return _howto_swig.scheduler_ctrl_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(scheduler_ctrl_sptr self) -> double"""
+        return _howto_swig.scheduler_ctrl_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(scheduler_ctrl_sptr self) -> bool"""
+        return _howto_swig.scheduler_ctrl_sptr_start(self)
+
+
+    def stop(self):
+        """stop(scheduler_ctrl_sptr self) -> bool"""
+        return _howto_swig.scheduler_ctrl_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(scheduler_ctrl_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.scheduler_ctrl_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(scheduler_ctrl_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.scheduler_ctrl_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(scheduler_ctrl_sptr self) -> int"""
+        return _howto_swig.scheduler_ctrl_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(scheduler_ctrl_sptr self, int m)"""
+        return _howto_swig.scheduler_ctrl_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(scheduler_ctrl_sptr self)"""
+        return _howto_swig.scheduler_ctrl_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(scheduler_ctrl_sptr self) -> bool"""
+        return _howto_swig.scheduler_ctrl_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(scheduler_ctrl_sptr self, int m)"""
+        return _howto_swig.scheduler_ctrl_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(scheduler_ctrl_sptr self) -> int"""
+        return _howto_swig.scheduler_ctrl_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(scheduler_ctrl_sptr self, int i) -> long"""
+        return _howto_swig.scheduler_ctrl_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(scheduler_ctrl_sptr self, long max_output_buffer)
+        set_max_output_buffer(scheduler_ctrl_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.scheduler_ctrl_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(scheduler_ctrl_sptr self, int i) -> long"""
+        return _howto_swig.scheduler_ctrl_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(scheduler_ctrl_sptr self, long min_output_buffer)
+        set_min_output_buffer(scheduler_ctrl_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.scheduler_ctrl_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(scheduler_ctrl_sptr self, int which) -> float
+        pc_input_buffers_full(scheduler_ctrl_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.scheduler_ctrl_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(scheduler_ctrl_sptr self, int which) -> float
+        pc_input_buffers_full_avg(scheduler_ctrl_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.scheduler_ctrl_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(scheduler_ctrl_sptr self, int which) -> float
+        pc_input_buffers_full_var(scheduler_ctrl_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.scheduler_ctrl_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(scheduler_ctrl_sptr self, int which) -> float
+        pc_output_buffers_full(scheduler_ctrl_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.scheduler_ctrl_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(scheduler_ctrl_sptr self, int which) -> float
+        pc_output_buffers_full_avg(scheduler_ctrl_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.scheduler_ctrl_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(scheduler_ctrl_sptr self, int which) -> float
+        pc_output_buffers_full_var(scheduler_ctrl_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.scheduler_ctrl_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(scheduler_ctrl_sptr self) -> float"""
+        return _howto_swig.scheduler_ctrl_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(scheduler_ctrl_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.scheduler_ctrl_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(scheduler_ctrl_sptr self)"""
+        return _howto_swig.scheduler_ctrl_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(scheduler_ctrl_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.scheduler_ctrl_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(scheduler_ctrl_sptr self) -> int"""
+        return _howto_swig.scheduler_ctrl_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(scheduler_ctrl_sptr self) -> int"""
+        return _howto_swig.scheduler_ctrl_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(scheduler_ctrl_sptr self, int priority) -> int"""
+        return _howto_swig.scheduler_ctrl_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(scheduler_ctrl_sptr self) -> std::string"""
+        return _howto_swig.scheduler_ctrl_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(scheduler_ctrl_sptr self) -> std::string"""
+        return _howto_swig.scheduler_ctrl_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(scheduler_ctrl_sptr self) -> io_signature_sptr"""
+        return _howto_swig.scheduler_ctrl_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(scheduler_ctrl_sptr self) -> io_signature_sptr"""
+        return _howto_swig.scheduler_ctrl_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(scheduler_ctrl_sptr self) -> long"""
+        return _howto_swig.scheduler_ctrl_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(scheduler_ctrl_sptr self) -> basic_block_sptr"""
+        return _howto_swig.scheduler_ctrl_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(scheduler_ctrl_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.scheduler_ctrl_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(scheduler_ctrl_sptr self) -> std::string"""
+        return _howto_swig.scheduler_ctrl_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(scheduler_ctrl_sptr self, std::string name)"""
+        return _howto_swig.scheduler_ctrl_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(scheduler_ctrl_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.scheduler_ctrl_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(scheduler_ctrl_sptr self) -> swig_int_ptr"""
+        return _howto_swig.scheduler_ctrl_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(scheduler_ctrl_sptr self) -> swig_int_ptr"""
+        return _howto_swig.scheduler_ctrl_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(scheduler_ctrl_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.scheduler_ctrl_sptr_message_subscribers(self, which_port)
+
+scheduler_ctrl_sptr_swigregister = _howto_swig.scheduler_ctrl_sptr_swigregister
+scheduler_ctrl_sptr_swigregister(scheduler_ctrl_sptr)
+
+
+scheduler_ctrl_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+scheduler_ctrl = scheduler_ctrl.make;
+
+class sim_tx_modulator_cc(object):
+    """Proxy of C++ gr::howto::sim_tx_modulator_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+
+    def make():
+        """make() -> sim_tx_modulator_cc_sptr"""
+        return _howto_swig.sim_tx_modulator_cc_make()
+
+    make = staticmethod(make)
+    __swig_destroy__ = _howto_swig.delete_sim_tx_modulator_cc
+    __del__ = lambda self: None
+sim_tx_modulator_cc_swigregister = _howto_swig.sim_tx_modulator_cc_swigregister
+sim_tx_modulator_cc_swigregister(sim_tx_modulator_cc)
+
+def sim_tx_modulator_cc_make():
+    """sim_tx_modulator_cc_make() -> sim_tx_modulator_cc_sptr"""
+    return _howto_swig.sim_tx_modulator_cc_make()
+
+class sim_tx_modulator_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::sim_tx_modulator_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::sim_tx_modulator_cc)> self) -> sim_tx_modulator_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::sim_tx_modulator_cc)> self, sim_tx_modulator_cc p) -> sim_tx_modulator_cc_sptr
+        """
+        this = _howto_swig.new_sim_tx_modulator_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(sim_tx_modulator_cc_sptr self) -> sim_tx_modulator_cc"""
+        return _howto_swig.sim_tx_modulator_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_sim_tx_modulator_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self):
+        """make(sim_tx_modulator_cc_sptr self) -> sim_tx_modulator_cc_sptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_make(self)
+
+
+    def history(self):
+        """history(sim_tx_modulator_cc_sptr self) -> unsigned int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(sim_tx_modulator_cc_sptr self, int which, int delay)
+        declare_sample_delay(sim_tx_modulator_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(sim_tx_modulator_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(sim_tx_modulator_cc_sptr self) -> int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(sim_tx_modulator_cc_sptr self) -> double"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(sim_tx_modulator_cc_sptr self) -> bool"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(sim_tx_modulator_cc_sptr self) -> bool"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(sim_tx_modulator_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(sim_tx_modulator_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(sim_tx_modulator_cc_sptr self) -> int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(sim_tx_modulator_cc_sptr self, int m)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(sim_tx_modulator_cc_sptr self)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(sim_tx_modulator_cc_sptr self) -> bool"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(sim_tx_modulator_cc_sptr self, int m)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(sim_tx_modulator_cc_sptr self) -> int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(sim_tx_modulator_cc_sptr self, int i) -> long"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(sim_tx_modulator_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(sim_tx_modulator_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(sim_tx_modulator_cc_sptr self, int i) -> long"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(sim_tx_modulator_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(sim_tx_modulator_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(sim_tx_modulator_cc_sptr self, int which) -> float
+        pc_input_buffers_full(sim_tx_modulator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(sim_tx_modulator_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(sim_tx_modulator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(sim_tx_modulator_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(sim_tx_modulator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(sim_tx_modulator_cc_sptr self, int which) -> float
+        pc_output_buffers_full(sim_tx_modulator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(sim_tx_modulator_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(sim_tx_modulator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(sim_tx_modulator_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(sim_tx_modulator_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(sim_tx_modulator_cc_sptr self) -> float"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(sim_tx_modulator_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(sim_tx_modulator_cc_sptr self)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(sim_tx_modulator_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(sim_tx_modulator_cc_sptr self) -> int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(sim_tx_modulator_cc_sptr self) -> int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(sim_tx_modulator_cc_sptr self, int priority) -> int"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(sim_tx_modulator_cc_sptr self) -> std::string"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(sim_tx_modulator_cc_sptr self) -> std::string"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(sim_tx_modulator_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(sim_tx_modulator_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(sim_tx_modulator_cc_sptr self) -> long"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(sim_tx_modulator_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(sim_tx_modulator_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(sim_tx_modulator_cc_sptr self) -> std::string"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(sim_tx_modulator_cc_sptr self, std::string name)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(sim_tx_modulator_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.sim_tx_modulator_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(sim_tx_modulator_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(sim_tx_modulator_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(sim_tx_modulator_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.sim_tx_modulator_cc_sptr_message_subscribers(self, which_port)
+
+sim_tx_modulator_cc_sptr_swigregister = _howto_swig.sim_tx_modulator_cc_sptr_swigregister
+sim_tx_modulator_cc_sptr_swigregister(sim_tx_modulator_cc_sptr)
+
+
+sim_tx_modulator_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+sim_tx_modulator_cc = sim_tx_modulator_cc.make;
+
+class timed_burst_tagger_cc(object):
+    """Proxy of C++ gr::howto::timed_burst_tagger_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(rate, burst_len_s, period_s, offsets_s, amplitude, t0_hw, eob_en):
+        """make(double rate, double burst_len_s, double period_s, pmt_vector_double offsets_s, float amplitude, double t0_hw, bool eob_en) -> timed_burst_tagger_cc_sptr"""
+        return _howto_swig.timed_burst_tagger_cc_make(rate, burst_len_s, period_s, offsets_s, amplitude, t0_hw, eob_en)
+
+    make = staticmethod(make)
+
+    def set_rate(self, r):
+        """set_rate(timed_burst_tagger_cc self, double r)"""
+        return _howto_swig.timed_burst_tagger_cc_set_rate(self, r)
+
+
+    def set_burst_len(self, s):
+        """set_burst_len(timed_burst_tagger_cc self, double s)"""
+        return _howto_swig.timed_burst_tagger_cc_set_burst_len(self, s)
+
+
+    def set_period(self, s):
+        """set_period(timed_burst_tagger_cc self, double s)"""
+        return _howto_swig.timed_burst_tagger_cc_set_period(self, s)
+
+
+    def set_offsets(self, v):
+        """set_offsets(timed_burst_tagger_cc self, pmt_vector_double v)"""
+        return _howto_swig.timed_burst_tagger_cc_set_offsets(self, v)
+
+
+    def set_amplitude(self, a):
+        """set_amplitude(timed_burst_tagger_cc self, float a)"""
+        return _howto_swig.timed_burst_tagger_cc_set_amplitude(self, a)
+
+
+    def set_t0_hw(self, t0):
+        """set_t0_hw(timed_burst_tagger_cc self, double t0)"""
+        return _howto_swig.timed_burst_tagger_cc_set_t0_hw(self, t0)
+
+
+    def set_eob_en(self, en):
+        """set_eob_en(timed_burst_tagger_cc self, bool en)"""
+        return _howto_swig.timed_burst_tagger_cc_set_eob_en(self, en)
+
+
+    def set_drop_outside(self, en):
+        """set_drop_outside(timed_burst_tagger_cc self, bool en)"""
+        return _howto_swig.timed_burst_tagger_cc_set_drop_outside(self, en)
+
+
+    def rate(self):
+        """rate(timed_burst_tagger_cc self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_rate(self)
+
+
+    def burst_len(self):
+        """burst_len(timed_burst_tagger_cc self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_burst_len(self)
+
+
+    def period(self):
+        """period(timed_burst_tagger_cc self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_period(self)
+
+
+    def get_offsets(self):
+        """get_offsets(timed_burst_tagger_cc self) -> pmt_vector_double"""
+        return _howto_swig.timed_burst_tagger_cc_get_offsets(self)
+
+
+    def amplitude(self):
+        """amplitude(timed_burst_tagger_cc self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_amplitude(self)
+
+
+    def t0_hw(self):
+        """t0_hw(timed_burst_tagger_cc self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_t0_hw(self)
+
+
+    def eob_en(self):
+        """eob_en(timed_burst_tagger_cc self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_eob_en(self)
+
+
+    def drop_outside(self):
+        """drop_outside(timed_burst_tagger_cc self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_drop_outside(self)
+
+    __swig_destroy__ = _howto_swig.delete_timed_burst_tagger_cc
+    __del__ = lambda self: None
+timed_burst_tagger_cc_swigregister = _howto_swig.timed_burst_tagger_cc_swigregister
+timed_burst_tagger_cc_swigregister(timed_burst_tagger_cc)
+
+def timed_burst_tagger_cc_make(rate, burst_len_s, period_s, offsets_s, amplitude, t0_hw, eob_en):
+    """timed_burst_tagger_cc_make(double rate, double burst_len_s, double period_s, pmt_vector_double offsets_s, float amplitude, double t0_hw, bool eob_en) -> timed_burst_tagger_cc_sptr"""
+    return _howto_swig.timed_burst_tagger_cc_make(rate, burst_len_s, period_s, offsets_s, amplitude, t0_hw, eob_en)
+
+class timed_burst_tagger_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::timed_burst_tagger_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::timed_burst_tagger_cc)> self) -> timed_burst_tagger_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::timed_burst_tagger_cc)> self, timed_burst_tagger_cc p) -> timed_burst_tagger_cc_sptr
+        """
+        this = _howto_swig.new_timed_burst_tagger_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(timed_burst_tagger_cc_sptr self) -> timed_burst_tagger_cc"""
+        return _howto_swig.timed_burst_tagger_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_timed_burst_tagger_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, rate, burst_len_s, period_s, offsets_s, amplitude, t0_hw, eob_en):
+        """make(timed_burst_tagger_cc_sptr self, double rate, double burst_len_s, double period_s, pmt_vector_double offsets_s, float amplitude, double t0_hw, bool eob_en) -> timed_burst_tagger_cc_sptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_make(self, rate, burst_len_s, period_s, offsets_s, amplitude, t0_hw, eob_en)
+
+
+    def set_rate(self, r):
+        """set_rate(timed_burst_tagger_cc_sptr self, double r)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_rate(self, r)
+
+
+    def set_burst_len(self, s):
+        """set_burst_len(timed_burst_tagger_cc_sptr self, double s)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_burst_len(self, s)
+
+
+    def set_period(self, s):
+        """set_period(timed_burst_tagger_cc_sptr self, double s)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_period(self, s)
+
+
+    def set_offsets(self, v):
+        """set_offsets(timed_burst_tagger_cc_sptr self, pmt_vector_double v)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_offsets(self, v)
+
+
+    def set_amplitude(self, a):
+        """set_amplitude(timed_burst_tagger_cc_sptr self, float a)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_amplitude(self, a)
+
+
+    def set_t0_hw(self, t0):
+        """set_t0_hw(timed_burst_tagger_cc_sptr self, double t0)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_t0_hw(self, t0)
+
+
+    def set_eob_en(self, en):
+        """set_eob_en(timed_burst_tagger_cc_sptr self, bool en)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_eob_en(self, en)
+
+
+    def set_drop_outside(self, en):
+        """set_drop_outside(timed_burst_tagger_cc_sptr self, bool en)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_drop_outside(self, en)
+
+
+    def rate(self):
+        """rate(timed_burst_tagger_cc_sptr self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_rate(self)
+
+
+    def burst_len(self):
+        """burst_len(timed_burst_tagger_cc_sptr self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_burst_len(self)
+
+
+    def period(self):
+        """period(timed_burst_tagger_cc_sptr self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_period(self)
+
+
+    def get_offsets(self):
+        """get_offsets(timed_burst_tagger_cc_sptr self) -> pmt_vector_double"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_get_offsets(self)
+
+
+    def amplitude(self):
+        """amplitude(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_amplitude(self)
+
+
+    def t0_hw(self):
+        """t0_hw(timed_burst_tagger_cc_sptr self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_t0_hw(self)
+
+
+    def eob_en(self):
+        """eob_en(timed_burst_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_eob_en(self)
+
+
+    def drop_outside(self):
+        """drop_outside(timed_burst_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_drop_outside(self)
+
+
+    def history(self):
+        """history(timed_burst_tagger_cc_sptr self) -> unsigned int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(timed_burst_tagger_cc_sptr self, int which, int delay)
+        declare_sample_delay(timed_burst_tagger_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(timed_burst_tagger_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(timed_burst_tagger_cc_sptr self) -> int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(timed_burst_tagger_cc_sptr self) -> double"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(timed_burst_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(timed_burst_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(timed_burst_tagger_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(timed_burst_tagger_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(timed_burst_tagger_cc_sptr self) -> int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(timed_burst_tagger_cc_sptr self, int m)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(timed_burst_tagger_cc_sptr self)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(timed_burst_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(timed_burst_tagger_cc_sptr self, int m)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(timed_burst_tagger_cc_sptr self) -> int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(timed_burst_tagger_cc_sptr self, int i) -> long"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(timed_burst_tagger_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(timed_burst_tagger_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(timed_burst_tagger_cc_sptr self, int i) -> long"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(timed_burst_tagger_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(timed_burst_tagger_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(timed_burst_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full(timed_burst_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(timed_burst_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(timed_burst_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(timed_burst_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(timed_burst_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(timed_burst_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full(timed_burst_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(timed_burst_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(timed_burst_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(timed_burst_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(timed_burst_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(timed_burst_tagger_cc_sptr self) -> float"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(timed_burst_tagger_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(timed_burst_tagger_cc_sptr self)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(timed_burst_tagger_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(timed_burst_tagger_cc_sptr self) -> int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(timed_burst_tagger_cc_sptr self) -> int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(timed_burst_tagger_cc_sptr self, int priority) -> int"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(timed_burst_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(timed_burst_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(timed_burst_tagger_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(timed_burst_tagger_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(timed_burst_tagger_cc_sptr self) -> long"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(timed_burst_tagger_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(timed_burst_tagger_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(timed_burst_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(timed_burst_tagger_cc_sptr self, std::string name)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(timed_burst_tagger_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.timed_burst_tagger_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(timed_burst_tagger_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(timed_burst_tagger_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(timed_burst_tagger_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.timed_burst_tagger_cc_sptr_message_subscribers(self, which_port)
+
+timed_burst_tagger_cc_sptr_swigregister = _howto_swig.timed_burst_tagger_cc_sptr_swigregister
+timed_burst_tagger_cc_sptr_swigregister(timed_burst_tagger_cc_sptr)
+
+
+timed_burst_tagger_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+timed_burst_tagger_cc = timed_burst_tagger_cc.make;
+
+class burst_time_tagger_cc(object):
+    """Proxy of C++ gr::howto::burst_time_tagger_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s):
+        """make(double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp, pmt_vector_double offsets_s, double lead_s) -> burst_time_tagger_cc_sptr"""
+        return _howto_swig.burst_time_tagger_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s)
+
+    make = staticmethod(make)
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(burst_time_tagger_cc self, double samp_rate)"""
+        return _howto_swig.burst_time_tagger_cc_set_samp_rate(self, samp_rate)
+
+
+    def set_period(self, period_s):
+        """set_period(burst_time_tagger_cc self, double period_s)"""
+        return _howto_swig.burst_time_tagger_cc_set_period(self, period_s)
+
+
+    def set_gap(self, gap_s):
+        """set_gap(burst_time_tagger_cc self, double gap_s)"""
+        return _howto_swig.burst_time_tagger_cc_set_gap(self, gap_s)
+
+
+    def set_burst_len(self, burst_len):
+        """set_burst_len(burst_time_tagger_cc self, int burst_len)"""
+        return _howto_swig.burst_time_tagger_cc_set_burst_len(self, burst_len)
+
+
+    def set_t0_usrp(self, t0_usrp):
+        """set_t0_usrp(burst_time_tagger_cc self, double t0_usrp)"""
+        return _howto_swig.burst_time_tagger_cc_set_t0_usrp(self, t0_usrp)
+
+
+    def set_offsets(self, offsets_s):
+        """set_offsets(burst_time_tagger_cc self, pmt_vector_double offsets_s)"""
+        return _howto_swig.burst_time_tagger_cc_set_offsets(self, offsets_s)
+
+
+    def set_lead(self, lead_s):
+        """set_lead(burst_time_tagger_cc self, double lead_s)"""
+        return _howto_swig.burst_time_tagger_cc_set_lead(self, lead_s)
+
+
+    def get_samp_rate(self):
+        """get_samp_rate(burst_time_tagger_cc self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_get_samp_rate(self)
+
+
+    def get_period(self):
+        """get_period(burst_time_tagger_cc self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_get_period(self)
+
+
+    def get_gap(self):
+        """get_gap(burst_time_tagger_cc self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_get_gap(self)
+
+
+    def get_burst_len(self):
+        """get_burst_len(burst_time_tagger_cc self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_get_burst_len(self)
+
+
+    def get_t0_usrp(self):
+        """get_t0_usrp(burst_time_tagger_cc self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_get_t0_usrp(self)
+
+
+    def get_offsets(self):
+        """get_offsets(burst_time_tagger_cc self) -> pmt_vector_double"""
+        return _howto_swig.burst_time_tagger_cc_get_offsets(self)
+
+
+    def get_lead(self):
+        """get_lead(burst_time_tagger_cc self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_get_lead(self)
+
+    __swig_destroy__ = _howto_swig.delete_burst_time_tagger_cc
+    __del__ = lambda self: None
+burst_time_tagger_cc_swigregister = _howto_swig.burst_time_tagger_cc_swigregister
+burst_time_tagger_cc_swigregister(burst_time_tagger_cc)
+
+def burst_time_tagger_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s):
+    """burst_time_tagger_cc_make(double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp, pmt_vector_double offsets_s, double lead_s) -> burst_time_tagger_cc_sptr"""
+    return _howto_swig.burst_time_tagger_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s)
+
+class burst_time_tagger_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::burst_time_tagger_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::burst_time_tagger_cc)> self) -> burst_time_tagger_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::burst_time_tagger_cc)> self, burst_time_tagger_cc p) -> burst_time_tagger_cc_sptr
+        """
+        this = _howto_swig.new_burst_time_tagger_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(burst_time_tagger_cc_sptr self) -> burst_time_tagger_cc"""
+        return _howto_swig.burst_time_tagger_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_burst_time_tagger_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s):
+        """make(burst_time_tagger_cc_sptr self, double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp, pmt_vector_double offsets_s, double lead_s) -> burst_time_tagger_cc_sptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_make(self, samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s)
+
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(burst_time_tagger_cc_sptr self, double samp_rate)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_samp_rate(self, samp_rate)
+
+
+    def set_period(self, period_s):
+        """set_period(burst_time_tagger_cc_sptr self, double period_s)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_period(self, period_s)
+
+
+    def set_gap(self, gap_s):
+        """set_gap(burst_time_tagger_cc_sptr self, double gap_s)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_gap(self, gap_s)
+
+
+    def set_burst_len(self, burst_len):
+        """set_burst_len(burst_time_tagger_cc_sptr self, int burst_len)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_burst_len(self, burst_len)
+
+
+    def set_t0_usrp(self, t0_usrp):
+        """set_t0_usrp(burst_time_tagger_cc_sptr self, double t0_usrp)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_t0_usrp(self, t0_usrp)
+
+
+    def set_offsets(self, offsets_s):
+        """set_offsets(burst_time_tagger_cc_sptr self, pmt_vector_double offsets_s)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_offsets(self, offsets_s)
+
+
+    def set_lead(self, lead_s):
+        """set_lead(burst_time_tagger_cc_sptr self, double lead_s)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_lead(self, lead_s)
+
+
+    def get_samp_rate(self):
+        """get_samp_rate(burst_time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_samp_rate(self)
+
+
+    def get_period(self):
+        """get_period(burst_time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_period(self)
+
+
+    def get_gap(self):
+        """get_gap(burst_time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_gap(self)
+
+
+    def get_burst_len(self):
+        """get_burst_len(burst_time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_burst_len(self)
+
+
+    def get_t0_usrp(self):
+        """get_t0_usrp(burst_time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_t0_usrp(self)
+
+
+    def get_offsets(self):
+        """get_offsets(burst_time_tagger_cc_sptr self) -> pmt_vector_double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_offsets(self)
+
+
+    def get_lead(self):
+        """get_lead(burst_time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_get_lead(self)
+
+
+    def history(self):
+        """history(burst_time_tagger_cc_sptr self) -> unsigned int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(burst_time_tagger_cc_sptr self, int which, int delay)
+        declare_sample_delay(burst_time_tagger_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(burst_time_tagger_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(burst_time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(burst_time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.burst_time_tagger_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(burst_time_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.burst_time_tagger_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(burst_time_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.burst_time_tagger_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(burst_time_tagger_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.burst_time_tagger_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(burst_time_tagger_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.burst_time_tagger_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(burst_time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(burst_time_tagger_cc_sptr self, int m)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(burst_time_tagger_cc_sptr self)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(burst_time_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.burst_time_tagger_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(burst_time_tagger_cc_sptr self, int m)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(burst_time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(burst_time_tagger_cc_sptr self, int i) -> long"""
+        return _howto_swig.burst_time_tagger_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(burst_time_tagger_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(burst_time_tagger_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(burst_time_tagger_cc_sptr self, int i) -> long"""
+        return _howto_swig.burst_time_tagger_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(burst_time_tagger_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(burst_time_tagger_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(burst_time_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full(burst_time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(burst_time_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(burst_time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(burst_time_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(burst_time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(burst_time_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full(burst_time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(burst_time_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(burst_time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(burst_time_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(burst_time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(burst_time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.burst_time_tagger_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(burst_time_tagger_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(burst_time_tagger_cc_sptr self)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(burst_time_tagger_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.burst_time_tagger_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(burst_time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(burst_time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(burst_time_tagger_cc_sptr self, int priority) -> int"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(burst_time_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.burst_time_tagger_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(burst_time_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.burst_time_tagger_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(burst_time_tagger_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(burst_time_tagger_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(burst_time_tagger_cc_sptr self) -> long"""
+        return _howto_swig.burst_time_tagger_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(burst_time_tagger_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(burst_time_tagger_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.burst_time_tagger_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(burst_time_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.burst_time_tagger_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(burst_time_tagger_cc_sptr self, std::string name)"""
+        return _howto_swig.burst_time_tagger_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(burst_time_tagger_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.burst_time_tagger_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(burst_time_tagger_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(burst_time_tagger_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(burst_time_tagger_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.burst_time_tagger_cc_sptr_message_subscribers(self, which_port)
+
+burst_time_tagger_cc_sptr_swigregister = _howto_swig.burst_time_tagger_cc_sptr_swigregister
+burst_time_tagger_cc_sptr_swigregister(burst_time_tagger_cc_sptr)
+
+
+burst_time_tagger_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+burst_time_tagger_cc = burst_time_tagger_cc.make;
+
+DECISION_PASS = _howto_swig.DECISION_PASS
+DECISION_DTX_ZEROS = _howto_swig.DECISION_DTX_ZEROS
+DECISION_DONT_CONSUME = _howto_swig.DECISION_DONT_CONSUME
+class slot_guard_cc(object):
+    """Proxy of C++ gr::howto::slot_guard_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(sample_rate, numerology_id, samples_per_slot, use_pps, offset_thr_pass_s, jitter_thr_pass_s, offset_thr_dont_s, jitter_thr_dont_s, hysteresis_slots, dtx_consumes_input, allow_dont_consume, guard_initial_s, lead_s):
+        """make(double sample_rate, int numerology_id, size_t samples_per_slot, bool use_pps, double offset_thr_pass_s, double jitter_thr_pass_s, double offset_thr_dont_s, double jitter_thr_dont_s, int hysteresis_slots, bool dtx_consumes_input, bool allow_dont_consume, double guard_initial_s, double lead_s) -> slot_guard_cc_sptr"""
+        return _howto_swig.slot_guard_cc_make(sample_rate, numerology_id, samples_per_slot, use_pps, offset_thr_pass_s, jitter_thr_pass_s, offset_thr_dont_s, jitter_thr_dont_s, hysteresis_slots, dtx_consumes_input, allow_dont_consume, guard_initial_s, lead_s)
+
+    make = staticmethod(make)
+
+    def last_offset_seconds(self):
+        """last_offset_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_last_offset_seconds(self)
+
+
+    def last_jitter_seconds(self):
+        """last_jitter_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_last_jitter_seconds(self)
+
+
+    def last_decision_code(self):
+        """last_decision_code(slot_guard_cc self) -> int"""
+        return _howto_swig.slot_guard_cc_last_decision_code(self)
+
+
+    def samples_per_slot(self):
+        """samples_per_slot(slot_guard_cc self) -> size_t"""
+        return _howto_swig.slot_guard_cc_samples_per_slot(self)
+
+
+    def offset_thr_pass_seconds(self):
+        """offset_thr_pass_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_offset_thr_pass_seconds(self)
+
+
+    def jitter_thr_pass_seconds(self):
+        """jitter_thr_pass_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_jitter_thr_pass_seconds(self)
+
+
+    def offset_thr_dont_seconds(self):
+        """offset_thr_dont_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_offset_thr_dont_seconds(self)
+
+
+    def jitter_thr_dont_seconds(self):
+        """jitter_thr_dont_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_jitter_thr_dont_seconds(self)
+
+
+    def guard_initial_seconds(self):
+        """guard_initial_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_guard_initial_seconds(self)
+
+
+    def lead_seconds(self):
+        """lead_seconds(slot_guard_cc self) -> double"""
+        return _howto_swig.slot_guard_cc_lead_seconds(self)
+
+
+    def set_sample_rate(self, sample_rate):
+        """set_sample_rate(slot_guard_cc self, double sample_rate)"""
+        return _howto_swig.slot_guard_cc_set_sample_rate(self, sample_rate)
+
+
+    def set_numerology_id(self, numerology_id):
+        """set_numerology_id(slot_guard_cc self, int numerology_id)"""
+        return _howto_swig.slot_guard_cc_set_numerology_id(self, numerology_id)
+
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(slot_guard_cc self, size_t samples_per_slot)"""
+        return _howto_swig.slot_guard_cc_set_samples_per_slot(self, samples_per_slot)
+
+
+    def set_use_pps(self, use_pps):
+        """set_use_pps(slot_guard_cc self, bool use_pps)"""
+        return _howto_swig.slot_guard_cc_set_use_pps(self, use_pps)
+
+
+    def set_offset_thr_pass(self, v):
+        """set_offset_thr_pass(slot_guard_cc self, double v)"""
+        return _howto_swig.slot_guard_cc_set_offset_thr_pass(self, v)
+
+
+    def set_jitter_thr_pass(self, v):
+        """set_jitter_thr_pass(slot_guard_cc self, double v)"""
+        return _howto_swig.slot_guard_cc_set_jitter_thr_pass(self, v)
+
+
+    def set_offset_thr_dont(self, v):
+        """set_offset_thr_dont(slot_guard_cc self, double v)"""
+        return _howto_swig.slot_guard_cc_set_offset_thr_dont(self, v)
+
+
+    def set_jitter_thr_dont(self, v):
+        """set_jitter_thr_dont(slot_guard_cc self, double v)"""
+        return _howto_swig.slot_guard_cc_set_jitter_thr_dont(self, v)
+
+
+    def set_hysteresis_slots(self, hysteresis_slots):
+        """set_hysteresis_slots(slot_guard_cc self, int hysteresis_slots)"""
+        return _howto_swig.slot_guard_cc_set_hysteresis_slots(self, hysteresis_slots)
+
+
+    def set_dtx_consumes_input(self, dtx_consumes_input):
+        """set_dtx_consumes_input(slot_guard_cc self, bool dtx_consumes_input)"""
+        return _howto_swig.slot_guard_cc_set_dtx_consumes_input(self, dtx_consumes_input)
+
+
+    def set_allow_dont_consume(self, allow_dont_consume):
+        """set_allow_dont_consume(slot_guard_cc self, bool allow_dont_consume)"""
+        return _howto_swig.slot_guard_cc_set_allow_dont_consume(self, allow_dont_consume)
+
+
+    def set_guard_initial(self, v):
+        """set_guard_initial(slot_guard_cc self, double v)"""
+        return _howto_swig.slot_guard_cc_set_guard_initial(self, v)
+
+
+    def set_lead(self, v):
+        """set_lead(slot_guard_cc self, double v)"""
+        return _howto_swig.slot_guard_cc_set_lead(self, v)
+
+    __swig_destroy__ = _howto_swig.delete_slot_guard_cc
+    __del__ = lambda self: None
+slot_guard_cc_swigregister = _howto_swig.slot_guard_cc_swigregister
+slot_guard_cc_swigregister(slot_guard_cc)
+
+def slot_guard_cc_make(sample_rate, numerology_id, samples_per_slot, use_pps, offset_thr_pass_s, jitter_thr_pass_s, offset_thr_dont_s, jitter_thr_dont_s, hysteresis_slots, dtx_consumes_input, allow_dont_consume, guard_initial_s, lead_s):
+    """slot_guard_cc_make(double sample_rate, int numerology_id, size_t samples_per_slot, bool use_pps, double offset_thr_pass_s, double jitter_thr_pass_s, double offset_thr_dont_s, double jitter_thr_dont_s, int hysteresis_slots, bool dtx_consumes_input, bool allow_dont_consume, double guard_initial_s, double lead_s) -> slot_guard_cc_sptr"""
+    return _howto_swig.slot_guard_cc_make(sample_rate, numerology_id, samples_per_slot, use_pps, offset_thr_pass_s, jitter_thr_pass_s, offset_thr_dont_s, jitter_thr_dont_s, hysteresis_slots, dtx_consumes_input, allow_dont_consume, guard_initial_s, lead_s)
+
+class slot_guard_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::slot_guard_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::slot_guard_cc)> self) -> slot_guard_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::slot_guard_cc)> self, slot_guard_cc p) -> slot_guard_cc_sptr
+        """
+        this = _howto_swig.new_slot_guard_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(slot_guard_cc_sptr self) -> slot_guard_cc"""
+        return _howto_swig.slot_guard_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_slot_guard_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, sample_rate, numerology_id, samples_per_slot, use_pps, offset_thr_pass_s, jitter_thr_pass_s, offset_thr_dont_s, jitter_thr_dont_s, hysteresis_slots, dtx_consumes_input, allow_dont_consume, guard_initial_s, lead_s):
+        """make(slot_guard_cc_sptr self, double sample_rate, int numerology_id, size_t samples_per_slot, bool use_pps, double offset_thr_pass_s, double jitter_thr_pass_s, double offset_thr_dont_s, double jitter_thr_dont_s, int hysteresis_slots, bool dtx_consumes_input, bool allow_dont_consume, double guard_initial_s, double lead_s) -> slot_guard_cc_sptr"""
+        return _howto_swig.slot_guard_cc_sptr_make(self, sample_rate, numerology_id, samples_per_slot, use_pps, offset_thr_pass_s, jitter_thr_pass_s, offset_thr_dont_s, jitter_thr_dont_s, hysteresis_slots, dtx_consumes_input, allow_dont_consume, guard_initial_s, lead_s)
+
+
+    def last_offset_seconds(self):
+        """last_offset_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_last_offset_seconds(self)
+
+
+    def last_jitter_seconds(self):
+        """last_jitter_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_last_jitter_seconds(self)
+
+
+    def last_decision_code(self):
+        """last_decision_code(slot_guard_cc_sptr self) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_last_decision_code(self)
+
+
+    def samples_per_slot(self):
+        """samples_per_slot(slot_guard_cc_sptr self) -> size_t"""
+        return _howto_swig.slot_guard_cc_sptr_samples_per_slot(self)
+
+
+    def offset_thr_pass_seconds(self):
+        """offset_thr_pass_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_offset_thr_pass_seconds(self)
+
+
+    def jitter_thr_pass_seconds(self):
+        """jitter_thr_pass_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_jitter_thr_pass_seconds(self)
+
+
+    def offset_thr_dont_seconds(self):
+        """offset_thr_dont_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_offset_thr_dont_seconds(self)
+
+
+    def jitter_thr_dont_seconds(self):
+        """jitter_thr_dont_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_jitter_thr_dont_seconds(self)
+
+
+    def guard_initial_seconds(self):
+        """guard_initial_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_guard_initial_seconds(self)
+
+
+    def lead_seconds(self):
+        """lead_seconds(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_lead_seconds(self)
+
+
+    def set_sample_rate(self, sample_rate):
+        """set_sample_rate(slot_guard_cc_sptr self, double sample_rate)"""
+        return _howto_swig.slot_guard_cc_sptr_set_sample_rate(self, sample_rate)
+
+
+    def set_numerology_id(self, numerology_id):
+        """set_numerology_id(slot_guard_cc_sptr self, int numerology_id)"""
+        return _howto_swig.slot_guard_cc_sptr_set_numerology_id(self, numerology_id)
+
+
+    def set_samples_per_slot(self, samples_per_slot):
+        """set_samples_per_slot(slot_guard_cc_sptr self, size_t samples_per_slot)"""
+        return _howto_swig.slot_guard_cc_sptr_set_samples_per_slot(self, samples_per_slot)
+
+
+    def set_use_pps(self, use_pps):
+        """set_use_pps(slot_guard_cc_sptr self, bool use_pps)"""
+        return _howto_swig.slot_guard_cc_sptr_set_use_pps(self, use_pps)
+
+
+    def set_offset_thr_pass(self, v):
+        """set_offset_thr_pass(slot_guard_cc_sptr self, double v)"""
+        return _howto_swig.slot_guard_cc_sptr_set_offset_thr_pass(self, v)
+
+
+    def set_jitter_thr_pass(self, v):
+        """set_jitter_thr_pass(slot_guard_cc_sptr self, double v)"""
+        return _howto_swig.slot_guard_cc_sptr_set_jitter_thr_pass(self, v)
+
+
+    def set_offset_thr_dont(self, v):
+        """set_offset_thr_dont(slot_guard_cc_sptr self, double v)"""
+        return _howto_swig.slot_guard_cc_sptr_set_offset_thr_dont(self, v)
+
+
+    def set_jitter_thr_dont(self, v):
+        """set_jitter_thr_dont(slot_guard_cc_sptr self, double v)"""
+        return _howto_swig.slot_guard_cc_sptr_set_jitter_thr_dont(self, v)
+
+
+    def set_hysteresis_slots(self, hysteresis_slots):
+        """set_hysteresis_slots(slot_guard_cc_sptr self, int hysteresis_slots)"""
+        return _howto_swig.slot_guard_cc_sptr_set_hysteresis_slots(self, hysteresis_slots)
+
+
+    def set_dtx_consumes_input(self, dtx_consumes_input):
+        """set_dtx_consumes_input(slot_guard_cc_sptr self, bool dtx_consumes_input)"""
+        return _howto_swig.slot_guard_cc_sptr_set_dtx_consumes_input(self, dtx_consumes_input)
+
+
+    def set_allow_dont_consume(self, allow_dont_consume):
+        """set_allow_dont_consume(slot_guard_cc_sptr self, bool allow_dont_consume)"""
+        return _howto_swig.slot_guard_cc_sptr_set_allow_dont_consume(self, allow_dont_consume)
+
+
+    def set_guard_initial(self, v):
+        """set_guard_initial(slot_guard_cc_sptr self, double v)"""
+        return _howto_swig.slot_guard_cc_sptr_set_guard_initial(self, v)
+
+
+    def set_lead(self, v):
+        """set_lead(slot_guard_cc_sptr self, double v)"""
+        return _howto_swig.slot_guard_cc_sptr_set_lead(self, v)
+
+
+    def history(self):
+        """history(slot_guard_cc_sptr self) -> unsigned int"""
+        return _howto_swig.slot_guard_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(slot_guard_cc_sptr self, int which, int delay)
+        declare_sample_delay(slot_guard_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.slot_guard_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(slot_guard_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.slot_guard_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(slot_guard_cc_sptr self) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(slot_guard_cc_sptr self) -> double"""
+        return _howto_swig.slot_guard_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(slot_guard_cc_sptr self) -> bool"""
+        return _howto_swig.slot_guard_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(slot_guard_cc_sptr self) -> bool"""
+        return _howto_swig.slot_guard_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(slot_guard_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.slot_guard_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(slot_guard_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.slot_guard_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(slot_guard_cc_sptr self) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(slot_guard_cc_sptr self, int m)"""
+        return _howto_swig.slot_guard_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(slot_guard_cc_sptr self)"""
+        return _howto_swig.slot_guard_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(slot_guard_cc_sptr self) -> bool"""
+        return _howto_swig.slot_guard_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(slot_guard_cc_sptr self, int m)"""
+        return _howto_swig.slot_guard_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(slot_guard_cc_sptr self) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(slot_guard_cc_sptr self, int i) -> long"""
+        return _howto_swig.slot_guard_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(slot_guard_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(slot_guard_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.slot_guard_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(slot_guard_cc_sptr self, int i) -> long"""
+        return _howto_swig.slot_guard_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(slot_guard_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(slot_guard_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.slot_guard_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(slot_guard_cc_sptr self, int which) -> float
+        pc_input_buffers_full(slot_guard_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_guard_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(slot_guard_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(slot_guard_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_guard_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(slot_guard_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(slot_guard_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_guard_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(slot_guard_cc_sptr self, int which) -> float
+        pc_output_buffers_full(slot_guard_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_guard_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(slot_guard_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(slot_guard_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_guard_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(slot_guard_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(slot_guard_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_guard_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(slot_guard_cc_sptr self) -> float"""
+        return _howto_swig.slot_guard_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(slot_guard_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.slot_guard_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(slot_guard_cc_sptr self)"""
+        return _howto_swig.slot_guard_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(slot_guard_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.slot_guard_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(slot_guard_cc_sptr self) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(slot_guard_cc_sptr self) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(slot_guard_cc_sptr self, int priority) -> int"""
+        return _howto_swig.slot_guard_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(slot_guard_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_guard_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(slot_guard_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_guard_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(slot_guard_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.slot_guard_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(slot_guard_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.slot_guard_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(slot_guard_cc_sptr self) -> long"""
+        return _howto_swig.slot_guard_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(slot_guard_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.slot_guard_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(slot_guard_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.slot_guard_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(slot_guard_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_guard_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(slot_guard_cc_sptr self, std::string name)"""
+        return _howto_swig.slot_guard_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(slot_guard_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.slot_guard_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(slot_guard_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.slot_guard_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(slot_guard_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.slot_guard_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(slot_guard_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.slot_guard_cc_sptr_message_subscribers(self, which_port)
+
+slot_guard_cc_sptr_swigregister = _howto_swig.slot_guard_cc_sptr_swigregister
+slot_guard_cc_sptr_swigregister(slot_guard_cc_sptr)
+
+
+slot_guard_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+slot_guard_cc = slot_guard_cc.make;
+
+class frame_gate_cc(object):
+    """Proxy of C++ gr::howto::frame_gate_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(samp_rate, period_s, gap_s, burst_len, t0_usrp):
+        """make(double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp) -> frame_gate_cc_sptr"""
+        return _howto_swig.frame_gate_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp)
+
+    make = staticmethod(make)
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(frame_gate_cc self, double samp_rate)"""
+        return _howto_swig.frame_gate_cc_set_samp_rate(self, samp_rate)
+
+
+    def set_period(self, period_s):
+        """set_period(frame_gate_cc self, double period_s)"""
+        return _howto_swig.frame_gate_cc_set_period(self, period_s)
+
+
+    def set_gap(self, gap_s):
+        """set_gap(frame_gate_cc self, double gap_s)"""
+        return _howto_swig.frame_gate_cc_set_gap(self, gap_s)
+
+
+    def set_burst_len(self, burst_len):
+        """set_burst_len(frame_gate_cc self, int burst_len)"""
+        return _howto_swig.frame_gate_cc_set_burst_len(self, burst_len)
+
+
+    def set_t0_usrp(self, t0_usrp):
+        """set_t0_usrp(frame_gate_cc self, double t0_usrp)"""
+        return _howto_swig.frame_gate_cc_set_t0_usrp(self, t0_usrp)
+
+
+    def get_samp_rate(self):
+        """get_samp_rate(frame_gate_cc self) -> double"""
+        return _howto_swig.frame_gate_cc_get_samp_rate(self)
+
+
+    def get_period(self):
+        """get_period(frame_gate_cc self) -> double"""
+        return _howto_swig.frame_gate_cc_get_period(self)
+
+
+    def get_gap(self):
+        """get_gap(frame_gate_cc self) -> double"""
+        return _howto_swig.frame_gate_cc_get_gap(self)
+
+
+    def get_burst_len(self):
+        """get_burst_len(frame_gate_cc self) -> int"""
+        return _howto_swig.frame_gate_cc_get_burst_len(self)
+
+
+    def get_t0_usrp(self):
+        """get_t0_usrp(frame_gate_cc self) -> double"""
+        return _howto_swig.frame_gate_cc_get_t0_usrp(self)
+
+    __swig_destroy__ = _howto_swig.delete_frame_gate_cc
+    __del__ = lambda self: None
+frame_gate_cc_swigregister = _howto_swig.frame_gate_cc_swigregister
+frame_gate_cc_swigregister(frame_gate_cc)
+
+def frame_gate_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp):
+    """frame_gate_cc_make(double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp) -> frame_gate_cc_sptr"""
+    return _howto_swig.frame_gate_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp)
+
+class frame_gate_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::frame_gate_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::frame_gate_cc)> self) -> frame_gate_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::frame_gate_cc)> self, frame_gate_cc p) -> frame_gate_cc_sptr
+        """
+        this = _howto_swig.new_frame_gate_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(frame_gate_cc_sptr self) -> frame_gate_cc"""
+        return _howto_swig.frame_gate_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_frame_gate_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, samp_rate, period_s, gap_s, burst_len, t0_usrp):
+        """make(frame_gate_cc_sptr self, double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp) -> frame_gate_cc_sptr"""
+        return _howto_swig.frame_gate_cc_sptr_make(self, samp_rate, period_s, gap_s, burst_len, t0_usrp)
+
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(frame_gate_cc_sptr self, double samp_rate)"""
+        return _howto_swig.frame_gate_cc_sptr_set_samp_rate(self, samp_rate)
+
+
+    def set_period(self, period_s):
+        """set_period(frame_gate_cc_sptr self, double period_s)"""
+        return _howto_swig.frame_gate_cc_sptr_set_period(self, period_s)
+
+
+    def set_gap(self, gap_s):
+        """set_gap(frame_gate_cc_sptr self, double gap_s)"""
+        return _howto_swig.frame_gate_cc_sptr_set_gap(self, gap_s)
+
+
+    def set_burst_len(self, burst_len):
+        """set_burst_len(frame_gate_cc_sptr self, int burst_len)"""
+        return _howto_swig.frame_gate_cc_sptr_set_burst_len(self, burst_len)
+
+
+    def set_t0_usrp(self, t0_usrp):
+        """set_t0_usrp(frame_gate_cc_sptr self, double t0_usrp)"""
+        return _howto_swig.frame_gate_cc_sptr_set_t0_usrp(self, t0_usrp)
+
+
+    def get_samp_rate(self):
+        """get_samp_rate(frame_gate_cc_sptr self) -> double"""
+        return _howto_swig.frame_gate_cc_sptr_get_samp_rate(self)
+
+
+    def get_period(self):
+        """get_period(frame_gate_cc_sptr self) -> double"""
+        return _howto_swig.frame_gate_cc_sptr_get_period(self)
+
+
+    def get_gap(self):
+        """get_gap(frame_gate_cc_sptr self) -> double"""
+        return _howto_swig.frame_gate_cc_sptr_get_gap(self)
+
+
+    def get_burst_len(self):
+        """get_burst_len(frame_gate_cc_sptr self) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_get_burst_len(self)
+
+
+    def get_t0_usrp(self):
+        """get_t0_usrp(frame_gate_cc_sptr self) -> double"""
+        return _howto_swig.frame_gate_cc_sptr_get_t0_usrp(self)
+
+
+    def history(self):
+        """history(frame_gate_cc_sptr self) -> unsigned int"""
+        return _howto_swig.frame_gate_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(frame_gate_cc_sptr self, int which, int delay)
+        declare_sample_delay(frame_gate_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.frame_gate_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(frame_gate_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.frame_gate_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(frame_gate_cc_sptr self) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(frame_gate_cc_sptr self) -> double"""
+        return _howto_swig.frame_gate_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(frame_gate_cc_sptr self) -> bool"""
+        return _howto_swig.frame_gate_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(frame_gate_cc_sptr self) -> bool"""
+        return _howto_swig.frame_gate_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(frame_gate_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.frame_gate_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(frame_gate_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.frame_gate_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(frame_gate_cc_sptr self) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(frame_gate_cc_sptr self, int m)"""
+        return _howto_swig.frame_gate_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(frame_gate_cc_sptr self)"""
+        return _howto_swig.frame_gate_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(frame_gate_cc_sptr self) -> bool"""
+        return _howto_swig.frame_gate_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(frame_gate_cc_sptr self, int m)"""
+        return _howto_swig.frame_gate_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(frame_gate_cc_sptr self) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(frame_gate_cc_sptr self, int i) -> long"""
+        return _howto_swig.frame_gate_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(frame_gate_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(frame_gate_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.frame_gate_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(frame_gate_cc_sptr self, int i) -> long"""
+        return _howto_swig.frame_gate_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(frame_gate_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(frame_gate_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.frame_gate_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(frame_gate_cc_sptr self, int which) -> float
+        pc_input_buffers_full(frame_gate_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.frame_gate_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(frame_gate_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(frame_gate_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.frame_gate_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(frame_gate_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(frame_gate_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.frame_gate_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(frame_gate_cc_sptr self, int which) -> float
+        pc_output_buffers_full(frame_gate_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.frame_gate_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(frame_gate_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(frame_gate_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.frame_gate_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(frame_gate_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(frame_gate_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.frame_gate_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(frame_gate_cc_sptr self) -> float"""
+        return _howto_swig.frame_gate_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(frame_gate_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.frame_gate_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(frame_gate_cc_sptr self)"""
+        return _howto_swig.frame_gate_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(frame_gate_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.frame_gate_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(frame_gate_cc_sptr self) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(frame_gate_cc_sptr self) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(frame_gate_cc_sptr self, int priority) -> int"""
+        return _howto_swig.frame_gate_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(frame_gate_cc_sptr self) -> std::string"""
+        return _howto_swig.frame_gate_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(frame_gate_cc_sptr self) -> std::string"""
+        return _howto_swig.frame_gate_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(frame_gate_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.frame_gate_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(frame_gate_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.frame_gate_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(frame_gate_cc_sptr self) -> long"""
+        return _howto_swig.frame_gate_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(frame_gate_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.frame_gate_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(frame_gate_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.frame_gate_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(frame_gate_cc_sptr self) -> std::string"""
+        return _howto_swig.frame_gate_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(frame_gate_cc_sptr self, std::string name)"""
+        return _howto_swig.frame_gate_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(frame_gate_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.frame_gate_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(frame_gate_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.frame_gate_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(frame_gate_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.frame_gate_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(frame_gate_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.frame_gate_cc_sptr_message_subscribers(self, which_port)
+
+frame_gate_cc_sptr_swigregister = _howto_swig.frame_gate_cc_sptr_swigregister
+frame_gate_cc_sptr_swigregister(frame_gate_cc_sptr)
+
+
+frame_gate_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+frame_gate_cc = frame_gate_cc.make;
+
+class slot_timing_monitor_cc(object):
+    """Proxy of C++ gr::howto::slot_timing_monitor_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(samp_rate, t0, period_s, threshold, dt_window_len):
+        """make(double samp_rate, double t0, double period_s, double threshold, int dt_window_len) -> slot_timing_monitor_cc_sptr"""
+        return _howto_swig.slot_timing_monitor_cc_make(samp_rate, t0, period_s, threshold, dt_window_len)
+
+    make = staticmethod(make)
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(slot_timing_monitor_cc self, double samp_rate)"""
+        return _howto_swig.slot_timing_monitor_cc_set_samp_rate(self, samp_rate)
+
+
+    def set_t0(self, t0):
+        """set_t0(slot_timing_monitor_cc self, double t0)"""
+        return _howto_swig.slot_timing_monitor_cc_set_t0(self, t0)
+
+
+    def set_period_s(self, period_s):
+        """set_period_s(slot_timing_monitor_cc self, double period_s)"""
+        return _howto_swig.slot_timing_monitor_cc_set_period_s(self, period_s)
+
+
+    def set_threshold(self, threshold):
+        """set_threshold(slot_timing_monitor_cc self, double threshold)"""
+        return _howto_swig.slot_timing_monitor_cc_set_threshold(self, threshold)
+
+
+    def set_dt_window_len(self, len):
+        """set_dt_window_len(slot_timing_monitor_cc self, int len)"""
+        return _howto_swig.slot_timing_monitor_cc_set_dt_window_len(self, len)
+
+
+    def last_offset_s(self):
+        """last_offset_s(slot_timing_monitor_cc self) -> double"""
+        return _howto_swig.slot_timing_monitor_cc_last_offset_s(self)
+
+
+    def last_jitter_s(self):
+        """last_jitter_s(slot_timing_monitor_cc self) -> double"""
+        return _howto_swig.slot_timing_monitor_cc_last_jitter_s(self)
+
+    __swig_destroy__ = _howto_swig.delete_slot_timing_monitor_cc
+    __del__ = lambda self: None
+slot_timing_monitor_cc_swigregister = _howto_swig.slot_timing_monitor_cc_swigregister
+slot_timing_monitor_cc_swigregister(slot_timing_monitor_cc)
+
+def slot_timing_monitor_cc_make(samp_rate, t0, period_s, threshold, dt_window_len):
+    """slot_timing_monitor_cc_make(double samp_rate, double t0, double period_s, double threshold, int dt_window_len) -> slot_timing_monitor_cc_sptr"""
+    return _howto_swig.slot_timing_monitor_cc_make(samp_rate, t0, period_s, threshold, dt_window_len)
+
+class slot_timing_monitor_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::slot_timing_monitor_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::slot_timing_monitor_cc)> self) -> slot_timing_monitor_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::slot_timing_monitor_cc)> self, slot_timing_monitor_cc p) -> slot_timing_monitor_cc_sptr
+        """
+        this = _howto_swig.new_slot_timing_monitor_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(slot_timing_monitor_cc_sptr self) -> slot_timing_monitor_cc"""
+        return _howto_swig.slot_timing_monitor_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_slot_timing_monitor_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, samp_rate, t0, period_s, threshold, dt_window_len):
+        """make(slot_timing_monitor_cc_sptr self, double samp_rate, double t0, double period_s, double threshold, int dt_window_len) -> slot_timing_monitor_cc_sptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_make(self, samp_rate, t0, period_s, threshold, dt_window_len)
+
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(slot_timing_monitor_cc_sptr self, double samp_rate)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_samp_rate(self, samp_rate)
+
+
+    def set_t0(self, t0):
+        """set_t0(slot_timing_monitor_cc_sptr self, double t0)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_t0(self, t0)
+
+
+    def set_period_s(self, period_s):
+        """set_period_s(slot_timing_monitor_cc_sptr self, double period_s)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_period_s(self, period_s)
+
+
+    def set_threshold(self, threshold):
+        """set_threshold(slot_timing_monitor_cc_sptr self, double threshold)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_threshold(self, threshold)
+
+
+    def set_dt_window_len(self, len):
+        """set_dt_window_len(slot_timing_monitor_cc_sptr self, int len)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_dt_window_len(self, len)
+
+
+    def last_offset_s(self):
+        """last_offset_s(slot_timing_monitor_cc_sptr self) -> double"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_last_offset_s(self)
+
+
+    def last_jitter_s(self):
+        """last_jitter_s(slot_timing_monitor_cc_sptr self) -> double"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_last_jitter_s(self)
+
+
+    def history(self):
+        """history(slot_timing_monitor_cc_sptr self) -> unsigned int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(slot_timing_monitor_cc_sptr self, int which, int delay)
+        declare_sample_delay(slot_timing_monitor_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(slot_timing_monitor_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(slot_timing_monitor_cc_sptr self) -> int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(slot_timing_monitor_cc_sptr self) -> double"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(slot_timing_monitor_cc_sptr self) -> bool"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(slot_timing_monitor_cc_sptr self) -> bool"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(slot_timing_monitor_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(slot_timing_monitor_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(slot_timing_monitor_cc_sptr self) -> int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(slot_timing_monitor_cc_sptr self, int m)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(slot_timing_monitor_cc_sptr self)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(slot_timing_monitor_cc_sptr self) -> bool"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(slot_timing_monitor_cc_sptr self, int m)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(slot_timing_monitor_cc_sptr self) -> int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(slot_timing_monitor_cc_sptr self, int i) -> long"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(slot_timing_monitor_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(slot_timing_monitor_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(slot_timing_monitor_cc_sptr self, int i) -> long"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(slot_timing_monitor_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(slot_timing_monitor_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(slot_timing_monitor_cc_sptr self, int which) -> float
+        pc_input_buffers_full(slot_timing_monitor_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(slot_timing_monitor_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(slot_timing_monitor_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(slot_timing_monitor_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(slot_timing_monitor_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(slot_timing_monitor_cc_sptr self, int which) -> float
+        pc_output_buffers_full(slot_timing_monitor_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(slot_timing_monitor_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(slot_timing_monitor_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(slot_timing_monitor_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(slot_timing_monitor_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(slot_timing_monitor_cc_sptr self) -> float"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(slot_timing_monitor_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(slot_timing_monitor_cc_sptr self)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(slot_timing_monitor_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(slot_timing_monitor_cc_sptr self) -> int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(slot_timing_monitor_cc_sptr self) -> int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(slot_timing_monitor_cc_sptr self, int priority) -> int"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(slot_timing_monitor_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(slot_timing_monitor_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(slot_timing_monitor_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(slot_timing_monitor_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(slot_timing_monitor_cc_sptr self) -> long"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(slot_timing_monitor_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(slot_timing_monitor_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(slot_timing_monitor_cc_sptr self) -> std::string"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(slot_timing_monitor_cc_sptr self, std::string name)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(slot_timing_monitor_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.slot_timing_monitor_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(slot_timing_monitor_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(slot_timing_monitor_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(slot_timing_monitor_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.slot_timing_monitor_cc_sptr_message_subscribers(self, which_port)
+
+slot_timing_monitor_cc_sptr_swigregister = _howto_swig.slot_timing_monitor_cc_sptr_swigregister
+slot_timing_monitor_cc_sptr_swigregister(slot_timing_monitor_cc_sptr)
+
+
+slot_timing_monitor_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+slot_timing_monitor_cc = slot_timing_monitor_cc.make;
+
+class time_tagger_cc(object):
+    """Proxy of C++ gr::howto::time_tagger_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+
+    def make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s, tx_time_interval):
+        """make(double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp, pmt_vector_double offsets_s, double lead_s, int tx_time_interval) -> time_tagger_cc_sptr"""
+        return _howto_swig.time_tagger_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s, tx_time_interval)
+
+    make = staticmethod(make)
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(time_tagger_cc self, double samp_rate)"""
+        return _howto_swig.time_tagger_cc_set_samp_rate(self, samp_rate)
+
+
+    def set_period(self, period_s):
+        """set_period(time_tagger_cc self, double period_s)"""
+        return _howto_swig.time_tagger_cc_set_period(self, period_s)
+
+
+    def set_gap(self, gap_s):
+        """set_gap(time_tagger_cc self, double gap_s)"""
+        return _howto_swig.time_tagger_cc_set_gap(self, gap_s)
+
+
+    def set_burst_len(self, burst_len):
+        """set_burst_len(time_tagger_cc self, int burst_len)"""
+        return _howto_swig.time_tagger_cc_set_burst_len(self, burst_len)
+
+
+    def set_t0_usrp(self, t0_usrp):
+        """set_t0_usrp(time_tagger_cc self, double t0_usrp)"""
+        return _howto_swig.time_tagger_cc_set_t0_usrp(self, t0_usrp)
+
+
+    def set_offsets(self, offsets_s):
+        """set_offsets(time_tagger_cc self, pmt_vector_double offsets_s)"""
+        return _howto_swig.time_tagger_cc_set_offsets(self, offsets_s)
+
+
+    def set_lead(self, lead_s):
+        """set_lead(time_tagger_cc self, double lead_s)"""
+        return _howto_swig.time_tagger_cc_set_lead(self, lead_s)
+
+
+    def set_tx_time_interval(self, tx_time_interval):
+        """set_tx_time_interval(time_tagger_cc self, int tx_time_interval)"""
+        return _howto_swig.time_tagger_cc_set_tx_time_interval(self, tx_time_interval)
+
+
+    def get_samp_rate(self):
+        """get_samp_rate(time_tagger_cc self) -> double"""
+        return _howto_swig.time_tagger_cc_get_samp_rate(self)
+
+
+    def get_period(self):
+        """get_period(time_tagger_cc self) -> double"""
+        return _howto_swig.time_tagger_cc_get_period(self)
+
+
+    def get_gap(self):
+        """get_gap(time_tagger_cc self) -> double"""
+        return _howto_swig.time_tagger_cc_get_gap(self)
+
+
+    def get_burst_len(self):
+        """get_burst_len(time_tagger_cc self) -> int"""
+        return _howto_swig.time_tagger_cc_get_burst_len(self)
+
+
+    def get_t0_usrp(self):
+        """get_t0_usrp(time_tagger_cc self) -> double"""
+        return _howto_swig.time_tagger_cc_get_t0_usrp(self)
+
+
+    def get_offsets(self):
+        """get_offsets(time_tagger_cc self) -> pmt_vector_double"""
+        return _howto_swig.time_tagger_cc_get_offsets(self)
+
+
+    def get_lead(self):
+        """get_lead(time_tagger_cc self) -> double"""
+        return _howto_swig.time_tagger_cc_get_lead(self)
+
+    __swig_destroy__ = _howto_swig.delete_time_tagger_cc
+    __del__ = lambda self: None
+time_tagger_cc_swigregister = _howto_swig.time_tagger_cc_swigregister
+time_tagger_cc_swigregister(time_tagger_cc)
+
+def time_tagger_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s, tx_time_interval):
+    """time_tagger_cc_make(double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp, pmt_vector_double offsets_s, double lead_s, int tx_time_interval) -> time_tagger_cc_sptr"""
+    return _howto_swig.time_tagger_cc_make(samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s, tx_time_interval)
+
+class time_tagger_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::time_tagger_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::time_tagger_cc)> self) -> time_tagger_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::time_tagger_cc)> self, time_tagger_cc p) -> time_tagger_cc_sptr
+        """
+        this = _howto_swig.new_time_tagger_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(time_tagger_cc_sptr self) -> time_tagger_cc"""
+        return _howto_swig.time_tagger_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_time_tagger_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s, tx_time_interval):
+        """make(time_tagger_cc_sptr self, double samp_rate, double period_s, double gap_s, int burst_len, double t0_usrp, pmt_vector_double offsets_s, double lead_s, int tx_time_interval) -> time_tagger_cc_sptr"""
+        return _howto_swig.time_tagger_cc_sptr_make(self, samp_rate, period_s, gap_s, burst_len, t0_usrp, offsets_s, lead_s, tx_time_interval)
+
+
+    def set_samp_rate(self, samp_rate):
+        """set_samp_rate(time_tagger_cc_sptr self, double samp_rate)"""
+        return _howto_swig.time_tagger_cc_sptr_set_samp_rate(self, samp_rate)
+
+
+    def set_period(self, period_s):
+        """set_period(time_tagger_cc_sptr self, double period_s)"""
+        return _howto_swig.time_tagger_cc_sptr_set_period(self, period_s)
+
+
+    def set_gap(self, gap_s):
+        """set_gap(time_tagger_cc_sptr self, double gap_s)"""
+        return _howto_swig.time_tagger_cc_sptr_set_gap(self, gap_s)
+
+
+    def set_burst_len(self, burst_len):
+        """set_burst_len(time_tagger_cc_sptr self, int burst_len)"""
+        return _howto_swig.time_tagger_cc_sptr_set_burst_len(self, burst_len)
+
+
+    def set_t0_usrp(self, t0_usrp):
+        """set_t0_usrp(time_tagger_cc_sptr self, double t0_usrp)"""
+        return _howto_swig.time_tagger_cc_sptr_set_t0_usrp(self, t0_usrp)
+
+
+    def set_offsets(self, offsets_s):
+        """set_offsets(time_tagger_cc_sptr self, pmt_vector_double offsets_s)"""
+        return _howto_swig.time_tagger_cc_sptr_set_offsets(self, offsets_s)
+
+
+    def set_lead(self, lead_s):
+        """set_lead(time_tagger_cc_sptr self, double lead_s)"""
+        return _howto_swig.time_tagger_cc_sptr_set_lead(self, lead_s)
+
+
+    def set_tx_time_interval(self, tx_time_interval):
+        """set_tx_time_interval(time_tagger_cc_sptr self, int tx_time_interval)"""
+        return _howto_swig.time_tagger_cc_sptr_set_tx_time_interval(self, tx_time_interval)
+
+
+    def get_samp_rate(self):
+        """get_samp_rate(time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.time_tagger_cc_sptr_get_samp_rate(self)
+
+
+    def get_period(self):
+        """get_period(time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.time_tagger_cc_sptr_get_period(self)
+
+
+    def get_gap(self):
+        """get_gap(time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.time_tagger_cc_sptr_get_gap(self)
+
+
+    def get_burst_len(self):
+        """get_burst_len(time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_get_burst_len(self)
+
+
+    def get_t0_usrp(self):
+        """get_t0_usrp(time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.time_tagger_cc_sptr_get_t0_usrp(self)
+
+
+    def get_offsets(self):
+        """get_offsets(time_tagger_cc_sptr self) -> pmt_vector_double"""
+        return _howto_swig.time_tagger_cc_sptr_get_offsets(self)
+
+
+    def get_lead(self):
+        """get_lead(time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.time_tagger_cc_sptr_get_lead(self)
+
+
+    def history(self):
+        """history(time_tagger_cc_sptr self) -> unsigned int"""
+        return _howto_swig.time_tagger_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(time_tagger_cc_sptr self, int which, int delay)
+        declare_sample_delay(time_tagger_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.time_tagger_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(time_tagger_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.time_tagger_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(time_tagger_cc_sptr self) -> double"""
+        return _howto_swig.time_tagger_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(time_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.time_tagger_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(time_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.time_tagger_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(time_tagger_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.time_tagger_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(time_tagger_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.time_tagger_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(time_tagger_cc_sptr self, int m)"""
+        return _howto_swig.time_tagger_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(time_tagger_cc_sptr self)"""
+        return _howto_swig.time_tagger_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(time_tagger_cc_sptr self) -> bool"""
+        return _howto_swig.time_tagger_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(time_tagger_cc_sptr self, int m)"""
+        return _howto_swig.time_tagger_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(time_tagger_cc_sptr self, int i) -> long"""
+        return _howto_swig.time_tagger_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(time_tagger_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(time_tagger_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.time_tagger_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(time_tagger_cc_sptr self, int i) -> long"""
+        return _howto_swig.time_tagger_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(time_tagger_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(time_tagger_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.time_tagger_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(time_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full(time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.time_tagger_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(time_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.time_tagger_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(time_tagger_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.time_tagger_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(time_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full(time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.time_tagger_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(time_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.time_tagger_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(time_tagger_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(time_tagger_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.time_tagger_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(time_tagger_cc_sptr self) -> float"""
+        return _howto_swig.time_tagger_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(time_tagger_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.time_tagger_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(time_tagger_cc_sptr self)"""
+        return _howto_swig.time_tagger_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(time_tagger_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.time_tagger_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(time_tagger_cc_sptr self) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(time_tagger_cc_sptr self, int priority) -> int"""
+        return _howto_swig.time_tagger_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(time_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.time_tagger_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(time_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.time_tagger_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(time_tagger_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.time_tagger_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(time_tagger_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.time_tagger_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(time_tagger_cc_sptr self) -> long"""
+        return _howto_swig.time_tagger_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(time_tagger_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.time_tagger_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(time_tagger_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.time_tagger_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(time_tagger_cc_sptr self) -> std::string"""
+        return _howto_swig.time_tagger_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(time_tagger_cc_sptr self, std::string name)"""
+        return _howto_swig.time_tagger_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(time_tagger_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.time_tagger_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(time_tagger_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.time_tagger_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(time_tagger_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.time_tagger_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(time_tagger_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.time_tagger_cc_sptr_message_subscribers(self, which_port)
+
+time_tagger_cc_sptr_swigregister = _howto_swig.time_tagger_cc_sptr_swigregister
+time_tagger_cc_sptr_swigregister(time_tagger_cc_sptr)
+
+
+time_tagger_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+time_tagger_cc = time_tagger_cc.make;
+
+class rx_time_recorder_cc(object):
+    """Proxy of C++ gr::howto::rx_time_recorder_cc class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+
+    def make(samp_rate, filename, decim=1):
+        """make(double samp_rate, std::string const & filename, int decim=1) -> rx_time_recorder_cc_sptr"""
+        return _howto_swig.rx_time_recorder_cc_make(samp_rate, filename, decim)
+
+    make = staticmethod(make)
+    __swig_destroy__ = _howto_swig.delete_rx_time_recorder_cc
+    __del__ = lambda self: None
+rx_time_recorder_cc_swigregister = _howto_swig.rx_time_recorder_cc_swigregister
+rx_time_recorder_cc_swigregister(rx_time_recorder_cc)
+
+def rx_time_recorder_cc_make(samp_rate, filename, decim=1):
+    """rx_time_recorder_cc_make(double samp_rate, std::string const & filename, int decim=1) -> rx_time_recorder_cc_sptr"""
+    return _howto_swig.rx_time_recorder_cc_make(samp_rate, filename, decim)
+
+class rx_time_recorder_cc_sptr(object):
+    """Proxy of C++ boost::shared_ptr<(gr::howto::rx_time_recorder_cc)> class."""
+
+    thisown = _swig_property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc='The membership flag')
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        """
+        __init__(boost::shared_ptr<(gr::howto::rx_time_recorder_cc)> self) -> rx_time_recorder_cc_sptr
+        __init__(boost::shared_ptr<(gr::howto::rx_time_recorder_cc)> self, rx_time_recorder_cc p) -> rx_time_recorder_cc_sptr
+        """
+        this = _howto_swig.new_rx_time_recorder_cc_sptr(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+
+    def __deref__(self):
+        """__deref__(rx_time_recorder_cc_sptr self) -> rx_time_recorder_cc"""
+        return _howto_swig.rx_time_recorder_cc_sptr___deref__(self)
+
+    __swig_destroy__ = _howto_swig.delete_rx_time_recorder_cc_sptr
+    __del__ = lambda self: None
+
+    def make(self, samp_rate, filename, decim=1):
+        """make(rx_time_recorder_cc_sptr self, double samp_rate, std::string const & filename, int decim=1) -> rx_time_recorder_cc_sptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_make(self, samp_rate, filename, decim)
+
+
+    def history(self):
+        """history(rx_time_recorder_cc_sptr self) -> unsigned int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_history(self)
+
+
+    def declare_sample_delay(self, *args):
+        """
+        declare_sample_delay(rx_time_recorder_cc_sptr self, int which, int delay)
+        declare_sample_delay(rx_time_recorder_cc_sptr self, unsigned int delay)
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_declare_sample_delay(self, *args)
+
+
+    def sample_delay(self, which):
+        """sample_delay(rx_time_recorder_cc_sptr self, int which) -> unsigned int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_sample_delay(self, which)
+
+
+    def output_multiple(self):
+        """output_multiple(rx_time_recorder_cc_sptr self) -> int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_output_multiple(self)
+
+
+    def relative_rate(self):
+        """relative_rate(rx_time_recorder_cc_sptr self) -> double"""
+        return _howto_swig.rx_time_recorder_cc_sptr_relative_rate(self)
+
+
+    def start(self):
+        """start(rx_time_recorder_cc_sptr self) -> bool"""
+        return _howto_swig.rx_time_recorder_cc_sptr_start(self)
+
+
+    def stop(self):
+        """stop(rx_time_recorder_cc_sptr self) -> bool"""
+        return _howto_swig.rx_time_recorder_cc_sptr_stop(self)
+
+
+    def nitems_read(self, which_input):
+        """nitems_read(rx_time_recorder_cc_sptr self, unsigned int which_input) -> uint64_t"""
+        return _howto_swig.rx_time_recorder_cc_sptr_nitems_read(self, which_input)
+
+
+    def nitems_written(self, which_output):
+        """nitems_written(rx_time_recorder_cc_sptr self, unsigned int which_output) -> uint64_t"""
+        return _howto_swig.rx_time_recorder_cc_sptr_nitems_written(self, which_output)
+
+
+    def max_noutput_items(self):
+        """max_noutput_items(rx_time_recorder_cc_sptr self) -> int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_max_noutput_items(self)
+
+
+    def set_max_noutput_items(self, m):
+        """set_max_noutput_items(rx_time_recorder_cc_sptr self, int m)"""
+        return _howto_swig.rx_time_recorder_cc_sptr_set_max_noutput_items(self, m)
+
+
+    def unset_max_noutput_items(self):
+        """unset_max_noutput_items(rx_time_recorder_cc_sptr self)"""
+        return _howto_swig.rx_time_recorder_cc_sptr_unset_max_noutput_items(self)
+
+
+    def is_set_max_noutput_items(self):
+        """is_set_max_noutput_items(rx_time_recorder_cc_sptr self) -> bool"""
+        return _howto_swig.rx_time_recorder_cc_sptr_is_set_max_noutput_items(self)
+
+
+    def set_min_noutput_items(self, m):
+        """set_min_noutput_items(rx_time_recorder_cc_sptr self, int m)"""
+        return _howto_swig.rx_time_recorder_cc_sptr_set_min_noutput_items(self, m)
+
+
+    def min_noutput_items(self):
+        """min_noutput_items(rx_time_recorder_cc_sptr self) -> int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_min_noutput_items(self)
+
+
+    def max_output_buffer(self, i):
+        """max_output_buffer(rx_time_recorder_cc_sptr self, int i) -> long"""
+        return _howto_swig.rx_time_recorder_cc_sptr_max_output_buffer(self, i)
+
+
+    def set_max_output_buffer(self, *args):
+        """
+        set_max_output_buffer(rx_time_recorder_cc_sptr self, long max_output_buffer)
+        set_max_output_buffer(rx_time_recorder_cc_sptr self, int port, long max_output_buffer)
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_set_max_output_buffer(self, *args)
+
+
+    def min_output_buffer(self, i):
+        """min_output_buffer(rx_time_recorder_cc_sptr self, int i) -> long"""
+        return _howto_swig.rx_time_recorder_cc_sptr_min_output_buffer(self, i)
+
+
+    def set_min_output_buffer(self, *args):
+        """
+        set_min_output_buffer(rx_time_recorder_cc_sptr self, long min_output_buffer)
+        set_min_output_buffer(rx_time_recorder_cc_sptr self, int port, long min_output_buffer)
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_set_min_output_buffer(self, *args)
+
+
+    def pc_noutput_items(self):
+        """pc_noutput_items(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_noutput_items(self)
+
+
+    def pc_noutput_items_avg(self):
+        """pc_noutput_items_avg(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_noutput_items_avg(self)
+
+
+    def pc_noutput_items_var(self):
+        """pc_noutput_items_var(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_noutput_items_var(self)
+
+
+    def pc_nproduced(self):
+        """pc_nproduced(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_nproduced(self)
+
+
+    def pc_nproduced_avg(self):
+        """pc_nproduced_avg(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_nproduced_avg(self)
+
+
+    def pc_nproduced_var(self):
+        """pc_nproduced_var(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_nproduced_var(self)
+
+
+    def pc_input_buffers_full(self, *args):
+        """
+        pc_input_buffers_full(rx_time_recorder_cc_sptr self, int which) -> float
+        pc_input_buffers_full(rx_time_recorder_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_input_buffers_full(self, *args)
+
+
+    def pc_input_buffers_full_avg(self, *args):
+        """
+        pc_input_buffers_full_avg(rx_time_recorder_cc_sptr self, int which) -> float
+        pc_input_buffers_full_avg(rx_time_recorder_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_input_buffers_full_avg(self, *args)
+
+
+    def pc_input_buffers_full_var(self, *args):
+        """
+        pc_input_buffers_full_var(rx_time_recorder_cc_sptr self, int which) -> float
+        pc_input_buffers_full_var(rx_time_recorder_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_input_buffers_full_var(self, *args)
+
+
+    def pc_output_buffers_full(self, *args):
+        """
+        pc_output_buffers_full(rx_time_recorder_cc_sptr self, int which) -> float
+        pc_output_buffers_full(rx_time_recorder_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_output_buffers_full(self, *args)
+
+
+    def pc_output_buffers_full_avg(self, *args):
+        """
+        pc_output_buffers_full_avg(rx_time_recorder_cc_sptr self, int which) -> float
+        pc_output_buffers_full_avg(rx_time_recorder_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_output_buffers_full_avg(self, *args)
+
+
+    def pc_output_buffers_full_var(self, *args):
+        """
+        pc_output_buffers_full_var(rx_time_recorder_cc_sptr self, int which) -> float
+        pc_output_buffers_full_var(rx_time_recorder_cc_sptr self) -> pmt_vector_float
+        """
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_output_buffers_full_var(self, *args)
+
+
+    def pc_work_time(self):
+        """pc_work_time(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_work_time(self)
+
+
+    def pc_work_time_avg(self):
+        """pc_work_time_avg(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_work_time_avg(self)
+
+
+    def pc_work_time_var(self):
+        """pc_work_time_var(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_work_time_var(self)
+
+
+    def pc_work_time_total(self):
+        """pc_work_time_total(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_work_time_total(self)
+
+
+    def pc_throughput_avg(self):
+        """pc_throughput_avg(rx_time_recorder_cc_sptr self) -> float"""
+        return _howto_swig.rx_time_recorder_cc_sptr_pc_throughput_avg(self)
+
+
+    def set_processor_affinity(self, mask):
+        """set_processor_affinity(rx_time_recorder_cc_sptr self, std::vector< int,std::allocator< int > > const & mask)"""
+        return _howto_swig.rx_time_recorder_cc_sptr_set_processor_affinity(self, mask)
+
+
+    def unset_processor_affinity(self):
+        """unset_processor_affinity(rx_time_recorder_cc_sptr self)"""
+        return _howto_swig.rx_time_recorder_cc_sptr_unset_processor_affinity(self)
+
+
+    def processor_affinity(self):
+        """processor_affinity(rx_time_recorder_cc_sptr self) -> std::vector< int,std::allocator< int > >"""
+        return _howto_swig.rx_time_recorder_cc_sptr_processor_affinity(self)
+
+
+    def active_thread_priority(self):
+        """active_thread_priority(rx_time_recorder_cc_sptr self) -> int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_active_thread_priority(self)
+
+
+    def thread_priority(self):
+        """thread_priority(rx_time_recorder_cc_sptr self) -> int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_thread_priority(self)
+
+
+    def set_thread_priority(self, priority):
+        """set_thread_priority(rx_time_recorder_cc_sptr self, int priority) -> int"""
+        return _howto_swig.rx_time_recorder_cc_sptr_set_thread_priority(self, priority)
+
+
+    def name(self):
+        """name(rx_time_recorder_cc_sptr self) -> std::string"""
+        return _howto_swig.rx_time_recorder_cc_sptr_name(self)
+
+
+    def symbol_name(self):
+        """symbol_name(rx_time_recorder_cc_sptr self) -> std::string"""
+        return _howto_swig.rx_time_recorder_cc_sptr_symbol_name(self)
+
+
+    def input_signature(self):
+        """input_signature(rx_time_recorder_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_input_signature(self)
+
+
+    def output_signature(self):
+        """output_signature(rx_time_recorder_cc_sptr self) -> io_signature_sptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_output_signature(self)
+
+
+    def unique_id(self):
+        """unique_id(rx_time_recorder_cc_sptr self) -> long"""
+        return _howto_swig.rx_time_recorder_cc_sptr_unique_id(self)
+
+
+    def to_basic_block(self):
+        """to_basic_block(rx_time_recorder_cc_sptr self) -> basic_block_sptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_to_basic_block(self)
+
+
+    def check_topology(self, ninputs, noutputs):
+        """check_topology(rx_time_recorder_cc_sptr self, int ninputs, int noutputs) -> bool"""
+        return _howto_swig.rx_time_recorder_cc_sptr_check_topology(self, ninputs, noutputs)
+
+
+    def alias(self):
+        """alias(rx_time_recorder_cc_sptr self) -> std::string"""
+        return _howto_swig.rx_time_recorder_cc_sptr_alias(self)
+
+
+    def set_block_alias(self, name):
+        """set_block_alias(rx_time_recorder_cc_sptr self, std::string name)"""
+        return _howto_swig.rx_time_recorder_cc_sptr_set_block_alias(self, name)
+
+
+    def _post(self, which_port, msg):
+        """_post(rx_time_recorder_cc_sptr self, swig_int_ptr which_port, swig_int_ptr msg)"""
+        return _howto_swig.rx_time_recorder_cc_sptr__post(self, which_port, msg)
+
+
+    def message_ports_in(self):
+        """message_ports_in(rx_time_recorder_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_message_ports_in(self)
+
+
+    def message_ports_out(self):
+        """message_ports_out(rx_time_recorder_cc_sptr self) -> swig_int_ptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_message_ports_out(self)
+
+
+    def message_subscribers(self, which_port):
+        """message_subscribers(rx_time_recorder_cc_sptr self, swig_int_ptr which_port) -> swig_int_ptr"""
+        return _howto_swig.rx_time_recorder_cc_sptr_message_subscribers(self, which_port)
+
+rx_time_recorder_cc_sptr_swigregister = _howto_swig.rx_time_recorder_cc_sptr_swigregister
+rx_time_recorder_cc_sptr_swigregister(rx_time_recorder_cc_sptr)
+
+
+rx_time_recorder_cc_sptr.__repr__ = lambda self: "<gr_block %s (%d)>" % (self.name(), self.unique_id())
+rx_time_recorder_cc = rx_time_recorder_cc.make;
+
 
 

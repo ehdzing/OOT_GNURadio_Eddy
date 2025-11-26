@@ -197,6 +197,33 @@ gnuradio-howto/fast:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/build
 .PHONY : gnuradio-howto/fast
 
+burst_time_tagger_cc_impl.o: burst_time_tagger_cc_impl.cc.o
+
+.PHONY : burst_time_tagger_cc_impl.o
+
+# target to build an object file
+burst_time_tagger_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o
+.PHONY : burst_time_tagger_cc_impl.cc.o
+
+burst_time_tagger_cc_impl.i: burst_time_tagger_cc_impl.cc.i
+
+.PHONY : burst_time_tagger_cc_impl.i
+
+# target to preprocess a source file
+burst_time_tagger_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.i
+.PHONY : burst_time_tagger_cc_impl.cc.i
+
+burst_time_tagger_cc_impl.s: burst_time_tagger_cc_impl.cc.s
+
+.PHONY : burst_time_tagger_cc_impl.s
+
+# target to generate assembly for a file
+burst_time_tagger_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.s
+.PHONY : burst_time_tagger_cc_impl.cc.s
+
 decimate_fir_cc_impl.o: decimate_fir_cc_impl.cc.o
 
 .PHONY : decimate_fir_cc_impl.o
@@ -224,6 +251,60 @@ decimate_fir_cc_impl.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.s
 .PHONY : decimate_fir_cc_impl.cc.s
 
+detector_exp_ff_impl.o: detector_exp_ff_impl.cc.o
+
+.PHONY : detector_exp_ff_impl.o
+
+# target to build an object file
+detector_exp_ff_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o
+.PHONY : detector_exp_ff_impl.cc.o
+
+detector_exp_ff_impl.i: detector_exp_ff_impl.cc.i
+
+.PHONY : detector_exp_ff_impl.i
+
+# target to preprocess a source file
+detector_exp_ff_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.i
+.PHONY : detector_exp_ff_impl.cc.i
+
+detector_exp_ff_impl.s: detector_exp_ff_impl.cc.s
+
+.PHONY : detector_exp_ff_impl.s
+
+# target to generate assembly for a file
+detector_exp_ff_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.s
+.PHONY : detector_exp_ff_impl.cc.s
+
+detector_ff_impl.o: detector_ff_impl.cc.o
+
+.PHONY : detector_ff_impl.o
+
+# target to build an object file
+detector_ff_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o
+.PHONY : detector_ff_impl.cc.o
+
+detector_ff_impl.i: detector_ff_impl.cc.i
+
+.PHONY : detector_ff_impl.i
+
+# target to preprocess a source file
+detector_ff_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.i
+.PHONY : detector_ff_impl.cc.i
+
+detector_ff_impl.s: detector_ff_impl.cc.s
+
+.PHONY : detector_ff_impl.s
+
+# target to generate assembly for a file
+detector_ff_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.s
+.PHONY : detector_ff_impl.cc.s
+
 downsample_cc_impl.o: downsample_cc_impl.cc.o
 
 .PHONY : downsample_cc_impl.o
@@ -250,6 +331,33 @@ downsample_cc_impl.s: downsample_cc_impl.cc.s
 downsample_cc_impl.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/downsample_cc_impl.cc.s
 .PHONY : downsample_cc_impl.cc.s
+
+dual_decimate_ff_impl.o: dual_decimate_ff_impl.cc.o
+
+.PHONY : dual_decimate_ff_impl.o
+
+# target to build an object file
+dual_decimate_ff_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o
+.PHONY : dual_decimate_ff_impl.cc.o
+
+dual_decimate_ff_impl.i: dual_decimate_ff_impl.cc.i
+
+.PHONY : dual_decimate_ff_impl.i
+
+# target to preprocess a source file
+dual_decimate_ff_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.i
+.PHONY : dual_decimate_ff_impl.cc.i
+
+dual_decimate_ff_impl.s: dual_decimate_ff_impl.cc.s
+
+.PHONY : dual_decimate_ff_impl.s
+
+# target to generate assembly for a file
+dual_decimate_ff_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.s
+.PHONY : dual_decimate_ff_impl.cc.s
 
 flex_fir_all.o: flex_fir_all.cc.o
 
@@ -359,6 +467,33 @@ flex_fir_ff_impl.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/flex_fir_ff_impl.cc.s
 .PHONY : flex_fir_ff_impl.cc.s
 
+frame_gate_cc_impl.o: frame_gate_cc_impl.cc.o
+
+.PHONY : frame_gate_cc_impl.o
+
+# target to build an object file
+frame_gate_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o
+.PHONY : frame_gate_cc_impl.cc.o
+
+frame_gate_cc_impl.i: frame_gate_cc_impl.cc.i
+
+.PHONY : frame_gate_cc_impl.i
+
+# target to preprocess a source file
+frame_gate_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.i
+.PHONY : frame_gate_cc_impl.cc.i
+
+frame_gate_cc_impl.s: frame_gate_cc_impl.cc.s
+
+.PHONY : frame_gate_cc_impl.s
+
+# target to generate assembly for a file
+frame_gate_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.s
+.PHONY : frame_gate_cc_impl.cc.s
+
 gain_ff_impl.o: gain_ff_impl.cc.o
 
 .PHONY : gain_ff_impl.o
@@ -385,6 +520,33 @@ gain_ff_impl.s: gain_ff_impl.cc.s
 gain_ff_impl.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/gain_ff_impl.cc.s
 .PHONY : gain_ff_impl.cc.s
+
+gate_ff_impl.o: gate_ff_impl.cc.o
+
+.PHONY : gate_ff_impl.o
+
+# target to build an object file
+gate_ff_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o
+.PHONY : gate_ff_impl.cc.o
+
+gate_ff_impl.i: gate_ff_impl.cc.i
+
+.PHONY : gate_ff_impl.i
+
+# target to preprocess a source file
+gate_ff_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.i
+.PHONY : gate_ff_impl.cc.i
+
+gate_ff_impl.s: gate_ff_impl.cc.s
+
+.PHONY : gate_ff_impl.s
+
+# target to generate assembly for a file
+gate_ff_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.s
+.PHONY : gate_ff_impl.cc.s
 
 iq_mag_cf_impl.o: iq_mag_cf_impl.cc.o
 
@@ -439,6 +601,33 @@ iq_select_cf_impl.s: iq_select_cf_impl.cc.s
 iq_select_cf_impl.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/iq_select_cf_impl.cc.s
 .PHONY : iq_select_cf_impl.cc.s
+
+metric_estimator_cc_impl.o: metric_estimator_cc_impl.cc.o
+
+.PHONY : metric_estimator_cc_impl.o
+
+# target to build an object file
+metric_estimator_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o
+.PHONY : metric_estimator_cc_impl.cc.o
+
+metric_estimator_cc_impl.i: metric_estimator_cc_impl.cc.i
+
+.PHONY : metric_estimator_cc_impl.i
+
+# target to preprocess a source file
+metric_estimator_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.i
+.PHONY : metric_estimator_cc_impl.cc.i
+
+metric_estimator_cc_impl.s: metric_estimator_cc_impl.cc.s
+
+.PHONY : metric_estimator_cc_impl.s
+
+# target to generate assembly for a file
+metric_estimator_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.s
+.PHONY : metric_estimator_cc_impl.cc.s
 
 moving_avg_ff_impl.o: moving_avg_ff_impl.cc.o
 
@@ -521,6 +710,168 @@ qa_howto.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/test-howto.dir/build.make lib/CMakeFiles/test-howto.dir/qa_howto.cc.s
 .PHONY : qa_howto.cc.s
 
+rx_time_recorder_cc_impl.o: rx_time_recorder_cc_impl.cc.o
+
+.PHONY : rx_time_recorder_cc_impl.o
+
+# target to build an object file
+rx_time_recorder_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o
+.PHONY : rx_time_recorder_cc_impl.cc.o
+
+rx_time_recorder_cc_impl.i: rx_time_recorder_cc_impl.cc.i
+
+.PHONY : rx_time_recorder_cc_impl.i
+
+# target to preprocess a source file
+rx_time_recorder_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.i
+.PHONY : rx_time_recorder_cc_impl.cc.i
+
+rx_time_recorder_cc_impl.s: rx_time_recorder_cc_impl.cc.s
+
+.PHONY : rx_time_recorder_cc_impl.s
+
+# target to generate assembly for a file
+rx_time_recorder_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.s
+.PHONY : rx_time_recorder_cc_impl.cc.s
+
+scheduler_ctrl_impl.o: scheduler_ctrl_impl.cc.o
+
+.PHONY : scheduler_ctrl_impl.o
+
+# target to build an object file
+scheduler_ctrl_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o
+.PHONY : scheduler_ctrl_impl.cc.o
+
+scheduler_ctrl_impl.i: scheduler_ctrl_impl.cc.i
+
+.PHONY : scheduler_ctrl_impl.i
+
+# target to preprocess a source file
+scheduler_ctrl_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.i
+.PHONY : scheduler_ctrl_impl.cc.i
+
+scheduler_ctrl_impl.s: scheduler_ctrl_impl.cc.s
+
+.PHONY : scheduler_ctrl_impl.s
+
+# target to generate assembly for a file
+scheduler_ctrl_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.s
+.PHONY : scheduler_ctrl_impl.cc.s
+
+sim_tx_modulator_cc_impl.o: sim_tx_modulator_cc_impl.cc.o
+
+.PHONY : sim_tx_modulator_cc_impl.o
+
+# target to build an object file
+sim_tx_modulator_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o
+.PHONY : sim_tx_modulator_cc_impl.cc.o
+
+sim_tx_modulator_cc_impl.i: sim_tx_modulator_cc_impl.cc.i
+
+.PHONY : sim_tx_modulator_cc_impl.i
+
+# target to preprocess a source file
+sim_tx_modulator_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.i
+.PHONY : sim_tx_modulator_cc_impl.cc.i
+
+sim_tx_modulator_cc_impl.s: sim_tx_modulator_cc_impl.cc.s
+
+.PHONY : sim_tx_modulator_cc_impl.s
+
+# target to generate assembly for a file
+sim_tx_modulator_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.s
+.PHONY : sim_tx_modulator_cc_impl.cc.s
+
+slot_clock_cc_impl.o: slot_clock_cc_impl.cc.o
+
+.PHONY : slot_clock_cc_impl.o
+
+# target to build an object file
+slot_clock_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o
+.PHONY : slot_clock_cc_impl.cc.o
+
+slot_clock_cc_impl.i: slot_clock_cc_impl.cc.i
+
+.PHONY : slot_clock_cc_impl.i
+
+# target to preprocess a source file
+slot_clock_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.i
+.PHONY : slot_clock_cc_impl.cc.i
+
+slot_clock_cc_impl.s: slot_clock_cc_impl.cc.s
+
+.PHONY : slot_clock_cc_impl.s
+
+# target to generate assembly for a file
+slot_clock_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.s
+.PHONY : slot_clock_cc_impl.cc.s
+
+slot_guard_cc_impl.o: slot_guard_cc_impl.cc.o
+
+.PHONY : slot_guard_cc_impl.o
+
+# target to build an object file
+slot_guard_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o
+.PHONY : slot_guard_cc_impl.cc.o
+
+slot_guard_cc_impl.i: slot_guard_cc_impl.cc.i
+
+.PHONY : slot_guard_cc_impl.i
+
+# target to preprocess a source file
+slot_guard_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.i
+.PHONY : slot_guard_cc_impl.cc.i
+
+slot_guard_cc_impl.s: slot_guard_cc_impl.cc.s
+
+.PHONY : slot_guard_cc_impl.s
+
+# target to generate assembly for a file
+slot_guard_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.s
+.PHONY : slot_guard_cc_impl.cc.s
+
+slot_timing_monitor_cc_impl.o: slot_timing_monitor_cc_impl.cc.o
+
+.PHONY : slot_timing_monitor_cc_impl.o
+
+# target to build an object file
+slot_timing_monitor_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o
+.PHONY : slot_timing_monitor_cc_impl.cc.o
+
+slot_timing_monitor_cc_impl.i: slot_timing_monitor_cc_impl.cc.i
+
+.PHONY : slot_timing_monitor_cc_impl.i
+
+# target to preprocess a source file
+slot_timing_monitor_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.i
+.PHONY : slot_timing_monitor_cc_impl.cc.i
+
+slot_timing_monitor_cc_impl.s: slot_timing_monitor_cc_impl.cc.s
+
+.PHONY : slot_timing_monitor_cc_impl.s
+
+# target to generate assembly for a file
+slot_timing_monitor_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.s
+.PHONY : slot_timing_monitor_cc_impl.cc.s
+
 square_ff_impl.o: square_ff_impl.cc.o
 
 .PHONY : square_ff_impl.o
@@ -575,6 +926,60 @@ test_howto.cc.s:
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/test-howto.dir/build.make lib/CMakeFiles/test-howto.dir/test_howto.cc.s
 .PHONY : test_howto.cc.s
 
+time_tagger_cc_impl.o: time_tagger_cc_impl.cc.o
+
+.PHONY : time_tagger_cc_impl.o
+
+# target to build an object file
+time_tagger_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o
+.PHONY : time_tagger_cc_impl.cc.o
+
+time_tagger_cc_impl.i: time_tagger_cc_impl.cc.i
+
+.PHONY : time_tagger_cc_impl.i
+
+# target to preprocess a source file
+time_tagger_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.i
+.PHONY : time_tagger_cc_impl.cc.i
+
+time_tagger_cc_impl.s: time_tagger_cc_impl.cc.s
+
+.PHONY : time_tagger_cc_impl.s
+
+# target to generate assembly for a file
+time_tagger_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.s
+.PHONY : time_tagger_cc_impl.cc.s
+
+timed_burst_tagger_cc_impl.o: timed_burst_tagger_cc_impl.cc.o
+
+.PHONY : timed_burst_tagger_cc_impl.o
+
+# target to build an object file
+timed_burst_tagger_cc_impl.cc.o:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o
+.PHONY : timed_burst_tagger_cc_impl.cc.o
+
+timed_burst_tagger_cc_impl.i: timed_burst_tagger_cc_impl.cc.i
+
+.PHONY : timed_burst_tagger_cc_impl.i
+
+# target to preprocess a source file
+timed_burst_tagger_cc_impl.cc.i:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.i
+.PHONY : timed_burst_tagger_cc_impl.cc.i
+
+timed_burst_tagger_cc_impl.s: timed_burst_tagger_cc_impl.cc.s
+
+.PHONY : timed_burst_tagger_cc_impl.s
+
+# target to generate assembly for a file
+timed_burst_tagger_cc_impl.cc.s:
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy && $(MAKE) -f lib/CMakeFiles/gnuradio-howto.dir/build.make lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.s
+.PHONY : timed_burst_tagger_cc_impl.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -590,12 +995,24 @@ help:
 	@echo "... test"
 	@echo "... list_install_components"
 	@echo "... edit_cache"
+	@echo "... burst_time_tagger_cc_impl.o"
+	@echo "... burst_time_tagger_cc_impl.i"
+	@echo "... burst_time_tagger_cc_impl.s"
 	@echo "... decimate_fir_cc_impl.o"
 	@echo "... decimate_fir_cc_impl.i"
 	@echo "... decimate_fir_cc_impl.s"
+	@echo "... detector_exp_ff_impl.o"
+	@echo "... detector_exp_ff_impl.i"
+	@echo "... detector_exp_ff_impl.s"
+	@echo "... detector_ff_impl.o"
+	@echo "... detector_ff_impl.i"
+	@echo "... detector_ff_impl.s"
 	@echo "... downsample_cc_impl.o"
 	@echo "... downsample_cc_impl.i"
 	@echo "... downsample_cc_impl.s"
+	@echo "... dual_decimate_ff_impl.o"
+	@echo "... dual_decimate_ff_impl.i"
+	@echo "... dual_decimate_ff_impl.s"
 	@echo "... flex_fir_all.o"
 	@echo "... flex_fir_all.i"
 	@echo "... flex_fir_all.s"
@@ -608,15 +1025,24 @@ help:
 	@echo "... flex_fir_ff_impl.o"
 	@echo "... flex_fir_ff_impl.i"
 	@echo "... flex_fir_ff_impl.s"
+	@echo "... frame_gate_cc_impl.o"
+	@echo "... frame_gate_cc_impl.i"
+	@echo "... frame_gate_cc_impl.s"
 	@echo "... gain_ff_impl.o"
 	@echo "... gain_ff_impl.i"
 	@echo "... gain_ff_impl.s"
+	@echo "... gate_ff_impl.o"
+	@echo "... gate_ff_impl.i"
+	@echo "... gate_ff_impl.s"
 	@echo "... iq_mag_cf_impl.o"
 	@echo "... iq_mag_cf_impl.i"
 	@echo "... iq_mag_cf_impl.s"
 	@echo "... iq_select_cf_impl.o"
 	@echo "... iq_select_cf_impl.i"
 	@echo "... iq_select_cf_impl.s"
+	@echo "... metric_estimator_cc_impl.o"
+	@echo "... metric_estimator_cc_impl.i"
+	@echo "... metric_estimator_cc_impl.s"
 	@echo "... moving_avg_ff_impl.o"
 	@echo "... moving_avg_ff_impl.i"
 	@echo "... moving_avg_ff_impl.s"
@@ -626,12 +1052,36 @@ help:
 	@echo "... qa_howto.o"
 	@echo "... qa_howto.i"
 	@echo "... qa_howto.s"
+	@echo "... rx_time_recorder_cc_impl.o"
+	@echo "... rx_time_recorder_cc_impl.i"
+	@echo "... rx_time_recorder_cc_impl.s"
+	@echo "... scheduler_ctrl_impl.o"
+	@echo "... scheduler_ctrl_impl.i"
+	@echo "... scheduler_ctrl_impl.s"
+	@echo "... sim_tx_modulator_cc_impl.o"
+	@echo "... sim_tx_modulator_cc_impl.i"
+	@echo "... sim_tx_modulator_cc_impl.s"
+	@echo "... slot_clock_cc_impl.o"
+	@echo "... slot_clock_cc_impl.i"
+	@echo "... slot_clock_cc_impl.s"
+	@echo "... slot_guard_cc_impl.o"
+	@echo "... slot_guard_cc_impl.i"
+	@echo "... slot_guard_cc_impl.s"
+	@echo "... slot_timing_monitor_cc_impl.o"
+	@echo "... slot_timing_monitor_cc_impl.i"
+	@echo "... slot_timing_monitor_cc_impl.s"
 	@echo "... square_ff_impl.o"
 	@echo "... square_ff_impl.i"
 	@echo "... square_ff_impl.s"
 	@echo "... test_howto.o"
 	@echo "... test_howto.i"
 	@echo "... test_howto.s"
+	@echo "... time_tagger_cc_impl.o"
+	@echo "... time_tagger_cc_impl.i"
+	@echo "... time_tagger_cc_impl.s"
+	@echo "... timed_burst_tagger_cc_impl.o"
+	@echo "... timed_burst_tagger_cc_impl.i"
+	@echo "... timed_burst_tagger_cc_impl.s"
 .PHONY : help
 
 

@@ -46,11 +46,12 @@ fs_eff = fs / rx_decim  # sample rate efectivo de las muestras guardadas [Hz]
 # 1 = tiempo RELATIVO (comienza en 0 ms)
 align_x_mode = 0
 
-t_rx0 = 0.32172   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
+t_rx0 = 0.838944 # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
+#t_rx0 =   0.0468925 #sin pps
 #t_rx0 = 0.0648104   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
-#t_rx0 =  0.0679978    # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
+#t_rx0 =  1.516643   # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
 
-t0_tx = 0.7             # tiempo ideal de la primera ráfaga TX [s]
+t0_tx = 2.2        # tiempo ideal de la primera ráfaga TX [s]
 T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
 
 # ==========================
@@ -166,9 +167,10 @@ use_first_edge_per_k = False
 jitter_outlier_factor = 4.0
 
 # *** NUEVO: compensación de drift lineal en el análisis (solo para tx_time único) ***
-# Si True: estima un drift D_k ≈ a*k + b sobre los D_k FILTRADOS (sin outliers)
-#          y genera curvas extra "sin drift (comp.)" en la evolución de τ_est y jitter.
-enable_drift_compensation = True
+# estimate_drift: estima la recta D_k ≈ a*k + b y la imprime.
+# apply_drift_correction: además de estimar, resta esa recta (genera curva "sin drift (comp.)").
+estimate_drift = True
+apply_drift_correction = False   # pon True solo si quieres restar el drift en los plots
 
 # ==========================
 # 6) Funciones auxiliares
@@ -483,16 +485,59 @@ else:
     t_bursts_rx = t_rx0 + (start_index + edges) / fs_eff
 
 # ==========================
+# 10bis) Estimar periodo REAL del USRP a partir de t_bursts_rx
+# ==========================
+
+# Índice de ráfaga "nominal" usando el periodo ideal.
+# Así detectamos saltos de k cuando falta alguna ráfaga
+k_nom = np.round((t_bursts_rx - t_bursts_rx[0]) / T_period).astype(int)
+
+# Por si acaso: nos quedamos con k no negativos
+mask_valid = k_nom >= 0
+k_fit = k_nom[mask_valid].astype(float)
+t_fit = t_bursts_rx[mask_valid]
+
+if len(k_fit) >= 2:
+    coeffs = np.polyfit(k_fit, t_fit, 1)
+    T_period_real = coeffs[0]
+    t0_real = coeffs[1]
+
+    print("\n[PERIODO REAL ESTIMADO DESDE RX]")
+    print("T_period_real = {:.9e} s (nominal = {:.9e} s)".format(T_period_real, T_period))
+    print("Error de periodo ≈ {:.3f} ppm \n".format(
+        (T_period_real - T_period) / T_period * 1e6))
+else:
+    T_period_real = T_period
+    t0_real = t_bursts_rx[0] if len(t_bursts_rx) > 0 else t0_tx
+    print("\n[PERIODO REAL] No hay suficientes ráfagas para estimar, uso nominal.")
+
+
+
+# ==========================
 # 11) Cálculo de D_k por tag
 # ==========================
 
 D_list = []
 k_list = []
 
-for i, t_rx in enumerate(t_bursts_rx):
+
+#Este codigo uso el periodo ideal del codigo aqui en python
+""" for i, t_rx in enumerate(t_bursts_rx):
     k_real = (t_rx - t0_tx) / T_period
     k = int(np.round(k_real))
     t_tx_ideal = t0_tx + k * T_period
+    D_k = t_rx - t_tx_ideal
+
+    D_list.append(D_k)
+    k_list.append(k) """
+
+
+#Este bloque usa el periodo real estimado a partir de las muestras del rx
+# Usamos k_seq (0,1,2,...) y el periodo real que acabamos de estimar
+for k, t_rx in zip(k_nom, t_bursts_rx):
+    # Modelo ideal "realista": mismo origen que la primera ráfaga detectada,
+    # y periodo = T_period_real medido
+    t_tx_ideal = t_bursts_rx[0] + k * T_period_real
     D_k = t_rx - t_tx_ideal
 
     D_list.append(D_k)
@@ -580,6 +625,16 @@ else:
     D_mean_filt = D_burst_in.mean()
     D_std_filt  = D_burst_in.std()
 
+    # Plot opcional de D_k crudo vs k (para inspeccionar drift real)
+    if estimate_drift:
+        plt.figure()
+        plt.plot(k_in, D_burst_in * 1e6, '.-')
+        plt.xlabel("Índice de ráfaga k")
+        plt.ylabel("D_k [µs]")
+        plt.title("D_k crudo por ráfaga (sin corrección de drift)")
+        plt.grid(True)
+        plt.tight_layout()
+
     print("\n[RESUMEN POR RÁFAGA - FILTRADO (SIN OUTLIERS)]")
     print("Offset medio D̄_filt    = {:.3e} s ({:.3f} muestras)".format(
         D_mean_filt, D_mean_filt * fs))
@@ -662,37 +717,39 @@ else:
     drift_slope = 0.0
     drift_intercept = 0.0
 
-    if enable_drift_compensation and len(D_burst_in) >= 2:
+    if estimate_drift and len(D_burst_in) >= 2:
         # Ajuste lineal D_k ≈ a*k + b sobre los inliers
         k_in_float = k_in.astype(float)
         drift_coeffs = np.polyfit(k_in_float, D_burst_in, 1)
         drift_slope = drift_coeffs[0]
         drift_intercept = drift_coeffs[1]
 
-        print("\n[COMPENSACIÓN DE DRIFT LINEAL]")
+        print("\n[ESTIMACIÓN DE DRIFT LINEAL]")
         print("D_k ≈ a*k + b,  a = {:.3e} s/ráfaga, b = {:.3e} s".format(
             drift_slope, drift_intercept))
         print("Drift por segundo ≈ a/T_period = {:.3e} s/s".format(
-            drift_slope / T_period))
+            drift_slope / T_period_real))
 
-        trend = drift_slope * k_in_float + drift_intercept
-        D_burst_corr = D_burst_in - trend
+        if apply_drift_correction:
+            # Solo si QUIERES corregir el drift para la curva verde
+            trend = drift_slope * k_in_float + drift_intercept
+            D_burst_corr = D_burst_in - trend
 
-        n_corr = len(D_burst_corr)
-        running_mean_corr_sec = np.zeros(n_corr, dtype=float)
-        running_std_corr_sec  = np.zeros(n_corr, dtype=float)
+            n_corr = len(D_burst_corr)
+            running_mean_corr_sec = np.zeros(n_corr, dtype=float)
+            running_std_corr_sec  = np.zeros(n_corr, dtype=float)
 
-        for i in range(n_corr):
-            subset = D_burst_corr[:i+1]
-            running_mean_corr_sec[i] = subset.mean()
-            running_std_corr_sec[i]  = subset.std()
+            for i in range(n_corr):
+                subset = D_burst_corr[:i+1]
+                running_mean_corr_sec[i] = subset.mean()
+                running_std_corr_sec[i]  = subset.std()
 
-        # Pequeño resumen extra (no sustituye al jitter oficial)
-        mean_corr = D_burst_corr.mean()
-        std_corr  = D_burst_corr.std()
-        print("Después de compensar drift: τ̄_corr = {:.3e} s ({:.3f} muestras), "
-              "σ_corr = {:.3e} s ({:.3f} muestras)".format(
-                  mean_corr, mean_corr * fs, std_corr, std_corr * fs))
+            mean_corr = D_burst_corr.mean()
+            std_corr  = D_burst_corr.std()
+            print("Después de compensar drift: τ̄_corr = {:.3e} s ({:.3f} muestras), "
+                  "σ_corr = {:.3e} s ({:.3f} muestras)".format(
+                      mean_corr, mean_corr * fs, std_corr, std_corr * fs))
+
 
     # Plot comparativo
     plt.figure()
@@ -701,7 +758,7 @@ else:
              marker='.', linewidth=0.6, label='Con outliers')
     plt.plot(k_in, running_mean_filt_sec * 1e6,
              marker='.', linewidth=0.6, label='Sin outliers')
-    if enable_drift_compensation and running_mean_corr_sec is not None:
+    if apply_drift_correction and running_mean_corr_sec is not None:
         plt.plot(k_in, running_mean_corr_sec * 1e6,
                  marker='.', linewidth=0.6, label='Sin drift (comp.)')
     plt.xlabel("Índice de ráfaga k")
@@ -715,7 +772,7 @@ else:
              marker='.', linewidth=0.6, label='Con outliers')
     plt.plot(k_in, running_std_filt_sec * 1e6,
              marker='.', linewidth=0.6, label='Sin outliers')
-    if enable_drift_compensation and running_std_corr_sec is not None:
+    if apply_drift_correction and running_std_corr_sec is not None:
         plt.plot(k_in, running_std_corr_sec * 1e6,
                  marker='.', linewidth=0.6, label='Sin drift (comp.)')
     plt.xlabel("Índice de ráfaga k")

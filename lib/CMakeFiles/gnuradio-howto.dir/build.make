@@ -213,6 +213,201 @@ lib/CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.s"
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/decimate_fir_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.s
 
+lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o: lib/dual_decimate_ff_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/dual_decimate_ff_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/dual_decimate_ff_impl.cc > CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/dual_decimate_ff_impl.cc -o CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o: lib/gate_ff_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/gate_ff_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/gate_ff_impl.cc > CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/gate_ff_impl.cc -o CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o: lib/detector_ff_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/detector_ff_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/detector_ff_impl.cc > CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/detector_ff_impl.cc -o CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o: lib/detector_exp_ff_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/detector_exp_ff_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/detector_exp_ff_impl.cc > CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/detector_exp_ff_impl.cc -o CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o: lib/slot_clock_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_clock_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_clock_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_clock_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o: lib/metric_estimator_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/metric_estimator_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/metric_estimator_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/metric_estimator_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o: lib/scheduler_ctrl_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/scheduler_ctrl_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/scheduler_ctrl_impl.cc > CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/scheduler_ctrl_impl.cc -o CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o: lib/sim_tx_modulator_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/sim_tx_modulator_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/sim_tx_modulator_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/sim_tx_modulator_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o: lib/timed_burst_tagger_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/timed_burst_tagger_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/timed_burst_tagger_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/timed_burst_tagger_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o: lib/burst_time_tagger_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/burst_time_tagger_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/burst_time_tagger_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/burst_time_tagger_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o: lib/slot_guard_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_guard_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_guard_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_guard_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o: lib/frame_gate_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/frame_gate_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/frame_gate_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/frame_gate_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o: lib/slot_timing_monitor_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_timing_monitor_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_timing_monitor_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/slot_timing_monitor_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o: lib/time_tagger_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/time_tagger_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/time_tagger_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/time_tagger_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.s
+
+lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o: lib/CMakeFiles/gnuradio-howto.dir/flags.make
+lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o: lib/rx_time_recorder_cc_impl.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o -c /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/rx_time_recorder_cc_impl.cc
+
+lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.i"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/rx_time_recorder_cc_impl.cc > CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.i
+
+lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.s"
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/rx_time_recorder_cc_impl.cc -o CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.s
+
 # Object files for target gnuradio-howto
 gnuradio__howto_OBJECTS = \
 "CMakeFiles/gnuradio-howto.dir/square_ff_impl.cc.o" \
@@ -226,42 +421,67 @@ gnuradio__howto_OBJECTS = \
 "CMakeFiles/gnuradio-howto.dir/flex_fir_cf_impl.cc.o" \
 "CMakeFiles/gnuradio-howto.dir/flex_fir_all.cc.o" \
 "CMakeFiles/gnuradio-howto.dir/downsample_cc_impl.cc.o" \
-"CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.o"
+"CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o" \
+"CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o"
 
 # External object files for target gnuradio-howto
 gnuradio__howto_EXTERNAL_OBJECTS =
 
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/square_ff_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/gain_ff_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/moving_avg_ff_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/moving_avg_history_ff_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/iq_mag_cf_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/iq_select_cf_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_ff_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_cc_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_cf_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_all.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/downsample_cc_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.o
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/build.make
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: /usr/lib/x86_64-linux-gnu/libboost_system.so
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: /usr/lib/x86_64-linux-gnu/libgnuradio-runtime.so
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: /usr/lib/x86_64-linux-gnu/libgnuradio-pmt.so
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: /usr/lib/x86_64-linux-gnu/liblog4cpp.so
-lib/libgnuradio-howto-1.0.0git.so.0.0.0: lib/CMakeFiles/gnuradio-howto.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX shared library libgnuradio-howto-1.0.0git.so"
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/square_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/gain_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/moving_avg_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/moving_avg_history_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/iq_mag_cf_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/iq_select_cf_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_cf_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/flex_fir_all.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/downsample_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/decimate_fir_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/dual_decimate_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/gate_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/detector_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/detector_exp_ff_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/slot_clock_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/metric_estimator_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/scheduler_ctrl_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/sim_tx_modulator_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/timed_burst_tagger_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/burst_time_tagger_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/slot_guard_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/frame_gate_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/slot_timing_monitor_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/time_tagger_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/rx_time_recorder_cc_impl.cc.o
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/build.make
+lib/libgnuradio-howto.so.1.0.0git: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+lib/libgnuradio-howto.so.1.0.0git: /usr/lib/x86_64-linux-gnu/libboost_system.so
+lib/libgnuradio-howto.so.1.0.0git: /usr/lib/x86_64-linux-gnu/libuhd.so
+lib/libgnuradio-howto.so.1.0.0git: lib/CMakeFiles/gnuradio-howto.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Linking CXX shared library libgnuradio-howto.so"
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gnuradio-howto.dir/link.txt --verbose=$(VERBOSE)
-	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && $(CMAKE_COMMAND) -E cmake_symlink_library libgnuradio-howto-1.0.0git.so.0.0.0 libgnuradio-howto-1.0.0git.so.0.0.0 libgnuradio-howto-1.0.0git.so
-	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/cmake -E create_symlink libgnuradio-howto-1.0.0git.so.0.0.0 /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/libgnuradio-howto.so
-	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/cmake -E create_symlink libgnuradio-howto-1.0.0git.so.0.0.0 /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib/libgnuradio-howto-1.0.0git.so.0
-	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && /usr/bin/cmake -E touch libgnuradio-howto-1.0.0git.so.0.0.0
+	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && $(CMAKE_COMMAND) -E cmake_symlink_library libgnuradio-howto.so.1.0.0git libgnuradio-howto.so.1.0.0git libgnuradio-howto.so
 
-lib/libgnuradio-howto-1.0.0git.so: lib/libgnuradio-howto-1.0.0git.so.0.0.0
-	@$(CMAKE_COMMAND) -E touch_nocreate lib/libgnuradio-howto-1.0.0git.so
+lib/libgnuradio-howto.so: lib/libgnuradio-howto.so.1.0.0git
+	@$(CMAKE_COMMAND) -E touch_nocreate lib/libgnuradio-howto.so
 
 # Rule to build all files generated by this target.
-lib/CMakeFiles/gnuradio-howto.dir/build: lib/libgnuradio-howto-1.0.0git.so
+lib/CMakeFiles/gnuradio-howto.dir/build: lib/libgnuradio-howto.so
 
 .PHONY : lib/CMakeFiles/gnuradio-howto.dir/build
 

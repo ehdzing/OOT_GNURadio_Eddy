@@ -97,15 +97,16 @@ lib/test-howto: lib/CMakeFiles/test-howto.dir/build.make
 lib/test-howto: /usr/lib/x86_64-linux-gnu/libgnuradio-runtime.so
 lib/test-howto: /usr/lib/x86_64-linux-gnu/libgnuradio-pmt.so
 lib/test-howto: /usr/lib/x86_64-linux-gnu/liblog4cpp.so
-lib/test-howto: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
-lib/test-howto: /usr/lib/x86_64-linux-gnu/libboost_system.so
-lib/test-howto: /usr/lib/x86_64-linux-gnu/libcppunit.so
-lib/test-howto: lib/libgnuradio-howto-1.0.0git.so.0.0.0
 lib/test-howto: /usr/lib/x86_64-linux-gnu/libgnuradio-runtime.so
 lib/test-howto: /usr/lib/x86_64-linux-gnu/libgnuradio-pmt.so
 lib/test-howto: /usr/lib/x86_64-linux-gnu/liblog4cpp.so
 lib/test-howto: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 lib/test-howto: /usr/lib/x86_64-linux-gnu/libboost_system.so
+lib/test-howto: /usr/lib/x86_64-linux-gnu/libcppunit.so
+lib/test-howto: lib/libgnuradio-howto.so.1.0.0git
+lib/test-howto: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+lib/test-howto: /usr/lib/x86_64-linux-gnu/libboost_system.so
+lib/test-howto: /usr/lib/x86_64-linux-gnu/libuhd.so
 lib/test-howto: lib/CMakeFiles/test-howto.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test-howto"
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/lib && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test-howto.dir/link.txt --verbose=$(VERBOSE)

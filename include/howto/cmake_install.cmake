@@ -51,6 +51,21 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/flex_fir_ff.h"
     "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/downsample_cc.h"
     "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/decimate_fir_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/dual_decimate_ff.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/detector_ff.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/gate_ff.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/detector_exp_ff.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/slot_clock_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/metric_estimator_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/scheduler_ctrl.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/sim_tx_modulator_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/timed_burst_tagger_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/burst_time_tagger_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/slot_guard_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/frame_gate_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/slot_timing_monitor_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/time_tagger_cc.h"
+    "/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/include/howto/rx_time_recorder_cc.h"
     )
 endif()
 

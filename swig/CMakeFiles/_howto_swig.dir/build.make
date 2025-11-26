@@ -86,12 +86,10 @@ _howto_swig_EXTERNAL_OBJECTS =
 swig/_howto_swig.so: swig/CMakeFiles/_howto_swig.dir/howto_swigPYTHON_wrap.cxx.o
 swig/_howto_swig.so: swig/CMakeFiles/_howto_swig.dir/build.make
 swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/libpython2.7.so
-swig/_howto_swig.so: lib/libgnuradio-howto-1.0.0git.so.0.0.0
+swig/_howto_swig.so: lib/libgnuradio-howto.so.1.0.0git
 swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/libboost_system.so
-swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/libgnuradio-runtime.so
-swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/libgnuradio-pmt.so
-swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/liblog4cpp.so
+swig/_howto_swig.so: /usr/lib/x86_64-linux-gnu/libuhd.so
 swig/_howto_swig.so: swig/CMakeFiles/_howto_swig.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module _howto_swig.so"
 	cd /media/inatel-crr/Dados/Eddy/ModulosGNU/OOT_GNURadio_Eddy/swig && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/_howto_swig.dir/link.txt --verbose=$(VERBOSE)

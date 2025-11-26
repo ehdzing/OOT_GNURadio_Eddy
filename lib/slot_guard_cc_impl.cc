@@ -20,6 +20,8 @@
 #include <stdexcept>
 #include <iostream>   // for prints
 #include <vector>     // GPSDO: for sensor name list
+#include <thread>     // NEW: for std::this_thread::sleep_for
+#include <chrono>     // for sleep_for duration
 
 namespace gr {
   namespace howto {
@@ -135,7 +137,6 @@ namespace gr {
 
       // GPSDO: configure clock/time sources to use on-board GPSDO if present
       try {
-        // Reloj de 10 MHz desde GPSDO (OCXO disciplinado cuando haya lock)
         d_usrp->set_clock_source("gpsdo");
         std::cout << "[slot_guard_cc] clock_source set to 'gpsdo'" << std::endl;
       } catch (const std::exception &e) {
@@ -144,10 +145,6 @@ namespace gr {
       }
 
       try {
-        // Para este bloque usamos siempre nuestro propio epoch (set_time_now /
-        // set_time_next_pps), así que el time_source es menos crítico.
-        // Aun así, si vas a usar PPS del GPSDO, tiene sentido "gpsdo";
-        // si no, "internal" también es válido.
         if (d_use_pps) {
           d_usrp->set_time_source("gpsdo");
         } else {
@@ -160,27 +157,6 @@ namespace gr {
                   << d_usrp->get_clock_source(0) << "'" << std::endl;
       } catch (const std::exception &e) {
         std::cerr << "[slot_guard_cc] WARNING: setting time_source failed: "
-                  << e.what() << std::endl;
-      }
-
-
-      // GPSDO: print some interesting sensors if available
-      try {
-        std::vector<std::string> sns = d_usrp->get_mboard_sensor_names(0);
-        for (size_t i = 0; i < sns.size(); ++i) {
-          const std::string &name = sns[i];
-          if (name == "gps_locked" ||
-              name == "gpsdo_locked" ||
-              name == "ref_locked"   ||
-              name == "10mhz_locked" ||
-              name == "pps_locked") {
-            uhd::sensor_value_t sv = d_usrp->get_mboard_sensor(name, 0);
-            std::cout << "[slot_guard_cc] sensor " << name
-                      << " = " << sv.to_pp_string() << std::endl;
-          }
-        }
-      } catch (const std::exception &e) {
-        std::cerr << "[slot_guard_cc] WARNING: reading GPSDO sensors failed: "
                   << e.what() << std::endl;
       }
 
@@ -198,13 +174,11 @@ namespace gr {
 
       // Message ports
       message_port_register_out(pmt::mp("stats"));
-      // MOD: control port for burst_time_tagger_cc (t0_usrp, lead_s)
       message_port_register_out(pmt::mp("ctrl"));
 
       set_output_multiple(static_cast<int>(d_samples_per_slot));
       set_relative_rate(1.0);
 
-      // MOD: publish initial control config for the tagger
       publish_ctrl_config_();
     }
 
@@ -215,18 +189,65 @@ namespace gr {
     // Time initialization
     void slot_guard_cc_impl::init_time_()
     {
-      // Define host reference time
+      // Provisional host reference (puede ser reajustada en caso PPS)
       d_t0_host = std::chrono::steady_clock::now();
 
-      // Align USRP time to 0 or next PPS
+      bool pps_ok = false;
+
       if (d_use_pps) {
+        try {
+          std::vector<std::string> sns = d_usrp->get_mboard_sensor_names(0);
+          for (size_t i = 0; i < sns.size(); ++i) {
+            const std::string &name = sns[i];
+
+            if (name == "gps_locked" ||
+                name == "gpsdo_locked" ||
+                name == "pps_locked")
+            {
+              uhd::sensor_value_t sv = d_usrp->get_mboard_sensor(name, 0);
+              std::cout << "[slot_guard_cc] sensor " << name
+                        << " = " << sv.to_pp_string() << std::endl;
+
+              if (sv.to_bool()) {
+                pps_ok = true;
+              }
+            }
+            else if (name == "ref_locked" || name == "10mhz_locked") {
+              // Informativo solamente
+              uhd::sensor_value_t sv = d_usrp->get_mboard_sensor(name, 0);
+              std::cout << "[slot_guard_cc] sensor " << name
+                        << " = " << sv.to_pp_string() << std::endl;
+            }
+          }
+        } catch (const std::exception &e) {
+          std::cerr << "[slot_guard_cc] WARNING: sensor check for PPS failed: "
+                    << e.what() << std::endl;
+        }
+      }
+
+      if (d_use_pps && pps_ok) {
         std::cout << "[slot_guard_cc] init_time_: using set_time_next_pps(0.0)"
                   << std::endl;
+
+        // Program the next PPS time reset
         d_usrp->set_time_next_pps(uhd::time_spec_t(0.0));
-        // En un sistema real deberías dormir hasta el flanco de PPS aquí.
+
+        // Esperamos a cruzar al menos un flanco de PPS
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+
+        // Re-anchorar el reloj del host DESPUÉS del PPS
+        d_t0_host = std::chrono::steady_clock::now();
       } else {
-        std::cout << "[slot_guard_cc] init_time_: using set_time_now(0.0)"
-                  << std::endl;
+        if (d_use_pps && !pps_ok) {
+          std::cerr << "[slot_guard_cc] WARNING: use_pps=true pero PPS/GPSDO no "
+                       "está lockeado; usando set_time_now(0.0)"
+                    << std::endl;
+        } else {
+          std::cout << "[slot_guard_cc] init_time_: using set_time_now(0.0)"
+                    << std::endl;
+        }
+
+        // Sin PPS válido: definimos epoch local ahora mismo
         d_usrp->set_time_now(uhd::time_spec_t(0.0));
       }
 
@@ -237,7 +258,6 @@ namespace gr {
       double t_usrp0 = usrp_now_seconds_();
       d_dt0_bias = t_usrp0 - t_host0;
 
-      // Print once so you can inspect initial misalignment
       std::cout << "[slot_guard_cc] initial time bias dt0 = "
                 << d_dt0_bias
                 << " s (usrp - host)" << std::endl;
@@ -271,25 +291,14 @@ namespace gr {
 
     void slot_guard_cc_impl::update_stats_(double dt_raw)
     {
-      // 1) Adaptive bias (slowly track long-term drift)
-      static const double alpha = 1e-5;   // adjust after experiments
+      static const double alpha = 1e-5;
 
-      // Update bias
       d_dt0_bias = (1.0 - alpha) * d_dt0_bias + alpha * dt_raw;
 
-      // Propuesta de bias solo si el jitter actual es pequeño
-      //const bool can_update_bias = (std::fabs(dt_raw - d_dt0_bias) < 1e-3); // <1ms
-      //if (can_update_bias) {
-      //  d_dt0_bias = (1.0 - alpha) * d_dt0_bias + alpha * dt_raw;
-      //}
-
-      // 2) Bias-corrected offset
       const double dt = dt_raw - d_dt0_bias;
 
-      // 3) Store corrected offset for decision logic and stats
       d_last_offset_s = dt;
 
-      // 4) Jitter estimation on dt (not on dt_raw)
       d_dt_window.push_back(dt);
       while (d_dt_window.size() > d_dt_window_len) {
         d_dt_window.pop_front();
@@ -315,10 +324,6 @@ namespace gr {
       d_last_jitter_s = std::sqrt(var);
     }
 
-    // Three-region decision:
-    //  1) PASS                if both offset & jitter inside PASS thresholds
-    //  2) DTX_ZEROS           if outside PASS but not severe
-    //  3) DONT_CONSUME        if severe && host is ahead && allow_dont_consume
     decision_t_cc slot_guard_cc_impl::decide_(double dt, double jitter)
     {
       const double abs_dt = std::fabs(dt);
@@ -334,7 +339,6 @@ namespace gr {
       if (offset_pass && jitter_pass) {
         proposal = DECISION_PASS;
       } else {
-        // Outside PASS region
         const bool severe = offset_severe || jitter_severe;
 
         if (severe &&
@@ -347,7 +351,6 @@ namespace gr {
         }
       }
 
-      // Hysteresis by slots
       if (proposal == d_last_decision) {
         d_stable_counter =
             std::min(d_stable_counter + 1, d_hysteresis_slots);
@@ -377,7 +380,6 @@ namespace gr {
       return n;
     }
 
-    // MOD: publish control dict "ctrl" for burst_time_tagger_cc
     void slot_guard_cc_impl::publish_ctrl_config_()
     {
       double guard_s;
@@ -388,7 +390,6 @@ namespace gr {
         lead_s  = d_lead_s;
       }
 
-      // Take current USRP time as reference
       double t_usrp_now = usrp_now_seconds_();
       double t0_cfg = t_usrp_now + guard_s;
 
@@ -442,20 +443,12 @@ namespace gr {
       size_t consumed = 0;
       size_t produced = 0;
 
-
-
       for (size_t s = 0; s < slots_to_process; ++s) {
 
-        // Host time now 
         double t_host = now_host_seconds_();
-        // USRP time now (authoritative clock)
         double t_usrp = usrp_now_seconds_();
 
-
-        // Raw offset between clocks
-        double dt_raw = t_usrp - t_host;  //solo cuando se usa referencia de tiempo host
-        // Corrected offset removing initial bias
-        //double dt = dt_raw - d_dt0_bias;  // solo cuando se usa referencia de tiempo host
+        double dt_raw = t_usrp - t_host;
 
         update_stats_(dt_raw);
         decision_t_cc d = decide_(d_last_offset_s, d_last_jitter_s);
@@ -479,13 +472,11 @@ namespace gr {
             break;
           }
           case DECISION_DONT_CONSUME: {
-            // Backpressure: no consume, no produce, exit loop
             s = slots_to_process;
             break;
           }
         }
 
-        // Publish stats for this slot (offset already bias-corrected)
         pmt::pmt_t dict = pmt::make_dict();
         dict = pmt::dict_add(dict, pmt::intern("slot_idx"),
                              pmt::from_long(static_cast<long>(s)));
@@ -554,9 +545,7 @@ namespace gr {
     {
       boost::mutex::scoped_lock lock(d_mutex);
       d_use_pps = use_pps;
-      // Nota: si cambias esto en runtime NO re-llamamos init_time_()
-      // para no romper el flujo; si necesitas re-sincronizar, crea
-      // otro bloque o añade una acción explícita.
+      // Para cambios serios, mejor recrear el bloque.
     }
 
     void slot_guard_cc_impl::set_offset_thr_pass(double v)
@@ -607,7 +596,6 @@ namespace gr {
         boost::mutex::scoped_lock lock(d_mutex);
         d_guard_initial_s = (v > 0.0) ? v : DEFAULT_GUARD_INITIAL_S;
       }
-      // MOD: re-publish control config with new guard
       publish_ctrl_config_();
     }
 
@@ -617,7 +605,6 @@ namespace gr {
         boost::mutex::scoped_lock lock(d_mutex);
         d_lead_s = (v >= 0.0) ? v : DEFAULT_LEAD_S;
       }
-      // MOD: re-publish control config with new lead
       publish_ctrl_config_();
     }
 
