@@ -18,10 +18,12 @@
 #include <cstring>
 #include <algorithm>
 #include <stdexcept>
-#include <iostream>   // for prints
-#include <vector>     // GPSDO: for sensor name list
-#include <thread>     // NEW: for std::this_thread::sleep_for
-#include <chrono>     // for sleep_for duration
+#include <iostream>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include <sstream>
+#include <cctype>
 
 namespace gr {
   namespace howto {
@@ -37,16 +39,32 @@ namespace gr {
     static const double DEFAULT_OFFSET_THR_DONT  = 7e-4; // 700 us
     static const double DEFAULT_JITTER_THR_DONT  = 3e-4; // 300 us
 
-    // MOD: recommended defaults for initial guard and lead
     static const double DEFAULT_GUARD_INITIAL_S = 0.5;   // 500 ms
     static const double DEFAULT_LEAD_S          = 2e-2;  // 20 ms
+
+    // Helpers
+    static inline void trim_str(std::string &s)
+    {
+      s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+            [](unsigned char ch){ return !std::isspace(ch); }));
+      s.erase(std::find_if(s.rbegin(), s.rend(),
+            [](unsigned char ch){ return !std::isspace(ch); }).base(), s.end());
+    }
+
+    static inline std::string to_lower_copy(const std::string &s)
+    {
+      std::string out(s);
+      std::transform(out.begin(), out.end(), out.begin(),
+                     [](unsigned char c){ return std::tolower(c); });
+      return out;
+    }
 
     // Factory
     slot_guard_cc::sptr
     slot_guard_cc::make(double sample_rate,
                         int    numerology_id,
                         size_t samples_per_slot,
-                        bool   use_pps,
+                        const std::string &use_pps,
                         double offset_thr_pass_s,
                         double jitter_thr_pass_s,
                         double offset_thr_dont_s,
@@ -55,7 +73,8 @@ namespace gr {
                         bool   dtx_consumes_input,
                         bool   allow_dont_consume,
                         double guard_initial_s,
-                        double lead_s)
+                        double lead_s,
+                        const std::string &device_addrs)
     {
       return gnuradio::get_initial_sptr(
           new slot_guard_cc_impl(sample_rate,
@@ -70,14 +89,15 @@ namespace gr {
                                  dtx_consumes_input,
                                  allow_dont_consume,
                                  guard_initial_s,
-                                 lead_s));
+                                 lead_s,
+                                 device_addrs));
     }
 
     // Constructor
     slot_guard_cc_impl::slot_guard_cc_impl(double sample_rate,
                                            int    numerology_id,
                                            size_t samples_per_slot,
-                                           bool   use_pps,
+                                           const std::string &use_pps,
                                            double offset_thr_pass_s,
                                            double jitter_thr_pass_s,
                                            double offset_thr_dont_s,
@@ -86,14 +106,14 @@ namespace gr {
                                            bool   dtx_consumes_input,
                                            bool   allow_dont_consume,
                                            double guard_initial_s,
-                                           double lead_s)
+                                           double lead_s,
+                                           const std::string &device_addrs)
       : gr::block("slot_guard_cc",
                   gr::io_signature::make(1, 1, sizeof(gr_complex)),
                   gr::io_signature::make(1, 1, sizeof(gr_complex))),
         d_fs(sample_rate),
         d_mu(numerology_id),
         d_samples_per_slot(samples_per_slot),
-        d_use_pps(use_pps),
         d_offset_thr_pass_s(offset_thr_pass_s),
         d_jitter_thr_pass_s(jitter_thr_pass_s),
         d_offset_thr_dont_s(offset_thr_dont_s),
@@ -101,11 +121,11 @@ namespace gr {
         d_hysteresis_slots(std::max(1, hysteresis_slots)),
         d_dtx_consumes_input(dtx_consumes_input),
         d_allow_dont_consume(allow_dont_consume),
-        // MOD: initialize guard / lead with defaults if invalid
         d_guard_initial_s(guard_initial_s > 0.0 ? guard_initial_s
                                                 : DEFAULT_GUARD_INITIAL_S),
         d_lead_s(lead_s >= 0.0 ? lead_s : DEFAULT_LEAD_S),
-        d_usrp(),
+        d_use_pps_flags(),
+        d_usrps(),
         d_t0_host(),
         d_time_init_done(false),
         d_dt0_bias(0.0),
@@ -121,7 +141,6 @@ namespace gr {
         throw std::runtime_error("slot_guard_cc: sample_rate must be > 0");
       }
 
-      // Fill recommended defaults if user passed non-positive values
       if (d_offset_thr_pass_s <= 0.0)
         d_offset_thr_pass_s = DEFAULT_OFFSET_THR_PASS;
       if (d_jitter_thr_pass_s <= 0.0)
@@ -131,36 +150,17 @@ namespace gr {
       if (d_jitter_thr_dont_s <= 0.0)
         d_jitter_thr_dont_s = DEFAULT_JITTER_THR_DONT;
 
-      // USRP handle
-      uhd::device_addr_t dev_addr;
-      d_usrp = uhd::usrp::multi_usrp::make(dev_addr);
+      // Parse per-USRP PPS flags from string
+      std::vector<bool> parsed_flags;
+      parse_use_pps_list_(use_pps, parsed_flags);
 
-      // GPSDO: configure clock/time sources to use on-board GPSDO if present
-      try {
-        d_usrp->set_clock_source("gpsdo");
-        std::cout << "[slot_guard_cc] clock_source set to 'gpsdo'" << std::endl;
-      } catch (const std::exception &e) {
-        std::cerr << "[slot_guard_cc] WARNING: set_clock_source('gpsdo') failed: "
-                  << e.what() << std::endl;
-      }
+      // Create USRPs
+      init_usrps_(device_addrs);
 
-      try {
-        if (d_use_pps) {
-          d_usrp->set_time_source("gpsdo");
-        } else {
-          d_usrp->set_time_source("internal");
-        }
+      // Build flags aligned with number of USRPs
+      build_use_pps_flags_(parsed_flags);
 
-        std::cout << "[slot_guard_cc] time_source = '"
-                  << d_usrp->get_time_source(0) << "'" << std::endl;
-        std::cout << "[slot_guard_cc] clock_source (query) = '"
-                  << d_usrp->get_clock_source(0) << "'" << std::endl;
-      } catch (const std::exception &e) {
-        std::cerr << "[slot_guard_cc] WARNING: setting time_source failed: "
-                  << e.what() << std::endl;
-      }
-
-      // Initialize USRP/host time relation
+      // Initialize time (set_time_next_pps / set_time_now)
       init_time_();
 
       // Slot size
@@ -172,7 +172,6 @@ namespace gr {
             "slot_guard_cc: samples_per_slot not set and numerology invalid");
       }
 
-      // Message ports
       message_port_register_out(pmt::mp("stats"));
       message_port_register_out(pmt::mp("ctrl"));
 
@@ -186,74 +185,346 @@ namespace gr {
     {
     }
 
-    // Time initialization
+    void slot_guard_cc_impl::parse_use_pps_list_(const std::string &use_pps_str,
+                                                 std::vector<bool> &parsed_flags)
+    {
+      parsed_flags.clear();
+      std::string s = use_pps_str;
+      trim_str(s);
+
+      if (s.empty()) {
+        return;
+      }
+
+      // Remove brackets if present
+      if (s.front() == '[' && s.back() == ']') {
+        s = s.substr(1, s.size() - 2);
+        trim_str(s);
+        if (s.empty()) {
+          return;
+        }
+      }
+
+      std::stringstream ss(s);
+      std::string token;
+      while (std::getline(ss, token, ',')) {
+        trim_str(token);
+        if (token.empty())
+          continue;
+
+        // Strip quotes
+        if (token.size() >= 2 &&
+           ((token.front() == '"' && token.back() == '"') ||
+            (token.front() == '\'' && token.back() == '\'')))
+        {
+          token = token.substr(1, token.size() - 2);
+          trim_str(token);
+          if (token.empty())
+            continue;
+        }
+
+        std::string low = to_lower_copy(token);
+
+        bool value_set = false;
+        bool value = false;
+
+        if (low == "true" || low == "t" || low == "1" ||
+            low == "yes"  || low == "y")
+        {
+          value_set = true;
+          value = true;
+        }
+        else if (low == "false" || low == "f" || low == "0" ||
+                 low == "no"    || low == "n")
+        {
+          value_set = true;
+          value = false;
+        }
+
+        if (value_set) {
+          parsed_flags.push_back(value);
+        }
+      }
+
+      if (!parsed_flags.empty()) {
+        std::cout << "[slot_guard_cc] parse_use_pps_list_: parsed "
+                  << parsed_flags.size()
+                  << " PPS flags from string" << std::endl;
+      }
+    }
+
+    void slot_guard_cc_impl::build_use_pps_flags_(const std::vector<bool> &parsed_flags)
+    {
+      const size_t N = d_usrps.size();
+      d_use_pps_flags.clear();
+
+      if (N == 0) {
+        return;
+      }
+
+      if (parsed_flags.empty()) {
+        // No PPS requested explicitly: all false
+        std::cout << "[slot_guard_cc] build_use_pps_flags_: no PPS requested; "
+                  << "all USRPs use set_time_now(0.0)" << std::endl;
+        return;
+      }
+
+      d_use_pps_flags.assign(N, false);
+
+      const size_t M = parsed_flags.size();
+      const size_t K = (M < N) ? M : N;
+
+      for (size_t i = 0; i < K; ++i) {
+        d_use_pps_flags[i] = parsed_flags[i];
+      }
+
+      if (M < N) {
+        std::cout << "[slot_guard_cc] build_use_pps_flags_: PPS list shorter than "
+                  << "number of USRPs (" << M << " < " << N
+                  << "); remaining devices default to False"
+                  << std::endl;
+      }
+
+      std::cout << "[slot_guard_cc] build_use_pps_flags_: effective PPS flags: ";
+      for (size_t i = 0; i < N; ++i) {
+        bool flag = d_use_pps_flags[i];
+        std::cout << (flag ? "1" : "0");
+        if (i + 1 < N) std::cout << ",";
+      }
+      std::cout << std::endl;
+    }
+
+    void slot_guard_cc_impl::init_usrps_(const std::string &device_addrs)
+    {
+      d_usrps.clear();
+
+      std::string s = device_addrs;
+      trim_str(s);
+
+      if (!s.empty() && s.front() == '[' && s.back() == ']') {
+        s = s.substr(1, s.size() - 2);
+      }
+
+      std::vector<std::string> specs;
+      if (!s.empty()) {
+        std::stringstream ss(s);
+        std::string token;
+        while (std::getline(ss, token, ',')) {
+          trim_str(token);
+          if (token.empty())
+            continue;
+
+          if (token.size() >= 2 &&
+             ((token.front() == '"' && token.back() == '"') ||
+              (token.front() == '\'' && token.back() == '\'')))
+          {
+            token = token.substr(1, token.size() - 2);
+            trim_str(token);
+          }
+
+          if (token.empty())
+            continue;
+
+          // If no '=', assume bare serial
+          if (token.find('=') == std::string::npos) {
+            token = std::string("serial=") + token;
+          }
+
+          specs.push_back(token);
+        }
+      }
+
+      if (specs.empty()) {
+        try {
+          uhd::device_addr_t dev_addr;
+          d_usrps.push_back(uhd::usrp::multi_usrp::make(dev_addr));
+          std::cout << "[slot_guard_cc] init_usrps_: using default device discovery"
+                    << std::endl;
+        } catch (const std::exception &e) {
+          std::cerr << "[slot_guard_cc] ERROR: cannot create default USRP: "
+                    << e.what() << std::endl;
+          throw;
+        }
+      } else {
+        for (size_t i = 0; i < specs.size(); ++i) {
+          try {
+            uhd::device_addr_t dev_addr(specs[i]);
+            uhd::usrp::multi_usrp::sptr usrp =
+                uhd::usrp::multi_usrp::make(dev_addr);
+            d_usrps.push_back(usrp);
+            std::cout << "[slot_guard_cc] init_usrps_: created USRP["
+                      << i << "] with addr \"" << specs[i] << "\""
+                      << std::endl;
+          } catch (const std::exception &e) {
+            std::cerr << "[slot_guard_cc] ERROR: cannot create USRP for addr \""
+                      << specs[i] << "\": " << e.what() << std::endl;
+            throw;
+          }
+        }
+      }
+
+      // Try to use gpsdo as clock/time source; failures are just warnings.
+      for (size_t i = 0; i < d_usrps.size(); ++i) {
+        uhd::usrp::multi_usrp::sptr usrp = d_usrps[i];
+
+        try {
+          usrp->set_clock_source("gpsdo");
+          if (i == 0) {
+            std::cout << "[slot_guard_cc] clock_source set to 'gpsdo'" << std::endl;
+          }
+        } catch (const std::exception &e) {
+          std::cerr << "[slot_guard_cc] WARNING: set_clock_source('gpsdo') failed on USRP["
+                    << i << "]: " << e.what() << std::endl;
+        }
+
+        try {
+          usrp->set_time_source("gpsdo");
+          if (i == 0) {
+            std::cout << "[slot_guard_cc] time_source = '"
+                      << usrp->get_time_source(0) << "'" << std::endl;
+            std::cout << "[slot_guard_cc] clock_source (query) = '"
+                      << usrp->get_clock_source(0) << "'" << std::endl;
+          }
+        } catch (const std::exception &e) {
+          std::cerr << "[slot_guard_cc] WARNING: setting time_source('gpsdo') failed on USRP["
+                    << i << "]: " << e.what() << std::endl;
+        }
+      }
+    }
+
+    uhd::usrp::multi_usrp::sptr slot_guard_cc_impl::primary_usrp_() const
+    {
+      if (d_usrps.empty()) {
+        return uhd::usrp::multi_usrp::sptr();
+      }
+      return d_usrps.front(); // USRP[0] = referencia (TX)
+    }
+
     void slot_guard_cc_impl::init_time_()
     {
-      // Provisional host reference (puede ser reajustada en caso PPS)
       d_t0_host = std::chrono::steady_clock::now();
 
-      bool pps_ok = false;
+      const size_t N = d_usrps.size();
+      if (N == 0) {
+        std::cerr << "[slot_guard_cc] ERROR: init_time_() called with no USRPs"
+                  << std::endl;
+        return;
+      }
 
-      if (d_use_pps) {
+      std::vector<bool> use_pps_i(N, false);
+      if (!d_use_pps_flags.empty()) {
+        const size_t K = (d_use_pps_flags.size() < N) ? d_use_pps_flags.size() : N;
+        for (size_t i = 0; i < K; ++i) {
+          use_pps_i[i] = d_use_pps_flags[i];
+        }
+      }
+
+      std::vector<bool> pps_ok(N, false);
+      bool any_pps_requested = false;
+      bool any_pps_ok = false;
+
+      // Check PPS only where requested
+      for (size_t i = 0; i < N; ++i) {
+        if (!use_pps_i[i])
+          continue;
+
+        any_pps_requested = true;
+
         try {
-          std::vector<std::string> sns = d_usrp->get_mboard_sensor_names(0);
-          for (size_t i = 0; i < sns.size(); ++i) {
-            const std::string &name = sns[i];
+          std::vector<std::string> sns = d_usrps[i]->get_mboard_sensor_names(0);
+          for (size_t k = 0; k < sns.size(); ++k) {
+            const std::string &name = sns[k];
 
             if (name == "gps_locked" ||
                 name == "gpsdo_locked" ||
                 name == "pps_locked")
             {
-              uhd::sensor_value_t sv = d_usrp->get_mboard_sensor(name, 0);
-              std::cout << "[slot_guard_cc] sensor " << name
+              uhd::sensor_value_t sv = d_usrps[i]->get_mboard_sensor(name, 0);
+              std::cout << "[slot_guard_cc] USRP[" << i << "] sensor " << name
                         << " = " << sv.to_pp_string() << std::endl;
 
               if (sv.to_bool()) {
-                pps_ok = true;
+                pps_ok[i] = true;
+                any_pps_ok = true;
               }
             }
             else if (name == "ref_locked" || name == "10mhz_locked") {
-              // Informativo solamente
-              uhd::sensor_value_t sv = d_usrp->get_mboard_sensor(name, 0);
-              std::cout << "[slot_guard_cc] sensor " << name
+              uhd::sensor_value_t sv = d_usrps[i]->get_mboard_sensor(name, 0);
+              std::cout << "[slot_guard_cc] USRP[" << i << "] sensor " << name
                         << " = " << sv.to_pp_string() << std::endl;
             }
           }
         } catch (const std::exception &e) {
-          std::cerr << "[slot_guard_cc] WARNING: sensor check for PPS failed: "
-                    << e.what() << std::endl;
+          std::cerr << "[slot_guard_cc] WARNING: sensor check for PPS failed on USRP["
+                    << i << "]: " << e.what() << std::endl;
         }
       }
 
-      if (d_use_pps && pps_ok) {
-        std::cout << "[slot_guard_cc] init_time_: using set_time_next_pps(0.0)"
+      if (any_pps_ok) {
+        std::cout << "[slot_guard_cc] init_time_: using set_time_next_pps(0.0) "
+                  << "on USRPs with valid PPS lock, and set_time_now(0.0) "
+                  << "on remaining devices after PPS edge"
                   << std::endl;
 
-        // Program the next PPS time reset
-        d_usrp->set_time_next_pps(uhd::time_spec_t(0.0));
+        // Program next PPS reset on PPS-locked devices
+        for (size_t i = 0; i < N; ++i) {
+          if (!pps_ok[i])
+            continue;
+          try {
+            d_usrps[i]->set_time_next_pps(uhd::time_spec_t(0.0));
+          } catch (const std::exception &e) {
+            std::cerr << "[slot_guard_cc] WARNING: set_time_next_pps(0.0) failed on USRP["
+                      << i << "]: " << e.what() << std::endl;
+          }
+        }
 
-        // Esperamos a cruzar al menos un flanco de PPS
+        // Wait PPS edge
         std::this_thread::sleep_for(std::chrono::milliseconds(1500));
 
-        // Re-anchorar el reloj del host DESPUÉS del PPS
         d_t0_host = std::chrono::steady_clock::now();
+
+        // Devices sin PPS lock o sin PPS solicitado: set_time_now(0.0)
+        for (size_t i = 0; i < N; ++i) {
+          if (pps_ok[i])
+            continue;
+          try {
+            d_usrps[i]->set_time_now(uhd::time_spec_t(0.0));
+          } catch (const std::exception &e) {
+            std::cerr << "[slot_guard_cc] WARNING: set_time_now(0.0) failed on USRP["
+                      << i << "]: " << e.what() << std::endl;
+          }
+        }
       } else {
-        if (d_use_pps && !pps_ok) {
-          std::cerr << "[slot_guard_cc] WARNING: use_pps=true pero PPS/GPSDO no "
-                       "está lockeado; usando set_time_now(0.0)"
+        if (any_pps_requested) {
+          std::cerr << "[slot_guard_cc] WARNING: PPS requested but no USRP has "
+                       "valid PPS/GPSDO lock; using set_time_now(0.0) on all"
                     << std::endl;
         } else {
-          std::cout << "[slot_guard_cc] init_time_: using set_time_now(0.0)"
+          std::cout << "[slot_guard_cc] init_time_: PPS not requested; using "
+                    << "set_time_now(0.0) on all devices"
                     << std::endl;
         }
 
-        // Sin PPS válido: definimos epoch local ahora mismo
-        d_usrp->set_time_now(uhd::time_spec_t(0.0));
+        for (size_t i = 0; i < N; ++i) {
+          try {
+            d_usrps[i]->set_time_now(uhd::time_spec_t(0.0));
+          } catch (const std::exception &e) {
+            std::cerr << "[slot_guard_cc] WARNING: set_time_now(0.0) failed on USRP["
+                      << i << "]: " << e.what() << std::endl;
+          }
+        }
       }
 
-      d_usrp->clear_command_time();
+      // Clear command time
+      for (size_t i = 0; i < N; ++i) {
+        try {
+          d_usrps[i]->clear_command_time();
+        } catch (const std::exception &e) {
+          std::cerr << "[slot_guard_cc] WARNING: clear_command_time() failed on USRP["
+                    << i << "]: " << e.what() << std::endl;
+        }
+      }
 
-      // Measure initial bias between USRP and host clocks
       double t_host0 = now_host_seconds_();
       double t_usrp0 = usrp_now_seconds_();
       d_dt0_bias = t_usrp0 - t_host0;
@@ -273,11 +544,14 @@ namespace gr {
 
     double slot_guard_cc_impl::usrp_now_seconds_() const
     {
-      uhd::time_spec_t t = d_usrp->get_time_now();
+      uhd::usrp::multi_usrp::sptr usrp0 = primary_usrp_();
+      if (!usrp0) {
+        return 0.0;
+      }
+      uhd::time_spec_t t = usrp0->get_time_now();
       return t.get_real_secs();
     }
 
-    // Approximate samples_per_slot from numerology and sample rate
     void slot_guard_cc_impl::compute_slot_params_from_mu_()
     {
       static const double sym_ext_us[6] =
@@ -500,7 +774,7 @@ namespace gr {
       return static_cast<int>(produced);
     }
 
-    // ==== Runtime setters (with mutex) ====
+    // ==== Runtime setters ====
 
     void slot_guard_cc_impl::set_sample_rate(double sample_rate)
     {
@@ -541,11 +815,13 @@ namespace gr {
       }
     }
 
-    void slot_guard_cc_impl::set_use_pps(bool use_pps)
+    void slot_guard_cc_impl::set_use_pps(const std::string &use_pps)
     {
-      boost::mutex::scoped_lock lock(d_mutex);
-      d_use_pps = use_pps;
-      // Para cambios serios, mejor recrear el bloque.
+      std::vector<bool> parsed_flags;
+      parse_use_pps_list_(use_pps, parsed_flags);
+      build_use_pps_flags_(parsed_flags);
+      // Nota: no re-llamamos init_time_() en runtime; para cambios
+      // profundos de sincronismo, recrear el bloque es lo sensato.
     }
 
     void slot_guard_cc_impl::set_offset_thr_pass(double v)

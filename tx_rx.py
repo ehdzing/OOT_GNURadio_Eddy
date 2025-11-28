@@ -46,13 +46,12 @@ fs_eff = fs / rx_decim  # sample rate efectivo de las muestras guardadas [Hz]
 # 1 = tiempo RELATIVO (comienza en 0 ms)
 align_x_mode = 0
 
-t_rx0 = 0.838944 # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
-#t_rx0 =   0.0468925 #sin pps
+t_rx0 =  0.0712547 # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
 #t_rx0 = 0.0648104   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
 #t_rx0 =  1.516643   # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
 
 t0_tx = 2.2        # tiempo ideal de la primera ráfaga TX [s]
-T_period = 0.015        # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
+T_period = 0.015   # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
 
 # ==========================
 # 2) Configuración del detector
@@ -170,7 +169,27 @@ jitter_outlier_factor = 4.0
 # estimate_drift: estima la recta D_k ≈ a*k + b y la imprime.
 # apply_drift_correction: además de estimar, resta esa recta (genera curva "sin drift (comp.)").
 estimate_drift = True
-apply_drift_correction = False   # pon True solo si quieres restar el drift en los plots
+apply_drift_correction = True   # pon True solo si quieres restar el drift en los plots
+
+# *** NUEVO: impresión del PERÍODO real entre ráfagas consecutivas ***
+# print_periods_mode:
+#   0 = no imprimir nada (comportamiento actual)
+#   1 = imprimir TODOS los periodos consecutivos
+#   2 = imprimir solo los primeros N intervalos
+#   3 = imprimir solo los últimos N intervalos
+#   4 = imprimir solo intervalos con k en [periods_k_min, periods_k_max]
+#   5 = imprimir los top-N intervalos con mayor |ΔT - T_ref|
+print_periods_mode = 5
+
+periods_N = 10              # usado en modos 2 y 3
+periods_k_min = 0           # usado en modo 4
+periods_k_max = 100         # usado en modo 4
+periods_topN   = 30         # usado en modo 5
+
+# Referencia para el error del periodo:
+#   False -> T_ref = T_period (nominal)
+#   True  -> T_ref = T_period_real (estimado desde RX)
+periods_use_real_Tref = False
 
 # ==========================
 # 6) Funciones auxiliares
@@ -498,28 +517,112 @@ k_fit = k_nom[mask_valid].astype(float)
 t_fit = t_bursts_rx[mask_valid]
 
 if len(k_fit) >= 2:
+    # Ajuste lineal t_rx(k) ≈ a*k + b  → a ≈ T_period_real
     coeffs = np.polyfit(k_fit, t_fit, 1)
     T_period_real = coeffs[0]
     t0_real = coeffs[1]
 
-    print("\n[PERIODO REAL ESTIMADO DESDE RX]")
-    print("T_period_real = {:.9e} s (nominal = {:.9e} s)".format(T_period_real, T_period))
-    print("Error de periodo ≈ {:.3f} ppm \n".format(
-        (T_period_real - T_period) / T_period * 1e6))
+    # Periodos entre ráfagas consecutivas (método directo)
+    dt = np.diff(t_bursts_rx)   # dt[i] = t_bursts_rx[i+1] - t_bursts_rx[i]
+
+    if len(dt) > 0:
+        T_mean = dt.mean()
+        T_std  = dt.std()
+
+        print("\n[PERIODO REAL ESTIMADO DESDE RX]")
+        print("T_period_real (polyfit) = {:.9e} s (nominal = {:.9e} s)".format(
+            T_period_real, T_period))
+        print("Error de periodo (polyfit) ≈ {:.3f} ppm".format(
+            (T_period_real - T_period) / T_period * 1e6))
+
+        print("\n[PERIODO ENTRE RÁFAGAS (DIFERENCIAS DIRECTAS)]")
+        print("T_mean_direct   = {:.9e} s ({:.3f} muestras)".format(
+            T_mean, T_mean * fs))
+        print("T_std_direct    = {:.9e} s ({:.3f} muestras)".format(
+            T_std, T_std * fs))
+        print("Error medio vs nominal ≈ {:.3f} ppm".format(
+            (T_mean - T_period) / T_period * 1e6))
+        print("Número de intervalos usados =", len(dt), "\n")
+    else:
+        print("\n[PERIODO REAL ESTIMADO DESDE RX]")
+        print("T_period_real = {:.9e} s (nominal = {:.9e} s)".format(
+            T_period_real, T_period))
+        print("Error de periodo ≈ {:.3f} ppm \n".format(
+            (T_period_real - T_period) / T_period * 1e6))
+
 else:
     T_period_real = T_period
     t0_real = t_bursts_rx[0] if len(t_bursts_rx) > 0 else t0_tx
     print("\n[PERIODO REAL] No hay suficientes ráfagas para estimar, uso nominal.")
 
 
+# ==========================
+# 10ter) PERÍODO real entre ráfagas consecutivas (opcional)
+# ==========================
 
+if len(t_bursts_rx) >= 2 and print_periods_mode != 0:
+    # Periodos entre ráfagas consecutivas
+    dt = np.diff(t_bursts_rx)   # dt[i] = t_bursts_rx[i+1] - t_bursts_rx[i]
+    k_prev = k_nom[:-1]
+    k_curr = k_nom[1:]
+
+    # Referencia para el error
+    T_ref = T_period_real if periods_use_real_Tref else T_period
+    err_ppm = (dt - T_ref) / T_ref * 1e6
+
+    idx_all = np.arange(len(dt))
+
+    if print_periods_mode == 1:
+        idx_sel = idx_all
+        label = "todos los intervalos consecutivos"
+    elif print_periods_mode == 2:
+        n = min(periods_N, len(dt))
+        idx_sel = idx_all[:n]
+        label = "primeros {} intervalos".format(n)
+    elif print_periods_mode == 3:
+        n = min(periods_N, len(dt))
+        idx_sel = idx_all[-n:]
+        label = "últimos {} intervalos".format(n)
+    elif print_periods_mode == 4:
+        # Solo intervalos cuyo k esté dentro de [periods_k_min, periods_k_max]
+        mask_range = np.logical_and(k_prev >= periods_k_min,
+                                    k_curr <= periods_k_max)
+        idx_sel = idx_all[mask_range]
+        label = "intervalos con k en [{}..{}]".format(periods_k_min, periods_k_max)
+    elif print_periods_mode == 5:
+        # Top-N intervalos con mayor |ΔT - T_ref|
+        idx_sorted = np.argsort(np.abs(err_ppm))[::-1]
+        n = min(periods_topN, len(dt))
+        idx_sel = idx_sorted[:n]
+        label = "top-{} intervalos con mayor |ΔT - T_ref|".format(n)
+    else:
+        idx_sel = np.array([], dtype=int)
+        label = "modo inválido (print_periods_mode={})".format(print_periods_mode)
+
+    print("\n[PERÍODO REAL ENTRE RÁFAGAS CONSECUTIVAS]")
+    print("Referencia T_ref = {:.9e} s ({})".format(
+        T_ref,
+        "T_period_real" if periods_use_real_Tref else "T_period nominal"))
+    print("Modo de impresión de periodos:", label)
+
+    for idx in idx_sel:
+        k0 = int(k_prev[idx])
+        k1 = int(k_curr[idx])
+        dt_val = dt[idx]
+        err_s = dt_val - T_ref
+        dT_samples = err_s * fs
+        ppm_err = (err_s / T_period) * 1e6
+        print(
+            "k={}→{}: T_real={:.9e} s, ΔT={:.3e} s ({:.2f} muestras), error≈{:.3f} ppm".format(
+                k0, k1, dt_val, err_s, dT_samples, ppm_err
+            )
+        )
 # ==========================
 # 11) Cálculo de D_k por tag
 # ==========================
 
 D_list = []
 k_list = []
-
 
 #Este codigo uso el periodo ideal del codigo aqui en python
 """ for i, t_rx in enumerate(t_bursts_rx):
@@ -529,8 +632,7 @@ k_list = []
     D_k = t_rx - t_tx_ideal
 
     D_list.append(D_k)
-    k_list.append(k) """
-
+    k_list.append(k)  """
 
 #Este bloque usa el periodo real estimado a partir de las muestras del rx
 # Usamos k_seq (0,1,2,...) y el periodo real que acabamos de estimar
@@ -683,6 +785,41 @@ else:
             print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), e_k={:.9e} s ({:.3f} muestras)".format(
                 k, D_rep, D_rep * fs, e_k, e_samp))
             shown += 1
+
+        # ==========================
+    # 13quater) Error por ráfaga respecto al retardo medio
+    #           usando TODAS las ráfagas válidas (incluye outliers)
+    # ==========================
+    print("\n[ERROR POR RÁFAGA RESPECTO AL RETARDO MEDIO (CON OUTLIERS INCLUIDOS)]")
+    print("Mostrando las {} ráfagas con mayor |e_k| (incluye outliers, "
+          "referido a D̄_filt)".format(topN_jitter))
+
+    # Usamos el mismo retardo medio filtrado como referencia
+    # pero evaluamos e_k para TODAS las ráfagas válidas (D_burst, k_valid_arr)
+    e_all = D_burst - D_mean_filt
+    e_all_samples = e_all * fs
+    k_all = k_valid_arr
+
+    # Ordenamos por |e_k| (en muestras), de mayor a menor
+    idx_sorted_all = np.argsort(np.abs(e_all_samples))[::-1]
+
+    shown = 0
+    for idx in idx_sorted_all:
+        if shown >= topN_jitter:
+            break
+        if abs(e_all_samples[idx]) < jitter_min_samples:
+            continue
+
+        k = k_all[idx]
+        D_rep = D_burst[idx]
+        e_k = e_all[idx]
+        e_samp = e_all_samples[idx]
+
+        print("k={} -> D_k_rep={:.9e} s ({:.3f} muestras), "
+              "e_k={:.9e} s ({:.3f} muestras)".format(
+                  k, D_rep, D_rep * fs, e_k, e_samp))
+        shown += 1
+
 
     # ==========================
     # 13ter) Evolución acumulativa de τ_est y jitter

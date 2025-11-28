@@ -10,6 +10,7 @@
 #include <gnuradio/block.h>
 #include <uhd/usrp/multi_usrp.hpp>
 #include <chrono>
+#include <string>
 
 namespace gr {
   namespace howto {
@@ -39,7 +40,7 @@ namespace gr {
      * The block also publishes:
      *   - a PMT dictionary on message port "stats" for each slot,
      *   - a control PMT dictionary on message port "ctrl" with:
-     *       "t0_usrp" and "lead_s" (MOD) used to configure the burst tagger.
+     *       "t0_usrp" and "lead_s" used to configure the burst tagger.
      */
     class HOWTO_API slot_guard_cc : virtual public gr::block
     {
@@ -49,7 +50,7 @@ namespace gr {
       static sptr make(double sample_rate,
                        int    numerology_id,
                        size_t samples_per_slot,
-                       bool   use_pps,
+                       const std::string &use_pps,      // per-USRP PPS flags
                        double offset_thr_pass_s,
                        double jitter_thr_pass_s,
                        double offset_thr_dont_s,
@@ -57,8 +58,9 @@ namespace gr {
                        int    hysteresis_slots,
                        bool   dtx_consumes_input,
                        bool   allow_dont_consume,
-                       double guard_initial_s,   // MOD
-                       double lead_s);           // MOD
+                       double guard_initial_s,
+                       double lead_s,
+                       const std::string &device_addrs);
 
       // Monitoring
       virtual double last_offset_seconds() const = 0;
@@ -71,7 +73,6 @@ namespace gr {
       virtual double offset_thr_dont_seconds() const = 0;
       virtual double jitter_thr_dont_seconds() const = 0;
 
-      // MOD: monitoring of guard / lead configuration
       virtual double guard_initial_seconds() const = 0;
       virtual double lead_seconds() const = 0;
 
@@ -79,7 +80,8 @@ namespace gr {
       virtual void set_sample_rate(double sample_rate) = 0;
       virtual void set_numerology_id(int numerology_id) = 0;
       virtual void set_samples_per_slot(size_t samples_per_slot) = 0;
-      virtual void set_use_pps(bool use_pps) = 0;
+
+      virtual void set_use_pps(const std::string &use_pps) = 0;
 
       virtual void set_offset_thr_pass(double v) = 0;
       virtual void set_jitter_thr_pass(double v) = 0;
@@ -90,7 +92,6 @@ namespace gr {
       virtual void set_dtx_consumes_input(bool dtx_consumes_input) = 0;
       virtual void set_allow_dont_consume(bool allow_dont_consume) = 0;
 
-      // MOD: runtime setters for guard / lead
       virtual void set_guard_initial(double v) = 0;
       virtual void set_lead(double v) = 0;
     };
