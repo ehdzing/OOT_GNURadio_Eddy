@@ -33,6 +33,10 @@
 #include "howto/slot_timing_monitor_cc.h"
 #include "howto/time_tagger_cc.h"
 #include "howto/rx_time_recorder_cc.h"
+#include "howto/preamble_burst_source_cc.h"
+#include "howto/cfo_injector_cc.h"
+#include "howto/frame_burst_source_cc.h"
+#include "howto/preamble_abs_compare_ff.h"
 %}
 
 
@@ -91,3 +95,11 @@ GR_SWIG_BLOCK_MAGIC2(howto, slot_timing_monitor_cc);
 GR_SWIG_BLOCK_MAGIC2(howto, time_tagger_cc);
 %include "howto/rx_time_recorder_cc.h"
 GR_SWIG_BLOCK_MAGIC2(howto, rx_time_recorder_cc);
+%include "howto/preamble_burst_source_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, preamble_burst_source_cc);
+%include "howto/cfo_injector_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, cfo_injector_cc);
+%include "howto/frame_burst_source_cc.h"
+GR_SWIG_BLOCK_MAGIC2(howto, frame_burst_source_cc);
+%include "howto/preamble_abs_compare_ff.h"
+GR_SWIG_BLOCK_MAGIC2(howto, preamble_abs_compare_ff);

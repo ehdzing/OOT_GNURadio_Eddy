@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<block>
+  <name>Preamble Burst Source CC</name>
+  <key>howto_preamble_burst_source_cc</key>
+  <category>[HOWTO]</category>
+  <import>import howto</import>
+
+  <make>howto.preamble_burst_source_cc(${burst},
+                                       ${use_preamble_split},
+                                       ${indices},
+                                       ${samples_per_burst},
+                                       ${silence_samples},
+                                       ${enable_tags})</make>
+
+  <callback>set_burst(${burst})</callback>
+  <callback>set_use_preamble_split(${use_preamble_split})</callback>
+  <callback>set_indices(${indices})</callback>
+  <callback>set_silence_samples(${silence_samples})</callback>
+
+  <param>
+    <name>Burst (vector)</name>
+    <key>burst</key>
+    <value>howto.get_preamble()</value>
+    <type>raw</type>
+  </param>
+
+  <param>
+    <name>Use Preamble Split (4x)</name>
+    <key>use_preamble_split</key>
+    <value>True</value>
+    <type>bool</type>
+  </param>
+
+  <param>
+    <name>Indices (0..3)</name>
+    <key>indices</key>
+    <value>0,1,2,3</value>
+    <type>int_vector</type>
+  </param>
+
+  <param>
+    <name>Samples Per Burst</name>
+    <key>samples_per_burst</key>
+    <value>2048</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Silence Samples</name>
+    <key>silence_samples</key>
+    <value>0</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Enable Tags</name>
+    <key>enable_tags</key>
+    <value>False</value>
+    <type>bool</type>
+  </param>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+  <doc>
+    Burst source that can emit:
+      - A direct "burst" vector (use_preamble_split=False), OR
+      - The sum of selected preambles from a concatenated [P0|P1|P2|P3] vector (use_preamble_split=True).
+
+    Examples:
+      burst = howto.get_preamble(), use_preamble_split=True, indices=0        -> P0
+      burst = howto.get_preamble(), use_preamble_split=True, indices=1,2      -> P1+P2
+      burst = howto.get_preamble(), use_preamble_split=True, indices=0,1,2,3  -> P0+P1+P2+P3
+      burst = howto.get_payload(... mode='tone' ...), use_preamble_split=False -> tone as preamble
+  </doc>
+</block>

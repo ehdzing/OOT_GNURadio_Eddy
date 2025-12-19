@@ -62,6 +62,10 @@ list(APPEND howto_sources
     slot_timing_monitor_cc_impl.cc
     time_tagger_cc_impl.cc
     rx_time_recorder_cc_impl.cc
+    preamble_burst_source_cc_impl.cc
+    cfo_injector_cc_impl.cc
+    frame_burst_source_cc_impl.cc
+    preamble_abs_compare_ff_impl.cc
 )
 
 set(howto_sources "${howto_sources}" PARENT_SCOPE)

@@ -46,9 +46,9 @@ fs_eff = fs / rx_decim  # sample rate efectivo de las muestras guardadas [Hz]
 # 1 = tiempo RELATIVO (comienza en 0 ms)
 align_x_mode = 0
 
-t_rx0 =  0.0712547 # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
-#t_rx0 = 0.0648104   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
-#t_rx0 =  1.516643   # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
+t_rx0 =  0.0455385   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time solo al comienzo
+t_rx0 = 1.801633   # tiempo de referencia RX (rx_time del sample 0, en segundos)   para tx_time en cada rafaga
+#t_rx0 =  0.334805   # tiempo de referencia RX (rx_time del sample 0, en segundos)  para tx_time cada 10 rafaga
 
 t0_tx = 2.2        # tiempo ideal de la primera ráfaga TX [s]
 T_period = 0.015   # periodo entre ráfagas (10 ms ON + 5 ms OFF) [s]
@@ -98,7 +98,7 @@ post_window_s = 12e-3              # después del flanco
 max_bursts_for_overlay = 20
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-power_filename = os.path.join(base_dir, 'power_rx0')
+power_filename = os.path.join(base_dir, 'power_rx1')
 
 # Archivo de tiempos reales (convención: mismo nombre + "_time.dat")
 time_filename = power_filename + "_time.dat"

@@ -157,6 +157,9 @@ namespace gr {
       // Create USRPs
       init_usrps_(device_addrs);
 
+      // *** Give PLL time to lock if using GPSDO ***
+      std::this_thread::sleep_for(std::chrono::seconds(3));
+
       // Build flags aligned with number of USRPs
       build_use_pps_flags_(parsed_flags);
 
@@ -565,7 +568,10 @@ namespace gr {
 
     void slot_guard_cc_impl::update_stats_(double dt_raw)
     {
-      static const double alpha = 1e-5;
+      // Smoothing factor for long-term bias between host and USRP clocks.
+      // For ~1 ms slots and 10 ppm drift, alpha ~1e-3 keeps the residual
+      // offset below ~10 us while reacting on a ~1 s time scale.
+      static const double alpha = 1e-3;
 
       d_dt0_bias = (1.0 - alpha) * d_dt0_bias + alpha * dt_raw;
 

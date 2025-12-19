@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<block>
+  <name>Preamble I/Q Compare (Debug)</name>
+  <key>howto_preamble_abs_compare_ff</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+
+  <make>howto.preamble_abs_compare_ff(${preambles},
+                                     ${preamble_layout},
+                                     ${preamble_select})</make>
+
+  <callback>set_preamble_layout(${preamble_layout})</callback>
+  <callback>set_preamble_select(${preamble_select})</callback>
+
+  <param>
+    <name>Preambles</name>
+    <key>preambles</key>
+    <value>howto.get_preamble()</value>
+    <type>raw</type>
+  </param>
+
+  <param>
+    <name>Preamble Layout</name>
+    <key>preamble_layout</key>
+    <value>0</value>
+    <type>int</type>
+    <option><name>AUTO</name><key>0</key></option>
+    <option><name>SINGLE</name><key>1</key></option>
+    <option><name>CONCAT4</name><key>4</key></option>
+  </param>
+
+  <param>
+    <name>Preamble Select</name>
+    <key>preamble_select</key>
+    <value>"[0,1,2,3]"</value>
+    <type>string</type>
+  </param>
+
+  <sink><name>in0</name><type>complex</type></sink>
+  <sink><name>in1</name><type>complex</type></sink>
+
+  <source><name>in0_re</name><type>float</type></source>
+  <source><name>in0_im</name><type>float</type></source>
+  <source><name>ref0_re</name><type>float</type></source>
+  <source><name>ref0_im</name><type>float</type></source>
+  <source><name>diff0_re</name><type>float</type></source>
+  <source><name>diff0_im</name><type>float</type></source>
+
+  <source><name>in1_re</name><type>float</type></source>
+  <source><name>in1_im</name><type>float</type></source>
+  <source><name>ref1_re</name><type>float</type></source>
+  <source><name>ref1_im</name><type>float</type></source>
+  <source><name>diff1_re</name><type>float</type></source>
+  <source><name>diff1_im</name><type>float</type></source>
+
+  <doc>
+    Debug block to verify preamble alignment using I/Q components.
+    Block name preserved for compatibility, but outputs I/Q instead of magnitudes.
+  </doc>
+</block>

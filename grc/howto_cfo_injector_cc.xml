@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<block>
+  <name>CFO Injector (2ch)</name>
+  <key>howto_cfo_injector_cc</key>
+  <category>[HOWTO]</category>
+
+  <import>import howto</import>
+
+  <make>howto.cfo_injector_cc(${samp_rate}, ${cfo_hz})</make>
+
+  <callback>set_cfo_hz(${cfo_hz})</callback>
+
+  <param>
+    <name>Sample Rate (Hz)</name>
+    <key>samp_rate</key>
+    <value>30.72e6</value>
+    <type>real</type>
+  </param>
+
+  <param>
+    <name>CFO (Hz)</name>
+    <key>cfo_hz</key>
+    <value>15000</value>
+    <type>real</type>
+  </param>
+
+  <sink>
+    <name>in0</name>
+    <type>complex</type>
+  </sink>
+
+  <sink>
+    <name>in1</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out0</name>
+    <type>complex</type>
+  </source>
+
+  <source>
+    <name>out1</name>
+    <type>complex</type>
+  </source>
+
+  <doc>
+    Injects a known CFO by complex rotation.
+    Used to validate coarse CFO estimators.
+  </doc>
+</block>

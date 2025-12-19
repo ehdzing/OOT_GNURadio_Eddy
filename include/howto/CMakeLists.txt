@@ -48,5 +48,9 @@ install(FILES
     slot_timing_monitor_cc.h
     time_tagger_cc.h
     rx_time_recorder_cc.h
+    preamble_burst_source_cc.h
+    cfo_injector_cc.h
+    frame_burst_source_cc.h
+    preamble_abs_compare_ff.h
 DESTINATION include/howto
 )

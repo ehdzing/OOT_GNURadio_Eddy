@@ -43,5 +43,9 @@ install(FILES
     howto_slot_timing_monitor_cc.xml
     howto_time_tagger_cc.xml
     howto_rx_time_recorder_cc.xml
+    howto_preamble_burst_source_cc.xml
+    howto_cfo_injector_cc.xml
+    howto_frame_burst_source_cc.xml
+    howto_preamble_abs_compare_ff.xml
 DESTINATION share/gnuradio/grc/blocks
 )
